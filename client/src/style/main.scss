@@ -1,11 +1,4 @@
 @import "./partials/fonts";
+@import "./partials/mixins";
 
 
-@font-face {
-    font-family: 'Titillium Web';
-    src: url('../assets/fonts/TitilliumWeb-Black.woff2') format('woff2'),
-        url('TitilliumWeb-Black.woff') format('woff');
-    font-weight: 900;
-    font-style: normal;
-    font-display: swap;
-}
