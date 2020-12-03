@@ -1,12 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import 'bootstrap/dist/css/bootstrap.css';
+// Put any other imports below so that CSS from your
+// components takes precedence over default styles.
+import './style/main.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 
+
+
+import reportWebVitals from './reportWebVitals';
+import {
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom';
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+        <Route path ="/" exact component ={App}/>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
