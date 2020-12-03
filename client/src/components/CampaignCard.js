@@ -1,34 +1,38 @@
 import { Progress } from "reactstrap";
-import 'swiper/swiper.scss';
-import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { Link } from "react-router-dom";
 
-
-
-
-// install Swiper components
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
-
-export default function CampaignCard() {
+export default function CampaignCard({ data }) {
   return (
-    <div className="card-container">
-      <img className = "card-container__img"
-      src="https://lh3.googleusercontent.com/proxy/EFbz0IAnGU-57WQLCOOCBlbIcvmQ529OgoWl0p8FxpYoOY91jH2YXiTimBN7GlMjaBPIuFltBdEAScTMLr0HpwQ4X-sCMl2-shf8gxO0mJ4oMXqb2l4TiMkKFzu76jEtIF4ewPpgasDjTjP-pPJiwCo5Q2w" />
-      <article>
-        <h2>Card title</h2>
-        <p tag="h6" className="mb-2 text-muted">
-          Card subtitle
-        </p>
+    <li className="card-container">
+      <img className="card-container__img" src={data.img} />
+      <article classNamae ="card-container__main">
+        <h2 className = "card-container__main-title">{data.title}</h2>
         <p>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
+          {data.subtitle}
         </p>
+        <p>{data.description}</p>
+        <div className = "card-container__bottom">
+
+          <div>
+            <h3></h3>
+            <p></p>
+          </div>
+
+          <div>
+            <h3></h3>
+            <p>days left</p>
+          </div>
+
+        </div>
         <Progress color="success" value="85" />
         <div className="card-container__buttons">
-          <button className="view-button">view</button>
+          <Link to={"/campaign" + data.id}>
+            {" "}
+            <button className="view-button">view</button>
+          </Link>
           <button className="support-button">support</button>
         </div>
       </article>
-     
-    </div>
+    </li>
   );
 }

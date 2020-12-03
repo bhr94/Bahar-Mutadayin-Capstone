@@ -1,0 +1,23 @@
+.hero-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-container__button {
+  border-radius: 20px;
+  border: none;
+  color: white;
+  background-color: chocolate;
+  padding: 0.5rem;
+  width: 200px;
+  align-self: center;
+  justify-content: center;
+  position: relative;
+  bottom: 60px;
+  outline: none;
+}
+
+.carousel-img {
+  background-position: center;
+}

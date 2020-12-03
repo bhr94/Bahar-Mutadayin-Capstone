@@ -1,40 +1,37 @@
+import React from "react";
+import CampaignCard from "./CampaignCard";
+import axios from "axios";
+const backendUrl = "http://localhost:8080";
+class CampaignCardList extends React.Component {
+  state = {
+    campaingList: [],
+  };
 
-export default function () {
-  return (
-    <div
-      id="carouselExampleControls"
-      className="carousel slide"
-      data-ride="carousel"
-    >
-      <div className="carousel-inner">
-        <div className="carousel-item active">
-          <img src="https://lh3.googleusercontent.com/proxy/EFbz0IAnGU-57WQLCOOCBlbIcvmQ529OgoWl0p8FxpYoOY91jH2YXiTimBN7GlMjaBPIuFltBdEAScTMLr0HpwQ4X-sCMl2-shf8gxO0mJ4oMXqb2l4TiMkKFzu76jEtIF4ewPpgasDjTjP-pPJiwCo5Q2w" class="d-block w-100" alt="..." />
-        </div>
-        <div className="carousel-item">
-          <img src="https://images.medicinenet.com/images/article/main_image/puberty-in-girls.jpg" class="d-block w-100" alt="..." />
-        </div>
-        <div className="carousel-item">
-          <img src="https://lh3.googleusercontent.com/proxy/EFbz0IAnGU-57WQLCOOCBlbIcvmQ529OgoWl0p8FxpYoOY91jH2YXiTimBN7GlMjaBPIuFltBdEAScTMLr0HpwQ4X-sCMl2-shf8gxO0mJ4oMXqb2l4TiMkKFzu76jEtIF4ewPpgasDjTjP-pPJiwCo5Q2w" class="d-block w-100" alt="..." />
-        </div>
-      </div>
-      <a
-        className="carousel-control-prev"
-        href="#carouselExampleControls"
-        role="button"
-        data-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a
-        className="carousel-control-next"
-        href="#carouselExampleControls"
-        role="button"
-        data-slide="next"
-      >
-        <span className="carousel-control-next-icon" aria-hidden="true"></span>
-        <span className="sr-only">Next</span>
-      </a>
-    </div>
-  );
+  componentDidMount() {
+    this.getAllCampaigns();
+  }
+
+  getAllCampaigns = () => {
+    axios
+      .get(backendUrl)
+      .then((response) => {
+        this.setState({ campaingList: response.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  render() {
+    const campaignList = this.state.campaingList.map((item) => {
+      return <CampaignCard data={item.data} />;
+    });
+    return (
+      <ul>
+        {this.state.campaingList.length > 0 ? campaignList : <h2>Loading</h2>}
+      </ul>
+    );
+  }
 }
+
+export default CampaignCardList;
