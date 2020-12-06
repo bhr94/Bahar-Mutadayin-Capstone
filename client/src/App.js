@@ -1,7 +1,6 @@
-import HomePage from "./Pages/HomePage";
 
 export default function App() {
   return (
-   <HomePage/>
+    <h1>huhuh</h1>
   );
 }
