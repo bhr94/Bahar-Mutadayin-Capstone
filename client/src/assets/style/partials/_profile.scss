@@ -1,0 +1,131 @@
+.profile-container {
+  width: 100%;
+  height: 100vh;
+
+  &__header {
+    background-color: rebeccapurple;
+    height: 400px;
+  }
+}
+
+.main-section {
+  background-color: #f8f9fe;
+  display: flex;
+  justify-content: center;
+  &__form {
+    position: relative;
+    top: -100px;
+    background-color: #ffffff;
+    width: 90%;
+    box-shadow: 0px 2px 5px rgba(19, 24, 44, 0.1);
+    border-radius: 3px;
+    padding: 0 1.3rem;
+    color: #32325d;
+
+    &-button {
+      border: none;
+      color: white;
+      border-radius: 30px;
+      background: rebeccapurple;
+      width: 100px;
+      cursor: pointer;
+      padding: 0.5rem;
+
+      &:focus {
+        outline: none;
+      }
+
+      &:hover {
+        background-color: rgba(102, 51, 153, 0.8);
+      }
+    }
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 3rem;
+      margin-top: 10px;
+      border-bottom: 0.5px solid #e0e4ec;
+      color: #32325d;
+    }
+
+    &-first {
+      display: flex;
+      flex-direction: column;
+      flex-basis: 50%;
+      //   align-items: center;
+    }
+  }
+}
+
+.input-element {
+  border: 0.5px solid #e0e4ec;
+  box-sizing: border-box;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 20px;
+  outline: none;
+  box-shadow: 0px 2px 5px rgba(19, 24, 44, 0.1);
+
+  &:focus {
+    box-shadow: 0px 8px 8px rgba(19, 24, 44, 0.1);
+  }
+}
+
+.padding-btm {
+  padding-bottom: 2.6rem;
+}
+
+.form-title {
+  margin-bottom: 2rem;
+}
+
+.border-btm {
+  border-bottom: 0.5px solid #e0e4ec;
+
+  @include desktop {
+    border-bottom: none;
+  }
+}
+.margin-btm {
+  margin-bottom: 2rem;
+}
+
+.scrollable {
+  overflow-y: auto;
+}
+
+.header__text {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  color: white;
+  margin: 2rem;
+}
+
+.mrg-top {
+  margin-top: 2rem;
+
+  @include desktop {
+    margin-top: 0;
+  }
+}
+
+.txtarea {
+  width: 100%;
+  min-height: 4rem;
+}
+
+.frm {
+  @include desktop {
+    display: flex;
+  }
+ 
+}
+
+
+.mrg-right {
+  @include desktop {
+    margin-right: 2rem;
+  }
+}

@@ -1,34 +1,62 @@
-// This example sets up an endpoint using the Express framework.
-// Watch this video to get started: https://youtu.be/rPR2aJ6XnAc.
-
-const express = require('express');
+const express = require("express");
 const app = express();
-
-// Set your secret key. Remember to switch to your live secret key in production!
-// See your keys here: https://dashboard.stripe.com/account/apikeys
-const stripe = require('stripe')('sk_test_51Htz8aKaO4otrnqzLP4UsXBRx219JqGZBXFMjyUg4FlSjSBwRUUyywl0oWwpTpwH2GuRrwFo8BF1v2euRG9oOjye00Nnbu72MZ');
-
-app.post('/create-checkout-session', async (req, res) => {
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
-    line_items: [
-      {
-        price_data: {
-          currency: 'usd',
-          product_data: {
-            name: 'T-shirt',
-          },
-          unit_amount: 2000,
-        },
-        quantity: 1,
-      },
-    ],
-    mode: 'payment',
-    success_url: 'https://yoursite.com/success.html',
-    cancel_url: 'https://example.com/cancel',
-  });
-
-  res.json({ id: session.id });
+const cors = require("cors");
+const passport = require("passport");
+const FacebookStrategy = require("passport-facebook").Strategy;
+// const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
+app.use(cors());
+app.use(passport.initialize());
+const PORT=8080
+const FACEBOOK_CLIENT_ID="839538410170323";
+const FACEBOOK_CLIENT_SECRET="62aec9a6a09bab9faf0300b431a5a2c2";
+// require("dotenv").config(); // used to load .env file process.env.VARIABLE_NAME
+// const {
+//   PORT,
+//   FACEBOOK_CLIENT_ID,
+//   FACEBOOK_CLIENT_SECRET,
+// } = process.env;
+app.use(express.json());
+console.log("env vars: " + process.env.PORT);
+let user = {};
+passport.serializeUser(function (user, cb) {
+  cb(null, user);
 });
 
-app.listen(4242, () => console.log(`Listening on port ${4242}!`));
+passport.deserializeUser(function (obj, cb) {
+  cb(null, obj);
+});
+console.log(FACEBOOK_CLIENT_ID)
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: FACEBOOK_CLIENT_ID,
+      clientSecret: FACEBOOK_CLIENT_SECRET,
+      callbackURL: "/auth/facebook/callback",
+      profileFields: ['id', 'displayName', 'photos', 'email']
+    },
+    function (accessToken, refreshToken, profile, cb) {
+      user = { ...profile };
+      return cb(null, profile);
+    }
+  )
+);
+// facebook auth routing
+app.get("/auth/facebook", passport.authenticate("facebook"));
+app.get(
+  "/auth/facebook/callback",
+  passport.authenticate("facebook", { failureRedirect: "/login" }),
+  function (req, res) {
+    // Successful authentication, redirect home.
+    console.log("success")
+    res.redirect("/profile");
+  }
+);
+
+//  routing
+app.get("/profile", (req, res) => {
+  res.json(user);
+});
+
+app.listen(PORT, () => {
+  console.log(`The server is listening to the port ${PORT}`);
+});
