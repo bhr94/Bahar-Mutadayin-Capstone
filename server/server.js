@@ -48,13 +48,20 @@ app.get(
   function (req, res) {
     // Successful authentication, redirect home.
     console.log("success")
-    res.redirect("/profile");
+    res.redirect("http://localhost:3000/profile");
   }
 );
 
 //  routing
 app.get("/profile", (req, res) => {
   res.json(user);
+});
+
+// logout from facebook session
+app.get('/logout', function(req, res){
+  user = {};
+  req.logout();
+  res.redirect('/signin');
 });
 
 app.listen(PORT, () => {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Input } from "reactstrap";
-class Profile extends React.Component {
+class EditProfile extends React.Component {
   render() {
     return (
       <section className="profile-container scrollable">
@@ -81,4 +81,4 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+export default EditProfile;

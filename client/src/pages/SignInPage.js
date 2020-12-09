@@ -42,13 +42,16 @@ class SignInPage extends React.Component {
         } else {
           console.log(userData);
           this.setState({ userData });
+          localStorage.setItem("userData", this.state.userData);
+          localStorage.setItem("authed", true)
         }
       })
       .catch((err) => console.log(err));
   };
 
   render() {
-    return Object.keys(this.state.userData).length ? (
+    // return Object.keys(this.state.userData).length ? (
+      return (
       <section className="backgrnd">
         <Col lg="5" md="7" className="form-container">
           <Card className="bg-secondary shadow border-0">
@@ -157,9 +160,8 @@ class SignInPage extends React.Component {
           </Row>
         </Col>
       </section>
-    ) : (
-      <ProfilePage />
-    );
+    ) 
+      // <ProfilePage />
   }
 }
 
