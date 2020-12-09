@@ -1,23 +1,26 @@
 import React from "react";
-import { NavLink, Switch, Route} from "react-router-dom";
+import { NavLink, Switch, Route, Redirect } from "react-router-dom";
 import calendar from "../assets/Icons/calendar.svg";
 import profile from "../assets/Icons/profile.svg";
 import friends from "../assets/Icons/friends.svg";
 import status from "../assets/Icons/status.svg";
-import Calendar from "./Calendar";
 import axios from "axios";
+import history from "../history";
 class Sidebar extends React.Component {
-
-
-
-  handleLogout = () => {
+  state = {
+     signedOut:false
+  };
+  handleLogout = (e) => {
+    e.preventDefault();
     axios
-      .get(`http://localhost:8080/auth/logout`)
+      .get(`http://localhost:8080/logout`)
       .then((response) => {
         console.log(response);
-        this.setState({ userData: {} });
-        localStorage.removeItem('userData');
-        localStorage.setItem("authed", false)
+        // this.setState({ userData: {} });
+        localStorage.removeItem("userData");
+        localStorage.setItem("authed", false);
+        // this.setState({signedOut:true})
+        history.push("/signin");
       })
       .catch((err) => console.log(err));
   };
@@ -42,7 +45,7 @@ class Sidebar extends React.Component {
             <img src={status} alt="status-icon" className="sidebar-icon" />
             Status
           </NavLink>
-          <button className="sidebar__list-item" onClick ={this.handleLogout}>
+          <button className="sidebar__list-item" onClick={this.handleLogout}>
             <img src={status} alt="status-icon" className="sidebar-icon" />
             Sign out
           </button>

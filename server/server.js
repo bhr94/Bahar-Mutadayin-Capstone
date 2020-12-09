@@ -6,9 +6,9 @@ const FacebookStrategy = require("passport-facebook").Strategy;
 // const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 app.use(cors());
 app.use(passport.initialize());
-const PORT=8080
-const FACEBOOK_CLIENT_ID="839538410170323";
-const FACEBOOK_CLIENT_SECRET="62aec9a6a09bab9faf0300b431a5a2c2";
+const PORT = 8080;
+const FACEBOOK_CLIENT_ID = "839538410170323";
+const FACEBOOK_CLIENT_SECRET = "62aec9a6a09bab9faf0300b431a5a2c2";
 // require("dotenv").config(); // used to load .env file process.env.VARIABLE_NAME
 // const {
 //   PORT,
@@ -25,14 +25,14 @@ passport.serializeUser(function (user, cb) {
 passport.deserializeUser(function (obj, cb) {
   cb(null, obj);
 });
-console.log(FACEBOOK_CLIENT_ID)
+console.log(FACEBOOK_CLIENT_ID);
 passport.use(
   new FacebookStrategy(
     {
       clientID: FACEBOOK_CLIENT_ID,
       clientSecret: FACEBOOK_CLIENT_SECRET,
       callbackURL: "/auth/facebook/callback",
-      profileFields: ['id', 'displayName', 'photos', 'email']
+      profileFields: ["id", "displayName", "photos", "email"],
     },
     function (accessToken, refreshToken, profile, cb) {
       user = { ...profile };
@@ -47,7 +47,7 @@ app.get(
   passport.authenticate("facebook", { failureRedirect: "/login" }),
   function (req, res) {
     // Successful authentication, redirect home.
-    console.log("success")
+    console.log("success");
     res.redirect("http://localhost:3000/profile");
   }
 );
@@ -58,10 +58,11 @@ app.get("/profile", (req, res) => {
 });
 
 // logout from facebook session
-app.get('/logout', function(req, res){
+app.get("/logout", function (req, res) {
   user = {};
   req.logout();
-  res.redirect('/signin');
+  // res.redirect('/signin');
+  res.json("hello");
 });
 
 app.listen(PORT, () => {

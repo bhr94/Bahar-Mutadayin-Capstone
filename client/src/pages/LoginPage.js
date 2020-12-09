@@ -2,6 +2,8 @@ import React from "react";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import axios from "axios";
+import { Link as RouterLink } from "react-router-dom";
+
 import {
   Box,
   Button,
@@ -14,9 +16,13 @@ import {
 import FacebookIcon from "../assets/icons-js/Facebook";
 import GoogleIcon from "../assets/icons-js/Google";
 
+{
+  /* I have used material ui login component for this component */
+}
+
 class LoginPage extends React.Component {
   state = {
-    userData: {},
+    userData: JSON.stringify(localStorage.getItem("userData")),
   };
 
   componentDidMount() {
@@ -28,14 +34,16 @@ class LoginPage extends React.Component {
       .get(`http://localhost:8080/profile`)
       .then((response) => {
         const { data: userData } = response;
+        console.log("hello" + userData);
         if (Object.keys(userData).length === 0) {
           console.log("need to login");
           return;
         } else {
           console.log(userData);
-          this.setState({ userData });
+          this.setState({ userData: userData });
           localStorage.setItem("userData", this.state.userData);
           localStorage.setItem("authed", true);
+          this.setState({ signedIn: true });
         }
       })
       .catch((err) => console.log(err));
@@ -44,7 +52,6 @@ class LoginPage extends React.Component {
   render() {
     return (
       <div>
-        {/* I have used material ui login component for this component */}
         <Box
           display="flex"
           flexDirection="column"
@@ -168,11 +175,7 @@ class LoginPage extends React.Component {
                   </Box>
                   <Typography color="textSecondary" variant="body1">
                     Don&apos;t have an account?{" "}
-                    <Link
-                      // component={RouterLink}
-                      to="/register"
-                      variant="h6"
-                    >
+                    <Link component={RouterLink} to="/register" variant="h6">
                       Sign up
                     </Link>
                   </Typography>
