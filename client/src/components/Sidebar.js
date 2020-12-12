@@ -6,10 +6,18 @@ import friends from "../assets/Icons/friends.svg";
 import status from "../assets/Icons/status.svg";
 import axios from "axios";
 import history from "../history";
+import ModalExample from "../components/ModalExample";
+
 class Sidebar extends React.Component {
   state = {
-     signedOut:false
+    signedOut: false,
+    modal: false,
   };
+
+  toggle = () => {
+    this.setState({ modal: !this.state.modal });
+  };
+
   handleLogout = (e) => {
     e.preventDefault();
     axios
@@ -45,11 +53,16 @@ class Sidebar extends React.Component {
             <img src={status} alt="status-icon" className="sidebar-icon" />
             Status
           </NavLink>
-          <button className="sidebar__list-item" onClick={this.handleLogout}>
+          <button className="sidebar__list-item" onClick={this.toggle}>
             <img src={status} alt="status-icon" className="sidebar-icon" />
             Sign out
           </button>
         </ul>
+        <ModalExample
+          modal={this.state.modal}
+          toggle={this.toggle}
+          handleLogOut={this.handleLogout}
+        />
       </aside>
     );
   }

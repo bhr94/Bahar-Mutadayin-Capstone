@@ -301,6 +301,11 @@
   display: flex;
 }
 
+.calendar-container {
+  position: relative;
+  top: -150px;
+}
+
 .calendar-page__container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -326,5 +331,25 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.friends-page-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.friend-list__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100vh;
+  position: relative;
+  top: -150px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 /*# sourceMappingURL=main.css.map */

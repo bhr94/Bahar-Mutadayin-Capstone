@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.css";
+
 // calendar component css imports
 import "./assets/style/main.css";
 import "../node_modules/@syncfusion/ej2-react-schedule/styles/material.css";
@@ -14,18 +15,25 @@ import "../node_modules/@syncfusion/ej2-navigations/styles/material.css";
 import "../node_modules/@syncfusion/ej2-popups/styles/material.css";
 import "../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css";
 
-// import App from "./App";
+// components import section
 import ProfilePage from "./pages/ProfilePage";
 import CalendarPage from "./pages/CalendarPage";
 import reportWebVitals from "./reportWebVitals";
-import {Router, Route, Redirect } from "react-router-dom";
+import { Router, Route, Redirect } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import Register from "./pages/Register";
-import history from './history';
+import history from "./history";
+import FriendsPage from "./pages/FriendsPage";
+import EventPage from "./pages/EventPage";
 
-// import SignInPage from "./pages/SignInPage";
+// semantic ui css import section
+const styleLink = document.createElement("link");
+styleLink.rel = "stylesheet";
+styleLink.href =
+  "https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css";
+document.head.appendChild(styleLink);
 
-// this piece of code is referred to this resource:
+// PrivateRoute function is referred to this resource:
 // https://stackoverflow.com/questions/43164554/how-to-implement-authenticated-routes-in-react-router-4
 function PrivateRoute({ component: Component, authed, ...rest }) {
   return (
@@ -35,7 +43,7 @@ function PrivateRoute({ component: Component, authed, ...rest }) {
         authed ? (
           <Component {...props} />
         ) : (
-          <Redirect to={{ pathname: "/signin" }} />
+          <Redirect to={{ pathname: "/signin" || "/register" }} />
         )
       }
     />
@@ -47,7 +55,7 @@ ReactDOM.render(
       <Route path="/signin" exact component={LoginPage} />
       <Route path="/register" exact component={Register} />
       <PrivateRoute
-        authed={localStorage.getItem("authed")==="true"}
+        authed={localStorage.getItem("authed") === "true"}
         exact
         path="/calendar"
         component={CalendarPage}
@@ -58,15 +66,22 @@ ReactDOM.render(
         path="/profile"
         component={ProfilePage}
       />
-
+      <PrivateRoute
+        authed={localStorage.getItem("authed") === "true"}
+        exact
+        path="/friends"
+        component={FriendsPage}
+      />
+      <PrivateRoute
+        authed={localStorage.getItem("authed") === "true"}
+        exact
+        path="/status"
+        component={EventPage}
+      />
     </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
 {
