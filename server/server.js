@@ -3,21 +3,17 @@ const app = express();
 const cors = require("cors");
 const passport = require("passport");
 const FacebookStrategy = require("passport-facebook").Strategy;
+const apiRoutes = require("./routes/api");
+
 // const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 app.use(cors());
 app.use(passport.initialize());
-const PORT = 8080;
-const FACEBOOK_CLIENT_ID = "839538410170323";
-const FACEBOOK_CLIENT_SECRET = "62aec9a6a09bab9faf0300b431a5a2c2";
-// require("dotenv").config(); // used to load .env file process.env.VARIABLE_NAME
-// const {
-//   PORT,
-//   FACEBOOK_CLIENT_ID,
-//   FACEBOOK_CLIENT_SECRET,
-// } = process.env;
+require("dotenv").config(); // used to load .env file process.env.VARIABLE_NAME
+const { PORT, FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET } = process.env;
 app.use(express.json());
 console.log("env vars: " + process.env.PORT);
 let user = {};
+
 passport.serializeUser(function (user, cb) {
   cb(null, user);
 });
@@ -25,6 +21,7 @@ passport.serializeUser(function (user, cb) {
 passport.deserializeUser(function (obj, cb) {
   cb(null, obj);
 });
+
 console.log(FACEBOOK_CLIENT_ID);
 passport.use(
   new FacebookStrategy(
@@ -48,6 +45,7 @@ app.get(
   function (req, res) {
     // Successful authentication, redirect home.
     console.log("success");
+
     res.redirect("http://localhost:3000/profile");
   }
 );
@@ -56,6 +54,9 @@ app.get(
 app.get("/profile", (req, res) => {
   res.json(user);
 });
+
+// main route
+app.use("/", apiRoutes);
 
 // logout from facebook session
 app.get("/logout", function (req, res) {
@@ -68,4 +69,3 @@ app.get("/logout", function (req, res) {
 app.listen(PORT, () => {
   console.log(`The server is listening to the port ${PORT}`);
 });
-

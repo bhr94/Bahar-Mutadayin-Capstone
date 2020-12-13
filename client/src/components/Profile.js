@@ -15,11 +15,11 @@ import {
 } from "@material-ui/core";
 
 const user = {
-  avatar: "/static/images/avatars/avatar_6.png",
+  // avatar: localStorage.getItem("userData") && JSON.parse(localStorage.getItem("userData")).profileImg,
   city: "Los Angeles",
   country: "USA",
   jobTitle: "Senior Developer",
-  name: "Katarina Smith",
+  // name:  localStorage.getItem("userData") &&  JSON.parse(localStorage.getItem("userData")).userName,
   timezone: "GTM-7",
 };
 
@@ -80,11 +80,11 @@ const Profile = ({ className, ...rest }) => {
               </Box>
             </CardContent>
             <Divider />
-            <CardActions>
+            {/* <CardActions>
               <Button color="primary" fullWidth variant="text">
                 Upload picture
               </Button>
-            </CardActions>
+            </CardActions> */}
           </Card>
         </div>
       </main>

@@ -5,21 +5,28 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "tables:create": "knex migrate:latest ",
+    "tables:drop": "knex migrate:rollback ",
+    "tables:seed": "knex seed:run"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bookshelf": "^1.2.0",
     "chalk": "^4.1.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "googleapis": "^39.2.0",
+    "firebase": "^8.2.0",
+    "firebase-admin": "^9.4.2",
+    "knex": "^0.21.13",
+    "mysql": "^2.18.1",
     "passport": "^0.4.1",
     "passport-facebook": "^3.0.0",
     "passport-google-oauth2": "^0.2.0",
-    "stripe": "^8.126.0"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"

@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 import axios from "axios";
 import { Link as RouterLink } from "react-router-dom";
+import history from "../history";
 
 import {
   Box,
@@ -20,11 +21,50 @@ import GoogleIcon from "../assets/icons-js/Google";
   /* I have used material ui login component for this component */
 }
 
+const backend_url = "http://localhost:8080";
+
 class LoginPage extends React.Component {
   state = {
-    userData: JSON.stringify(localStorage.getItem("userData")),
+    // userData:{
+    //   userName:"",
+    //   profileImg:""
+    // },
+
+    email: "",
+    password: "",
   };
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { email, password } = this.state;
+    if (email && password) {
+      const userData = {
+        email,
+        password,
+      };
+      axios
+        .post(`${backend_url}/users/login`, userData)
+        .then((response) => {
+          console.log(response)
+          if (response.data.token && response.data.user[0]) {
+            localStorage.setItem("authed", true);
+            localStorage.setItem("userToken", response.data.token);
+            localStorage.setItem("userData", JSON.stringify(response.data.user[0]));
+            history.push("/profile")
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    }
+  };
+
+  handleChange = (e) => {
+    let name = e.target.name;
+    this.setState({
+      [name]: e.target.value,
+    });
+  };
   componentDidMount() {
     this.getUserData();
   }
@@ -34,16 +74,20 @@ class LoginPage extends React.Component {
       .get(`http://localhost:8080/profile`)
       .then((response) => {
         const { data: userData } = response;
-        console.log("hello" + userData);
         if (Object.keys(userData).length === 0) {
           console.log("need to login");
           return;
         } else {
-          console.log(userData);
-          this.setState({ userData: userData });
-          localStorage.setItem("userData", this.state.userData);
+          // this.setState({ userData: userData });
+          const user = {
+            userName: userData.displayName,
+            profileImg: userData.photos[0].value,
+          };
+          this.setState({ userData: user });
+          localStorage.setItem("userData", JSON.stringify(this.state.userData));
           localStorage.setItem("authed", true);
           this.setState({ signedIn: true });
+          console.log(this.state.userData);
         }
       })
       .catch((err) => console.log(err));
@@ -81,12 +125,12 @@ class LoginPage extends React.Component {
                 errors,
                 handleBlur,
                 handleChange,
-                handleSubmit,
+                // handleSubmit,
                 isSubmitting,
                 touched,
                 values,
               }) => (
-                <form onSubmit={handleSubmit}>
+                <form>
                   <Box mb={3}>
                     <Typography color="textPrimary" variant="h2">
                       Sign in
@@ -106,7 +150,7 @@ class LoginPage extends React.Component {
                           color="primary"
                           fullWidth
                           startIcon={<FacebookIcon />}
-                          onClick={this.handleSubmit}
+                          // onClick={this.handleSubmit}
                           size="large"
                           variant="contained"
                         >
@@ -143,9 +187,9 @@ class LoginPage extends React.Component {
                     margin="normal"
                     name="email"
                     onBlur={handleBlur}
-                    onChange={handleChange}
+                    onChange={this.handleChange}
                     type="email"
-                    value={values.email}
+                    value={this.state.email}
                     variant="outlined"
                   />
                   <TextField
@@ -156,9 +200,9 @@ class LoginPage extends React.Component {
                     margin="normal"
                     name="password"
                     onBlur={handleBlur}
-                    onChange={handleChange}
+                    onChange={this.handleChange}
                     type="password"
-                    value={values.password}
+                    value={this.state.password}
                     variant="outlined"
                   />
                   <Box my={2}>
@@ -167,8 +211,9 @@ class LoginPage extends React.Component {
                       disabled={isSubmitting}
                       fullWidth
                       size="large"
-                      type="submit"
+                      // type="submit"
                       variant="contained"
+                      onClick={this.handleSubmit}
                     >
                       Sign in now
                     </Button>

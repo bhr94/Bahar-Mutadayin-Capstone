@@ -19,7 +19,7 @@ import "../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css";
 import ProfilePage from "./pages/ProfilePage";
 import CalendarPage from "./pages/CalendarPage";
 import reportWebVitals from "./reportWebVitals";
-import { Router, Route, Redirect } from "react-router-dom";
+import { Router, Route, Redirect, Switch } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import Register from "./pages/Register";
 import history from "./history";
@@ -52,32 +52,45 @@ function PrivateRoute({ component: Component, authed, ...rest }) {
 ReactDOM.render(
   <React.StrictMode>
     <Router history={history}>
-      <Route path="/signin" exact component={LoginPage} />
-      <Route path="/register" exact component={Register} />
-      <PrivateRoute
-        authed={localStorage.getItem("authed") === "true"}
-        exact
-        path="/calendar"
-        component={CalendarPage}
-      />
-      <PrivateRoute
-        authed={localStorage.getItem("authed") === "true"}
-        exact
-        path="/profile"
-        component={ProfilePage}
-      />
-      <PrivateRoute
-        authed={localStorage.getItem("authed") === "true"}
-        exact
-        path="/friends"
-        component={FriendsPage}
-      />
-      <PrivateRoute
-        authed={localStorage.getItem("authed") === "true"}
-        exact
-        path="/status"
-        component={EventPage}
-      />
+      <Switch>
+        <PrivateRoute
+          authed={localStorage.getItem("authed") === "true"}
+          exact
+          path="/calendar"
+          component={CalendarPage}
+        />
+        <PrivateRoute
+          authed={localStorage.getItem("authed") === "true"}
+          exact
+          path="/profile"
+          component={ProfilePage}
+        />
+        <PrivateRoute
+          authed={localStorage.getItem("authed") === "true"}
+          exact
+          path="/friends"
+          component={FriendsPage}
+        />
+        <PrivateRoute
+          authed={localStorage.getItem("authed") === "true"}
+          exact
+          path="/status"
+          component={EventPage}
+        />
+        <Route path="/signin" exact component={LoginPage} />
+        <Route path="/register" exact component={Register} />
+        <Route
+          exact
+          path="/"
+          render={() => {
+            return localStorage.getItem("authed") === "true" ? (
+              <Redirect to="/profile" />
+            ) : (
+              <Redirect to="/signin" />
+            );
+          }}
+        />
+      </Switch>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")

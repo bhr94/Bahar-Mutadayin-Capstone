@@ -27,6 +27,7 @@ class Sidebar extends React.Component {
         // this.setState({ userData: {} });
         localStorage.removeItem("userData");
         localStorage.setItem("authed", false);
+        localStorage.removeItem("userToken");
         // this.setState({signedOut:true})
         history.push("/signin");
       })

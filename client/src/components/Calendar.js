@@ -35,7 +35,7 @@ class Calendar extends React.Component {
           <ViewsDirective>
             <ViewDirective option="Day" onClick={this.handleClick} />
             <ViewDirective option="Month" onClick={this.handleClick} />
-            <ViewDirective option="Week" onClick={this.handleClick} />
+            <ViewDirective option="Week"  onSelectSlot={this.handleClick} />
           </ViewsDirective>
           <Inject services={[Day, Week, Month, Agenda]} />
         </ScheduleComponent>
