@@ -1,13 +1,68 @@
 import React from "react";
 import Friend from "./Friend";
-
+import axios from "axios";
+import CreateGroupModal from "./CreateGroupModal";
+const backend_url = "http://localhost:8080";
 class FriendList extends React.Component {
   state = {
-    friendList: [1, 2, 3],
+    friendList: [],
+    modal: false,
+    groupTitle: "",
+    groupDescription: "",
   };
+
+  componentDidMount() {
+    this.getAllFriends();
+  }
+
+  getAllFriends = () => {
+    const groupId = JSON.parse(localStorage.getItem("userData")).groupId;
+    if (groupId) {
+      axios
+        .get(`${backend_url}/users/${groupId}`)
+        .then((response) => {
+          this.setState({ friendList: response.data });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
+  toggle = () => {
+    this.setState({ modal: !this.state.modal });
+  };
+
+  createGroup = () => {
+    const id = JSON.parse(localStorage.getItem("userData")).id;
+    if (this.state.groupTitle && this.state.groupDescription) {
+      const body = {
+        name: this.state.groupTitle,
+        description: this.state.groupDescription,
+        userId: id,
+      };
+      axios.post(`${backend_url}/groups`, body)
+      .then(response =>{
+        console.log(response);
+        localStorage.setItem("userData", response.data)
+      })
+      .catch(error =>{
+        console.log(error)
+      })
+    }
+  
+  };
+
+  handleChange = (e) => {
+    let name = e.target.name;
+    this.setState({
+      [name]: e.target.value,
+    });
+  };
+
   render() {
     const friend_list = this.state.friendList.map((friend) => {
-      return <Friend />;
+      return <Friend friend={friend} />;
     });
     return (
       <section className="profile-container scrollable">
@@ -23,7 +78,21 @@ class FriendList extends React.Component {
             </p>
           </div>
         </header>
-        <ul className="friend-list__container">{friend_list}</ul>
+        {JSON.parse(localStorage.getItem("userData")).groupId &&
+        this.state.friendList.length ? (
+          <ul className="friend-list__container">{friend_list}</ul>
+        ) : (
+          <>
+            <h2>You do not have any group</h2>
+            <button onClick={this.toggle}>Create a group</button>
+            <CreateGroupModal
+              modal={this.state.modal}
+              toggle={this.toggle}
+              handleChange={this.handleChange}
+              createGroup={this.createGroup}
+            />
+          </>
+        )}
       </section>
     );
   }

@@ -56,7 +56,9 @@ class CommentList extends React.Component {
       axios
         .post(`${backend_url}/newComment/${this.props.id}`, body)
         .then((response) => {
-          this.setState([...this.state.comments, response.data]);
+          this.setState({
+            comments: [...this.state.comments, response.data],
+          });
           this.setState({ comment: "" });
           console.log(this.state.comments);
         })

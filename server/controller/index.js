@@ -3,7 +3,7 @@ const Group = require("../models/Group");
 const Event = require("../models/Event");
 const Comment = require("../models/Comment");
 const { firebase, admin } = require("../firebase/firebase");
-const { response } = require("express");
+const { response, json } = require("express");
 const { fetchAll } = require("../models/User");
 
 // create a new user - register
@@ -119,7 +119,7 @@ const newEvent = (req, res) => {
   let { title, start, end, userId } = req.body;
   start = new Date(start);
   end = new Date(end);
-  if ((title)) {
+  if (title) {
     new Event({ title, start, end, userId })
       .save()
       .then((model) => res.json(model));
@@ -140,9 +140,23 @@ const getEventsByUserId = (req, res) => {
 
 // create a group
 const newGroup = (req, res) => {
-  const { name, description } = req.body;
+  const { name, description, userId } = req.body;
   if (name && description) {
-    new Group({ name, description }).save().then((model) => res.json(model));
+    new Group({ name, description })
+      .save()
+      .then((group) => {
+        User.where({ id: userId })
+          .save({ groupId: group.id },{patch:true})
+          .then((user) => {
+            res.json(user);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        res.json(error);
+      });
   } else {
     res.json({ error: "please enter a name and description" });
   }
@@ -164,7 +178,7 @@ const getAllGroupMembersByGroupId = (req, res) => {
 // create a new comment to an event with event id and user id
 const newComment = (req, res) => {
   const { commentContent, ownerId } = req.body;
-  const {eventId}  = req.params;
+  const { eventId } = req.params;
   const commentDate = new Date();
   const likeCount = 0;
   if (commentContent && ownerId && eventId) {
@@ -186,17 +200,16 @@ const getAllCommentsByEventId = (req, res) => {
     });
 };
 
-
-const getEventById =(req, res) =>{
-  Event.where({id:req.params.id})
-  .fetchAll({withRelated:["users"]})
-  .then(event =>{
-    res.json(event)
-  })
-  .catch(error=>{
-    console.log(error);
-  })
-}
+const getEventById = (req, res) => {
+  Event.where({ id: req.params.id })
+    .fetchAll({ withRelated: ["users"] })
+    .then((event) => {
+      res.json(event);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 //  ==========================================
 // demo controllers
@@ -269,5 +282,5 @@ module.exports = {
   createNewUser,
   signin,
   firebaseMiddleware,
-  getEventById
+  getEventById,
 };

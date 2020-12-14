@@ -21,7 +21,7 @@ class Friend extends React.Component {
             top
           />
           <CardBody>
-            <CardTitle>Card title</CardTitle>
+            <CardTitle>{this.props.friend.firstName}</CardTitle>
             <CardText>
               Some quick example text to build on the card title and make up
               the bulk of the card's content.
