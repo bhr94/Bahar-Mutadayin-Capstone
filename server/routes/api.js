@@ -5,6 +5,7 @@ const router = express.Router();
 // Event Routes
 router.route("/events").post(controller.newEvent);
 router.route("/events/:userId").get(controller.getEventsByUserId);
+router.route("/eventsbyId/:id").get(controller.getEventById);
 
 // User Routes
 router.route("/users/register").post(controller.createNewUser);
@@ -16,7 +17,7 @@ router.route("/groups").post(controller.newGroup);
 
 
 // Comment Routes
-router.route("/newComment").post(controller.newComment);
+router.route("/newComment/:eventId").post(controller.newComment);
 router.route('/comments/:eventId').get(controller.getAllCommentsByEventId);
 
 module.exports = router;

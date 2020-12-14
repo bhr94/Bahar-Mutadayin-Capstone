@@ -50,10 +50,10 @@ class Sidebar extends React.Component {
             <img src={friends} alt="friends-icon" className="sidebar-icon" />
             Friends
           </NavLink>
-          <NavLink className="sidebar__list-item" to="/status">
+          {/* <NavLink className="sidebar__list-item" to="/status">
             <img src={status} alt="status-icon" className="sidebar-icon" />
             Status
-          </NavLink>
+          </NavLink> */}
           <button className="sidebar__list-item" onClick={this.toggle}>
             <img src={status} alt="status-icon" className="sidebar-icon" />
             Sign out

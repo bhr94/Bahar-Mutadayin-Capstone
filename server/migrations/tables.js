@@ -14,15 +14,14 @@ exports.up = function (knex) {
     })
     .createTable('events', (table) => {
       table.increments('id').primary();
-      table.date('startDate');
-      table.date("endDate");
+      table.datetime('start');
+      table.datetime("end");
       table.string("title");
-      table.string("description");
       table.integer('userId').unsigned().references('users.id');
     })
     .createTable('comments', (table) => {
       table.increments('id').primary();
-      table.date("commentDate");
+      table.datetime("commentDate");
       table.string("commentContent");
       table.integer("likeCount").defaultTo(0);
       table.integer('ownerId').unsigned().references('users.id');

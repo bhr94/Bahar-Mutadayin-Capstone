@@ -1,143 +1,220 @@
 import React from "react";
-// this component is has been taken from creativetim argon dashboard design
-// reactstrap components
-
-import github from "../assets/Icons/github.svg";
-import google from "../assets/Icons/google.svg";
-
+import { Link as RouterLink } from "react-router-dom";
+import * as Yup from "yup";
+import { Formik } from "formik";
+import axios from "axios";
+import history from "../history";
 import {
+  Box,
   Button,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Row,
-  Col,
-} from "reactstrap";
+  Checkbox,
+  Container,
+  FormHelperText,
+  Link,
+  TextField,
+  Typography,
+  makeStyles,
+} from "@material-ui/core";
+{
+  /* I have used material ui login component for this component */
+}
 
-class RegisterPage extends React.Component {
+const backend_url = "http://localhost:8080";
+
+class Register extends React.Component {
+  state = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  };
+
+  handleChange = (e) => {
+    let name = e.target.name;
+    // let value = e.target.name.value;
+    this.setState({
+      [name]: e.target.value,
+    });
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { firstName, lastName, email, password } = this.state;
+    if (firstName && lastName && email && password) {
+      const userData = this.state;
+      axios.post(`${backend_url}/users/register`, userData).then((response) => {
+        console.log(response);
+        if (response.data.token && response.data.user) {
+          localStorage.setItem("authed", true);
+          localStorage.setItem("userToken", response.data.token);
+          localStorage.setItem("userData", JSON.stringify(response.data.user));
+          history.push("/profile");
+        }
+      })
+      .catch(error=>{
+        alert(error)
+      })
+    }
+  };
+
   render() {
     return (
-      <>
-        <Col lg="6" md="8">
-          <Card className="bg-secondary shadow border-0">
-            <CardHeader className="bg-transparent pb-5">
-              <div className="text-muted text-center mt-2 mb-4">
-                <small>Sign up with</small>
-              </div>
-              <div className="text-center">
-                <Button
-                  className="btn-neutral btn-icon mr-4"
-                  color="default"
-                  href="/auth/facebook"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  <span className="btn-inner--icon">
-                    <img alt="..." src={github} />
-                  </span>
-                  <span className="btn-inner--text">Github</span>
-                </Button>
-                <Button
-                  className="btn-neutral btn-icon"
-                  color="default"
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  <span className="btn-inner--icon">
-                    <img alt="..." src={google} />
-                  </span>
-                  <span className="btn-inner--text">Google</span>
-                </Button>
-              </div>
-            </CardHeader>
-            <CardBody className="px-lg-5 py-lg-5">
-              <div className="text-center text-muted mb-4">
-                <small>Or sign up with credentials</small>
-              </div>
-              <Form role="form">
-                <FormGroup>
-                  <InputGroup className="input-group-alternative mb-3">
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="ni ni-hat-3" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input placeholder="Name" type="text" />
-                  </InputGroup>
-                </FormGroup>
-                <FormGroup>
-                  <InputGroup className="input-group-alternative mb-3">
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="ni ni-email-83" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                      placeholder="Email"
-                      type="email"
-                      autoComplete="new-email"
-                    />
-                  </InputGroup>
-                </FormGroup>
-                <FormGroup>
-                  <InputGroup className="input-group-alternative">
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="ni ni-lock-circle-open" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                      placeholder="Password"
-                      type="password"
-                      autoComplete="new-password"
-                    />
-                  </InputGroup>
-                </FormGroup>
-                <div className="text-muted font-italic">
-                  <small>
-                    password strength:{" "}
-                    <span className="text-success font-weight-700">strong</span>
-                  </small>
-                </div>
-                <Row className="my-4">
-                  <Col xs="12">
-                    <div className="custom-control custom-control-alternative custom-checkbox">
-                      <input
-                        className="custom-control-input"
-                        id="customCheckRegister"
-                        type="checkbox"
-                      />
-                      <label
-                        className="custom-control-label"
-                        htmlFor="customCheckRegister"
-                      >
-                        <span className="text-muted">
-                          I agree with the{" "}
-                          <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                            Privacy Policy
-                          </a>
-                        </span>
-                      </label>
-                    </div>
-                  </Col>
-                </Row>
-                <div className="text-center">
-                  <Button className="mt-4" color="primary" type="button">
-                    Create account
+      <Box
+        display="flex"
+        flexDirection="column"
+        height="100%"
+        justifyContent="center"
+      >
+        <Container maxWidth="sm">
+          <Formik
+            initialValues={{
+              email: "",
+              firstName: "",
+              lastName: "",
+              password: "",
+              policy: false,
+            }}
+            validationSchema={Yup.object().shape({
+              email: Yup.string()
+                .email("Must be a valid email")
+                .max(255)
+                .required("Email is required"),
+              firstName: Yup.string()
+                .max(255)
+                .required("First name is required"),
+              lastName: Yup.string().max(255).required("Last name is required"),
+              password: Yup.string().max(255).required("password is required"),
+              policy: Yup.boolean().oneOf([true], "This field must be checked"),
+            })}
+            // onSubmit={() => {
+            //   navigate('/app/dashboard', { replace: true });
+            // }}
+          >
+            {({
+              errors,
+              handleBlur,
+              // handleChange,
+              handleSubmit,
+              isSubmitting,
+              touched,
+              values,
+            }) => (
+              // <form onSubmit={handleSubmit}>
+              <form>
+                <Box mb={3}>
+                  <Typography color="textPrimary" variant="h2">
+                    Create new account
+                  </Typography>
+                  <Typography
+                    color="textSecondary"
+                    gutterBottom
+                    variant="body2"
+                  >
+                    Use your email to create new account
+                  </Typography>
+                </Box>
+                <TextField
+                  error={Boolean(touched.firstName && errors.firstName)}
+                  fullWidth
+                  helperText={touched.firstName && errors.firstName}
+                  label="First name"
+                  margin="normal"
+                  name="firstName"
+                  onBlur={handleBlur}
+                  onChange={this.handleChange}
+                  // value={values.firstName}
+                  value={this.state.firstName}
+                  variant="outlined"
+                />
+                <TextField
+                  error={Boolean(touched.lastName && errors.lastName)}
+                  fullWidth
+                  helperText={touched.lastName && errors.lastName}
+                  label="Last name"
+                  margin="normal"
+                  name="lastName"
+                  onBlur={handleBlur}
+                  onChange={this.handleChange}
+                  // value={values.lastName}
+                  value={this.state.lastName}
+                  variant="outlined"
+                />
+                <TextField
+                  error={Boolean(touched.email && errors.email)}
+                  fullWidth
+                  helperText={touched.email && errors.email}
+                  label="Email Address"
+                  margin="normal"
+                  name="email"
+                  onBlur={handleBlur}
+                  onChange={this.handleChange}
+                  type="email"
+                  // value={values.email}
+                  value={this.state.email}
+                  variant="outlined"
+                />
+                <TextField
+                  error={Boolean(touched.password && errors.password)}
+                  fullWidth
+                  helperText={touched.password && errors.password}
+                  label="Password"
+                  margin="normal"
+                  name="password"
+                  onBlur={handleBlur}
+                  onChange={this.handleChange}
+                  type="password"
+                  // value={values.password}
+                  value={this.state.password}
+                  variant="outlined"
+                />
+                <Box alignItems="center" display="flex" ml={-1}>
+                  <Checkbox
+                    checked={values.policy}
+                    name="policy"
+                    onChange={this.handleChange}
+                  />
+                  <Typography color="textSecondary" variant="body1">
+                    I have read the{" "}
+                    <Link
+                      color="primary"
+                      component={RouterLink}
+                      to="#"
+                      underline="always"
+                      variant="h6"
+                    >
+                      Terms and Conditions
+                    </Link>
+                  </Typography>
+                </Box>
+                {Boolean(touched.policy && errors.policy) && (
+                  <FormHelperText error>{errors.policy}</FormHelperText>
+                )}
+                <Box my={2}>
+                  <Button
+                    color="primary"
+                    disabled={isSubmitting}
+                    fullWidth
+                    size="large"
+                    type="submit"
+                    variant="contained"
+                    onClick={this.handleSubmit}
+                  >
+                    Sign up now
                   </Button>
-                </div>
-              </Form>
-            </CardBody>
-          </Card>
-        </Col>
-      </>
+                </Box>
+                <Typography color="textSecondary" variant="body1">
+                  Have an account?{" "}
+                  <Link component={RouterLink} to="/signin" variant="h6">
+                    Sign in
+                  </Link>
+                </Typography>
+              </form>
+            )}
+          </Formik>
+        </Container>
+      </Box>
     );
   }
 }
 
-export default RegisterPage;
+export default Register;

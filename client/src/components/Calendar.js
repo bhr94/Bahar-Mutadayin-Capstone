@@ -1,21 +1,81 @@
 import React from "react";
-import {
-  Inject,
-  ScheduleComponent,
-  Day,
-  Week,
-  Month,
-  Agenda,
-  CellClickEventArgs,
-  ViewsDirective,
-  ViewDirective,
-} from "@syncfusion/ej2-react-schedule";
+import { Calendar, momentLocalizer, Views } from "react-big-calendar";
+import moment from "moment";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import history from "../history";
+const backend_url = "http://localhost:8080";
+const localizer = momentLocalizer(moment);
 
-class Calendar extends React.Component {
-  handleClick = () => {
-    alert("huhuh");
+class SampleCalendar extends React.Component {
+  constructor(...args) {
+    super(...args);
+    this.state = { events: [] };
+  }
+
+  componentDidMount() {
+    this.getAllEvents();
+  }
+
+  getAllEvents = () => {
+    const userId = JSON.parse(localStorage.getItem("userData")).id;
+    axios
+      .get(`${backend_url}/events/${userId}`)
+      .then((response) => {
+        for (let i = 0; i < response.data.length; i++) {
+          response.data[i].start = new Date(response.data[i].start);
+          response.data[i].end = new Date(response.data[i].end);
+        }
+        this.setState({ events: response.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
+  handleSelect = ({ start, end }) => {
+    const userId = JSON.parse(localStorage.getItem("userData")).id;
+    const title = window.prompt("New Event name");
+    if (title) {
+      const event = {
+        title,
+        start,
+        end,
+        userId,
+      };
+      axios
+        .post(`${backend_url}/events`, event)
+        .then((response) => {
+          console.log(response.data);
+          let newEvent = {
+            title: response.data.title,
+            start: new Date(response.data.start),
+            end: new Date(response.data.end),
+            userId: response.data.userId,
+          };
+          this.setState({
+            events: [...this.state.events, newEvent],
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      console.log(this.state.events);
+    } else {
+      alert("please enter an event title");
+    }
+  };
+
+  handleClick = (event) => {
+    const jsonObject = JSON.stringify(event);
+    const object = JSON.parse(jsonObject);
+    for (let i = 0; i < this.state.events.length; i++) {
+      if (object.id === this.state.events[i].id) {
+        history.push(`/event/${object.id}`);
+      }
+    }
+  };
   render() {
     return (
       <section className="profile-container scrollable">
@@ -31,84 +91,21 @@ class Calendar extends React.Component {
             </p>
           </div>
         </header>
-        <ScheduleComponent className = "calendar-container header__text">
-          <ViewsDirective>
-            <ViewDirective option="Day" onClick={this.handleClick} />
-            <ViewDirective option="Month" onClick={this.handleClick} />
-            <ViewDirective option="Week"  onSelectSlot={this.handleClick} />
-          </ViewsDirective>
-          <Inject services={[Day, Week, Month, Agenda]} />
-        </ScheduleComponent>
+        <Calendar
+          className="calendar-container"
+          selectable
+          localizer={localizer}
+          events={this.state.events}
+          defaultView={Views.WEEK}
+          scrollToTime={new Date(1970, 1, 1, 6)}
+          // defaultDate={new Date(2015, 3, 12)}
+          onSelectEvent={(event) => this.handleClick(event)}
+          onSelectSlot={this.handleSelect}
+          style={{ width: "100%" }}
+        />
       </section>
     );
   }
 }
 
-export default Calendar;
-
-// import * as React from 'react';
-// import { ScheduleComponent, ViewsDirective, Inject, Day, WorkWeek, Month, Week, Agenda, ViewDirective } from '@syncfusion/ej2-react-schedule';
-// // import { SampleBase } from '../common/sample-base';
-// import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
-// /**
-//  * schedule google calendar integration sample
-//  */
-// class Calendar extends React.Component{
-//     constructor() {
-//         super(...arguments);
-//         this.calendarId = '5105trob9dasha31vuqek6qgp0@group.calendar.google.com';
-//         this.publicKey = 'AIzaSyD76zjMDsL_jkenM5AAnNsORypS1Icuqxg';
-//         this.dataManger = new DataManager({
-//             url: 'https://www.googleapis.com/calendar/v3/calendars/' + this.calendarId + '/events?key=' + this.publicKey,
-//             adaptor: new WebApiAdaptor,
-//             crossDomain: true
-//         });
-//     }
-//     onDataBinding(e) {
-//         let items = e.result.items;
-//         let scheduleData = [];
-//         if (items.length > 0) {
-//             for (let i = 0; i < items.length; i++) {
-//                 let event = items[i];
-//                 let when = event.start.dateTime;
-//                 let start = event.start.dateTime;
-//                 let end = event.end.dateTime;
-//                 if (!when) {
-//                     when = event.start.date;
-//                     start = event.start.date;
-//                     end = event.end.date;
-//                 }
-//                 scheduleData.push({
-//                     Id: event.id,
-//                     Subject: event.summary,
-//                     StartTime: new Date(start),
-//                     EndTime: new Date(end),
-//                     IsAllDay: !event.start.dateTime
-//                 });
-//             }
-//         }
-//         e.result = scheduleData;
-//     }
-//     render() {
-//         return (<div className='schedule-control-section'>
-//                 <div className='col-lg-12 control-section'>
-//                     <div className='control-wrapper drag-sample-wrapper'>
-//                         <div className="schedule-container">
-//                             <ScheduleComponent ref={schedule => this.scheduleObj = schedule} width='100%' height='650px' selectedDate={new Date(2018, 10, 14)} readonly={true} eventSettings={{ dataSource: this.dataManger }} dataBinding={this.onDataBinding.bind(this)}>
-//                                 <ViewsDirective>
-//                                     <ViewDirective option='Day'/>
-//                                     <ViewDirective option='Week'/>
-//                                     <ViewDirective option='WorkWeek'/>
-//                                     <ViewDirective option='Month'/>
-//                                     <ViewDirective option='Agenda'/>
-//                                 </ViewsDirective>
-//                                 <Inject services={[Day, Week, WorkWeek, Month, Agenda]}/>
-//                             </ScheduleComponent>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>);
-//     }
-// }
-
-// export default Calendar;
+export default SampleCalendar;

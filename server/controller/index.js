@@ -3,6 +3,8 @@ const Group = require("../models/Group");
 const Event = require("../models/Event");
 const Comment = require("../models/Comment");
 const { firebase, admin } = require("../firebase/firebase");
+const { response } = require("express");
+const { fetchAll } = require("../models/User");
 
 // create a new user - register
 const createNewUser = (req, res) => {
@@ -114,11 +116,11 @@ const firebaseMiddleware = (req, res, next) => {
 
 // create event
 const newEvent = (req, res) => {
-  let { title, startDate, endDate, userId } = req.body;
-  startDate = new Date(startDate);
-  endDate = new Date(endDate);
-  if ((title, description)) {
-    new Event({ title, startDate, endDate, userId })
+  let { title, start, end, userId } = req.body;
+  start = new Date(start);
+  end = new Date(end);
+  if ((title)) {
+    new Event({ title, start, end, userId })
       .save()
       .then((model) => res.json(model));
   } else {
@@ -161,7 +163,8 @@ const getAllGroupMembersByGroupId = (req, res) => {
 
 // create a new comment to an event with event id and user id
 const newComment = (req, res) => {
-  const { commentContent, ownerId, eventId } = req.body;
+  const { commentContent, ownerId } = req.body;
+  const {eventId}  = req.params;
   const commentDate = new Date();
   const likeCount = 0;
   if (commentContent && ownerId && eventId) {
@@ -182,6 +185,18 @@ const getAllCommentsByEventId = (req, res) => {
       res.json(comments);
     });
 };
+
+
+const getEventById =(req, res) =>{
+  Event.where({id:req.params.id})
+  .fetchAll({withRelated:["users"]})
+  .then(event =>{
+    res.json(event)
+  })
+  .catch(error=>{
+    console.log(error);
+  })
+}
 
 //  ==========================================
 // demo controllers
@@ -254,4 +269,5 @@ module.exports = {
   createNewUser,
   signin,
   firebaseMiddleware,
+  getEventById
 };

@@ -19,7 +19,11 @@ const user = {
   city: "Los Angeles",
   country: "USA",
   jobTitle: "Senior Developer",
-  // name:  localStorage.getItem("userData") &&  JSON.parse(localStorage.getItem("userData")).userName,
+  name:
+    localStorage.getItem("userData") &&
+    JSON.parse(localStorage.getItem("userData")).firstName +
+      " " +
+      JSON.parse(localStorage.getItem("userData")).lastName,
   timezone: "GTM-7",
 };
 
@@ -41,7 +45,9 @@ const Profile = ({ className, ...rest }) => {
           <input type="text" className="input-element" placeholder="Search" />
         </nav>
         <div className="header__text">
-          <h1 className="profile-container__header-title">Hello Bahar</h1>
+          <h1 className="profile-container__header-title">
+            Hello {JSON.parse(localStorage.getItem("userData")).firstName}
+          </h1>
           <p className="profile-container__header-text">
             This is your profile page. You can see the progress you've made with
             your work and manage your projects or assigned tasks
@@ -80,11 +86,11 @@ const Profile = ({ className, ...rest }) => {
               </Box>
             </CardContent>
             <Divider />
-            {/* <CardActions>
+            <CardActions>
               <Button color="primary" fullWidth variant="text">
-                Upload picture
+                <input color="primary" fullWidth variant="text" type="file" />
               </Button>
-            </CardActions> */}
+            </CardActions>
           </Card>
         </div>
       </main>
