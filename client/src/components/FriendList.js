@@ -33,24 +33,33 @@ class FriendList extends React.Component {
     this.setState({ modal: !this.state.modal });
   };
 
+ 
+  openAddMemeberModal =() =>{
+    
+  }
+
+
   createGroup = () => {
     const id = JSON.parse(localStorage.getItem("userData")).id;
+    console.log(this.state.groupTitle);
+    console.log(this.state.groupDescription);
     if (this.state.groupTitle && this.state.groupDescription) {
       const body = {
         name: this.state.groupTitle,
         description: this.state.groupDescription,
         userId: id,
       };
-      axios.post(`${backend_url}/groups`, body)
-      .then(response =>{
-        console.log(response);
-        localStorage.setItem("userData", response.data)
-      })
-      .catch(error =>{
-        console.log(error)
-      })
+      axios
+        .post(`${backend_url}/groups`, body)
+        .then((response) => {
+          console.log(response);
+          localStorage.setItem("userData", JSON.stringify(response.data.user));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
-  
+    this.toggle();
   };
 
   handleChange = (e) => {
@@ -78,9 +87,13 @@ class FriendList extends React.Component {
             </p>
           </div>
         </header>
-        {JSON.parse(localStorage.getItem("userData")).groupId &&
-        this.state.friendList.length ? (
-          <ul className="friend-list__container">{friend_list}</ul>
+        {JSON.parse(localStorage.getItem("userData")).groupId ? (
+          <>
+            <h2>{this.state.groupTitle}</h2>
+            <h5>{this.state.groupDescription}</h5>
+            <button onClick ={this.openAddMemeberModal}>add a member</button>
+            <ul className="friend-list__container">{friend_list}</ul>
+          </>
         ) : (
           <>
             <h2>You do not have any group</h2>
@@ -88,8 +101,8 @@ class FriendList extends React.Component {
             <CreateGroupModal
               modal={this.state.modal}
               toggle={this.toggle}
-              handleChange={this.handleChange}
               createGroup={this.createGroup}
+              handleChange={this.handleChange}
             />
           </>
         )}

@@ -146,9 +146,9 @@ const newGroup = (req, res) => {
       .save()
       .then((group) => {
         User.where({ id: userId })
-          .save({ groupId: group.id },{patch:true})
+          .save({ groupId: group.id }, { patch: true })
           .then((user) => {
-            res.json(user);
+            res.json({group, user});
           })
           .catch((error) => {
             console.log(error);

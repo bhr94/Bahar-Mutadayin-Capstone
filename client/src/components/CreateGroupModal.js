@@ -18,13 +18,13 @@ const CreateGroupModal = (props) => {
         <ModalBody>
           <Label for="unmountOnClose">Group Title</Label>{" "}
           <Input
-            name="title"
+            name="groupTitle"
             placeholder="please enter a group title"
             onChange={props.handleChange}
           />
           <Label for="unmountOnClose">Group description</Label>{" "}
           <Input
-            name="description"
+            name="groupDescription"
             placeholder="please enter a group description"
             onChange={props.handleChange}
           />
