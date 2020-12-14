@@ -3,7 +3,7 @@ import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import history from "../history";
 const backend_url = "http://localhost:8080";
 const localizer = momentLocalizer(moment);
@@ -15,6 +15,7 @@ class SampleCalendar extends React.Component {
   }
 
   componentDidMount() {
+    console.log("calendar mounted")
     this.getAllEvents();
   }
 
@@ -108,4 +109,4 @@ class SampleCalendar extends React.Component {
   }
 }
 
-export default SampleCalendar;
+export default withRouter(SampleCalendar);

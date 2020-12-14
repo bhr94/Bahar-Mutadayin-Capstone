@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import moment from "moment";
+import {withRouter} from "react-router-dom";
 import {
   Avatar,
   Box,
@@ -102,4 +103,4 @@ Profile.propTypes = {
   className: PropTypes.string,
 };
 
-export default Profile;
+export default withRouter(Profile);

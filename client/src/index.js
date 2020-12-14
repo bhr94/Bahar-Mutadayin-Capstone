@@ -33,62 +33,56 @@ function PrivateRoute({ component: Component, authed, ...rest }) {
         authed ? (
           <Component {...props} />
         ) : (
-          <Redirect to={{ pathname: "/signin" || "/register" }} />
+          <Redirect to={{ pathname: "/signin" }} />
         )
       }
     />
   );
 }
 ReactDOM.render(
-  <React.StrictMode>
-    <Router history={history}>
-      <Switch>
-        <PrivateRoute
-          authed={localStorage.getItem("authed") === "true"}
-          exact
-          path="/calendar"
-          component={CalendarPage}
-        />
-        <PrivateRoute
-          authed={localStorage.getItem("authed") === "true"}
-          exact
-          path="/profile"
-          component={ProfilePage}
-        />
-        <PrivateRoute
-          authed={localStorage.getItem("authed") === "true"}
-          exact
-          path="/friends"
-          component={FriendsPage}
-        />
-        {/* <PrivateRoute
-          authed={localStorage.getItem("authed") === "true"}
-          exact
-          path="/status"
-          component={EventPage}
-        /> */}
-        <Route path="/signin" exact component={LoginPage} />
-        <Route path="/register" exact component={RegisterPage} />
-        <Route
-          exact
-          path="/"
-          render={() => {
-            return localStorage.getItem("authed") === "true" ? (
-              <Redirect to="/profile" />
-            ) : (
-              <Redirect to="/signin" />
-            );
-          }}
-        />
-        <PrivateRoute
-          authed={localStorage.getItem("authed") === "true"}
-          exact
-          path="/event/:id"
-          component={EventPage}
-        />
-      </Switch>
-    </Router>
-  </React.StrictMode>,
+  <Router history={history}>
+    <Switch>
+      <PrivateRoute
+        authed={localStorage.getItem("authed") === "true"}
+        exact
+        path="/calendar"
+        component={CalendarPage}
+      />
+      <PrivateRoute
+        authed={localStorage.getItem("authed") === "true"}
+        exact
+        path="/profile"
+        component={ProfilePage}
+      />
+      <PrivateRoute
+        authed={localStorage.getItem("authed") === "true"}
+        exact
+        path="/friends"
+        component={FriendsPage}
+      />
+      <Route path="/signin" exact component={LoginPage} />
+      <Route path="/register" exact component={RegisterPage} />
+  
+
+      <Route
+        exact
+        path="/"
+        render={() => {
+          return localStorage.getItem("authed") === "true" ? (
+            <Redirect to="/profile" />
+          ) : (
+            <Redirect to="/signin" />
+          );
+        }}
+      />
+      <PrivateRoute
+        authed={localStorage.getItem("authed") === "true"}
+        exact
+        path="/event/:id"
+        component={EventPage}
+      />
+    </Switch>
+  </Router>,
   document.getElementById("root")
 );
 reportWebVitals();

@@ -14,7 +14,8 @@ router.route("/users/:groupId").get(controller.getAllGroupMembersByGroupId);
 
 //  Group Routes
 router.route("/groups").post(controller.newGroup);
-
+router.route("/groups/:id").get(controller.getGroupDetailsByGroupId)
+router.route("/groups/inviteFriend").post(controller.inviteFriend)
 
 // Comment Routes
 router.route("/newComment/:eventId").post(controller.newComment);

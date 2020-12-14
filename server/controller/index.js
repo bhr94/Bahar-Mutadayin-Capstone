@@ -5,6 +5,8 @@ const Comment = require("../models/Comment");
 const { firebase, admin } = require("../firebase/firebase");
 const { response, json } = require("express");
 const { fetchAll } = require("../models/User");
+const nodemailer = require("nodemailer");
+
 
 // create a new user - register
 const createNewUser = (req, res) => {
@@ -148,7 +150,7 @@ const newGroup = (req, res) => {
         User.where({ id: userId })
           .save({ groupId: group.id }, { patch: true })
           .then((user) => {
-            res.json({group, user});
+            res.json({ group, user });
           })
           .catch((error) => {
             console.log(error);
@@ -211,6 +213,21 @@ const getEventById = (req, res) => {
     });
 };
 
+const getGroupDetailsByGroupId = (req, res) => {
+  Group.where({ id: req.params.id })
+    .fetchAll()
+    .then((group) => {
+      res.json(group);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+const inviteFriend = (req, res) =>{
+  const {email, ownerName} = req.body;
+  User.where()
+}
 //  ==========================================
 // demo controllers
 // get array of all authors
@@ -283,4 +300,6 @@ module.exports = {
   signin,
   firebaseMiddleware,
   getEventById,
+  getGroupDetailsByGroupId,
+  inviteFriend
 };

@@ -10,14 +10,18 @@ exports.up = function (knex) {
       table.string('firstName');
       table.string('lastName');
       table.string('email');
-      table.integer('groupId').unsigned().references('groups.id');
+      table.integer('groupId').unsigned().references('groups.id')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE');
     })
     .createTable('events', (table) => {
       table.increments('id').primary();
       table.datetime('start');
       table.datetime("end");
       table.string("title");
-      table.integer('userId').unsigned().references('users.id');
+      table.integer('userId').unsigned().references('users.id')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE');
     })
     .createTable('comments', (table) => {
       table.increments('id').primary();
@@ -25,7 +29,9 @@ exports.up = function (knex) {
       table.string("commentContent");
       table.integer("likeCount").defaultTo(0);
       table.integer('ownerId').unsigned().references('users.id');
-      table.integer('eventId').unsigned().references('events.id');
+      table.integer('eventId').unsigned().references('events.id')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE');
     });
 };
 
