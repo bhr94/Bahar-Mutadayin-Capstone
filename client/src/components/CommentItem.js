@@ -1,17 +1,19 @@
 import React from "react";
 import { Comment } from "semantic-ui-react";
+import avatar from "../assets/Icons/avatar.svg";
 class CommentSample extends React.Component {
+  state = {};
   render() {
     const { comment } = this.props;
     return (
       <Comment>
-        <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" />
+        <Comment.Avatar src={avatar} />
         <Comment.Content>
           <Comment.Author as="a">
             {/* {JSON.parse(localStorage.getItem("userData")).firstName +
               " " +
               JSON.parse(localStorage.getItem("userData")).lastName} */}
-              {comment.ownerName}
+            {comment.ownerName}
           </Comment.Author>
           <Comment.Metadata>
             <div>{comment.commentDate}</div>

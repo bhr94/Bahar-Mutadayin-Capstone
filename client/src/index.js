@@ -9,13 +9,14 @@ import "./assets/style/main.css";
 import ProfilePage from "./pages/ProfilePage";
 import CalendarPage from "./pages/CalendarPage";
 import reportWebVitals from "./reportWebVitals";
-import { Router, Route, Redirect, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import history from "./history";
 import FriendsPage from "./pages/FriendsPage";
 import EventPage from "./pages/EventPage";
 import FriendProfileDetailsPage from "./pages/FriendProfileDetailsPage";
+
 // semantic ui css import section
 const styleLink = document.createElement("link");
 styleLink.rel = "stylesheet";
@@ -40,7 +41,7 @@ function PrivateRoute({ component: Component, authed, ...rest }) {
   );
 }
 ReactDOM.render(
-  <Router history={history}>
+  <BrowserRouter history={history}>
     <Switch>
       <PrivateRoute
         authed={localStorage.getItem("authed") === "true"}
@@ -80,14 +81,14 @@ ReactDOM.render(
         path="/event/:id"
         component={EventPage}
       />
-       <PrivateRoute
+      <PrivateRoute
         authed={localStorage.getItem("authed") === "true"}
         exact
         path="/friends/:id"
         component={FriendProfileDetailsPage}
       />
     </Switch>
-  </Router>,
+  </BrowserRouter>,
   document.getElementById("root")
 );
 reportWebVitals();

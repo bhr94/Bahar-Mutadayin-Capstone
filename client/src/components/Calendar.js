@@ -3,7 +3,7 @@ import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import axios from "axios";
-import { Link, withRouter } from "react-router-dom";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import history from "../history";
 const backend_url = "http://localhost:8080";
 const localizer = momentLocalizer(moment);
@@ -15,7 +15,6 @@ class SampleCalendar extends React.Component {
   }
 
   componentDidMount() {
-    console.log("calendar mounted")
     this.getAllEvents();
   }
 
@@ -85,7 +84,7 @@ class SampleCalendar extends React.Component {
             <input type="text" className="input-element" placeholder="Search" />
           </nav>
           <div className="header__text">
-            <h1 className="profile-container__header-title">Hello Bahar</h1>
+            <h1 className="profile-container__header-title">Hello {JSON.parse(localStorage.getItem("userData")).firstName}</h1>
             <p className="profile-container__header-text">
               This is your profile page. You can see the progress you've made
               with your work and manage your projects or assigned tasks
@@ -102,7 +101,7 @@ class SampleCalendar extends React.Component {
           // defaultDate={new Date(2015, 3, 12)}
           onSelectEvent={(event) => this.handleClick(event)}
           onSelectSlot={this.handleSelect}
-          style={{ width: "100%"}}
+          style={{ width: "100%" }}
         />
       </section>
     );

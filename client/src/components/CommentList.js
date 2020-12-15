@@ -9,7 +9,7 @@ class CommentList extends React.Component {
     comments: [],
     comment: "",
   };
-
+  // https://stackoverflow.com/questions/39426083/update-react-component-every-second
   componentDidMount() {
     this.interval = setInterval(() => this.getCommentsByEventId(), 3000);
   }
@@ -79,7 +79,7 @@ class CommentList extends React.Component {
         ) : null}
 
         <Form reply>
-          <Form.TextArea onChange={this.handleChange} />
+          <Form.TextArea onChange={this.handleChange} value ={this.state.comment} />
           <Button
             content="Leave a comment"
             labelPosition="left"

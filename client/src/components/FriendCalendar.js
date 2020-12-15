@@ -4,12 +4,38 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import history from "../history";
-
+import PropTypes from "prop-types";
+import clsx from "clsx";
+import {
+  Avatar,
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Divider,
+  Typography,
+  makeStyles,
+} from "@material-ui/core";
 const backend_url = "http://localhost:8080";
 const localizer = momentLocalizer(moment);
 
 class FriendProfileDetailsPage extends React.Component {
-  state = { events: [] };
+  state = {
+    events: [],
+    user: {
+      // avatar: localStorage.getItem("userData") && JSON.parse(localStorage.getItem("userData")).profileImg,
+      city: "Los Angeles",
+      country: "USA",
+      jobTitle: "Senior Developer",
+      name:
+        localStorage.getItem("userData") &&
+        JSON.parse(localStorage.getItem("userData")).firstName +
+          " " +
+          JSON.parse(localStorage.getItem("userData")).lastName,
+      timezone: "GTM-7",
+    },
+  };
   componentDidMount() {
     this.getAllEvents();
   }
@@ -50,12 +76,40 @@ class FriendProfileDetailsPage extends React.Component {
             <input type="text" className="input-element" placeholder="Search" />
           </nav>
           <div className="header__text">
-            <h1 className="profile-container__header-title">Hello Bahar</h1>
             <p className="profile-container__header-text">
               This is your profile page. You can see the progress you've made
               with your work and manage your projects or assigned tasks
             </p>
           </div>
+          <Card
+            // className={clsx(classes.root, className)}
+            style={{ width: "100%" }}
+          >
+            <CardContent>
+              <Box alignItems="center" display="flex" flexDirection="column">
+                <Avatar src={this.state.user.avatar} />
+                <Typography color="textPrimary" gutterBottom variant="h3">
+                  {this.state.user.name}
+                </Typography>
+                {/* <Typography color="textSecondary" variant="body1">
+                  {`${this.state.user.city} ${this.state.user.country}`}
+                </Typography> */}
+                {/* <Typography
+                  // className={classes.dateText}
+                  color="textSecondary"
+                  variant="body1"
+                >
+                  {`${moment().format("hh:mm A")} ${this.state.user.timezone}`}
+                </Typography> */}
+              </Box>
+            </CardContent>
+            <Divider />
+            {/* <CardActions>
+              <Button color="primary" fullWidth variant="text">
+                <input color="primary" fullWidth variant="text" type="file" />
+              </Button>
+            </CardActions> */}
+          </Card>
         </header>
         <Calendar
           className="calendar-container"
