@@ -9,7 +9,7 @@ import "./assets/style/main.css";
 import ProfilePage from "./pages/ProfilePage";
 import CalendarPage from "./pages/CalendarPage";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import history from "./history";
@@ -41,7 +41,7 @@ function PrivateRoute({ component: Component, authed, ...rest }) {
   );
 }
 ReactDOM.render(
-  <BrowserRouter history={history}>
+  <Router history={history}>
     <Switch>
       <PrivateRoute
         authed={localStorage.getItem("authed") === "true"}
@@ -78,17 +78,17 @@ ReactDOM.render(
       <PrivateRoute
         authed={localStorage.getItem("authed") === "true"}
         exact
-        path="/event/:id"
-        component={EventPage}
-      />
-      <PrivateRoute
-        authed={localStorage.getItem("authed") === "true"}
-        exact
         path="/friends/:id"
         component={FriendProfileDetailsPage}
       />
+       <PrivateRoute
+        authed={localStorage.getItem("authed") === "true"}
+        exact
+        path="/event/:id"
+        component={EventPage}
+      />
     </Switch>
-  </BrowserRouter>,
+  </Router>,
   document.getElementById("root")
 );
 reportWebVitals();

@@ -14,22 +14,14 @@ class Friend extends React.Component {
   render() {
     return (
       <>
-        <Card style={{ width: "18rem" }}>
-          {/* <CardImg
-            alt="..."
-            // src={require("assets/img/theme/img-1-1000x900.jpg")}
-            src = "https://demos.creative-tim.com/argon-dashboard-react/static/media/img-1-1000x900.b20ea51c.jpg"
-            top
-          /> */}
+        <Card className ="card-element">
           <CardBody>
-            <CardTitle>{this.props.friend.firstName}</CardTitle>
-            <CardText>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </CardText>
+            <h2>
+              {this.props.friend.firstName + " " + this.props.friend.lastName}
+            </h2>
             <Button color="primary">
-              <Link to = {'/friends/' + this.props.id}>
-              Explore
+              <Link to={"/friends/" + this.props.id} className="explore-link">
+                Explore
               </Link>
             </Button>
           </CardBody>

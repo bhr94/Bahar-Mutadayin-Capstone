@@ -24,12 +24,11 @@ class Sidebar extends React.Component {
       .get(`http://localhost:8080/logout`)
       .then((response) => {
         console.log(response);
-        // this.setState({ userData: {} });
         localStorage.removeItem("userData");
         localStorage.setItem("authed", false);
         localStorage.removeItem("userToken");
-        // this.setState({signedOut:true})
-        history.push("/signin");
+        // history.push("/signin");
+        window.location = "/signin";
       })
       .catch((err) => console.log(err));
   };
@@ -38,23 +37,19 @@ class Sidebar extends React.Component {
     return (
       <aside className="container-sidebar">
         <ul className="sidebar__list">
-          <NavLink className="sidebar__list-item" to="/profile">
+          <NavLink className="sidebar__list-item" to="/profile" activeClassName="nav-link__active">
             <img src={calendar} alt="profile-icon" className="sidebar-icon" />
             Profile
           </NavLink>
-          <NavLink className="sidebar__list-item" to="/calendar">
+          <NavLink className="sidebar__list-item" to="/calendar" activeClassName="nav-link__active">
             <img src={profile} alt="calendar-icon" className="sidebar-icon" />
             Calendar
           </NavLink>
-          <NavLink className="sidebar__list-item" to="/friends">
+          <NavLink className="sidebar__list-item" to="/friends" activeClassName="nav-link__active">
             <img src={friends} alt="friends-icon" className="sidebar-icon" />
             Friends
           </NavLink>
-          {/* <NavLink className="sidebar__list-item" to="/status">
-            <img src={status} alt="status-icon" className="sidebar-icon" />
-            Status
-          </NavLink> */}
-          <button className="sidebar__list-item" onClick={this.toggle}>
+          <button className="sidebar__list-item signout-button" onClick={this.toggle}>
             <img src={status} alt="status-icon" className="sidebar-icon" />
             Sign out
           </button>

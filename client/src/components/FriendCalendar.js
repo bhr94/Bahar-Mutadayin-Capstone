@@ -65,7 +65,8 @@ class FriendProfileDetailsPage extends React.Component {
     const object = JSON.parse(jsonObject);
     for (let i = 0; i < this.state.events.length; i++) {
       if (object.id === this.state.events[i].id) {
-        history.push(`/event/${object.id}`);
+        // history.push(`/event/${object.id}`);
+        window.location = `/event/${object.id}`;
       }
     }
   };

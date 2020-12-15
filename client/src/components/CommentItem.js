@@ -16,7 +16,7 @@ class CommentSample extends React.Component {
             {comment.ownerName}
           </Comment.Author>
           <Comment.Metadata>
-            <div>{comment.commentDate}</div>
+            <div>{new Date(comment.commentDate).toLocaleString()}</div>
           </Comment.Metadata>
           <Comment.Text>{comment.commentContent}</Comment.Text>
           <Comment.Actions>

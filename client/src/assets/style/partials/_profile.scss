@@ -101,6 +101,8 @@
   width: 80%;
   color: white;
   margin: 2rem;
+  margin-top: 0;
+  padding-top: 1rem;
 }
 
 .mrg-top {
@@ -120,12 +122,23 @@
   @include desktop {
     display: flex;
   }
- 
 }
-
 
 .mrg-right {
   @include desktop {
     margin-right: 2rem;
+  }
+}
+
+.mrg-bottom {
+  margin-bottom: 9rem;
+}
+
+.explore-link {
+  color: white;
+  text-decoration: none;
+
+  &:hover {
+    color:white;
   }
 }

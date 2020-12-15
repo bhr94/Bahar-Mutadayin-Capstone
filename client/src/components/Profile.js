@@ -41,31 +41,31 @@ const Profile = ({ className, ...rest }) => {
   return (
     <section className="profile-container scrollable">
       <header className="profile-container__header">
-        <nav className="header__nav">
-          <input type="text" className="input-element" placeholder="Search" />
-        </nav>
         <div className="header__text">
           <h1 className="profile-container__header-title">
             Hello {JSON.parse(localStorage.getItem("userData")).firstName}
           </h1>
-          <p className="profile-container__header-text">
-            This is your profile page. You can see the progress you've made with
-            your work and manage your projects or assigned tasks
-          </p>
+          <h3 className="profile-container__header-text">
+            This is great to see you{" "}
+            {JSON.parse(localStorage.getItem("userData")).firstName}. You can
+            connect with your friends, add more friends to you group, if you do
+            not have a group you can create one, if already do, add more friends
+            and get connected.
+          </h3>
         </div>
       </header>
       {/* main section of the profile */}
       <main className="main-section">
         {/* all forms container */}
-        <div className="main-section__form">
-          <div className="main-section__form-header">
+        <div className="main-section__profile-container">
+          {/* <div className="main-section__form-header">
             <h2 className="main-section__form-title">My account</h2>
-          </div>
+          </div> */}
 
           <Card
             className={clsx(classes.root, className)}
             {...rest}
-            style={{ width: "100%" }}
+            style={{ width: "100%", position: "relative",top: "-100px"}}
           >
             <CardContent>
               <Box alignItems="center" display="flex" flexDirection="column">
@@ -86,11 +86,11 @@ const Profile = ({ className, ...rest }) => {
               </Box>
             </CardContent>
             <Divider />
-            <CardActions>
+            {/* <CardActions>
               <Button color="primary" fullWidth variant="text">
                 <input color="primary" fullWidth variant="text" type="file" />
               </Button>
-            </CardActions>
+            </CardActions> */}
           </Card>
         </div>
       </main>

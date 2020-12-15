@@ -72,7 +72,8 @@ class SampleCalendar extends React.Component {
     const object = JSON.parse(jsonObject);
     for (let i = 0; i < this.state.events.length; i++) {
       if (object.id === this.state.events[i].id) {
-        history.push(`/event/${object.id}`);
+        // history.push(`/event/${object.id}`);
+        window.location =`/event/${object.id}`;
       }
     }
   };
@@ -80,15 +81,11 @@ class SampleCalendar extends React.Component {
     return (
       <section className="profile-container scrollable">
         <header className="profile-container__header">
-          <nav className="header__nav">
-            <input type="text" className="input-element" placeholder="Search" />
-          </nav>
           <div className="header__text">
             <h1 className="profile-container__header-title">Hello {JSON.parse(localStorage.getItem("userData")).firstName}</h1>
-            <p className="profile-container__header-text">
-              This is your profile page. You can see the progress you've made
-              with your work and manage your projects or assigned tasks
-            </p>
+            <h3 className="profile-container__header-text">
+              It is time to add more events to your calendar. 
+            </h3>
           </div>
         </header>
         <Calendar
