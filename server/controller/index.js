@@ -285,10 +285,13 @@ const inviteFriend = (req, res) => {
 
 const getUsersById = (req, res) => {
   User.where({ id: req.params.id })
-    .fetchAll({ withRelated: ["users"] })
+    .fetchAll({ withRelated: ["groups"] })
     .then((user) => {
       res.json(user);
-    });
+    })
+    .catch(error =>{
+      console.log(error)
+    })
 };
 
 //  ==========================================

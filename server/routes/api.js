@@ -11,7 +11,7 @@ router.route("/eventsbyId/:id").get(controller.getEventById);
 router.route("/users/register").post(controller.createNewUser);
 router.route("/users/login").post(controller.signin)
 router.route("/users/:groupId").get(controller.getAllGroupMembersByGroupId);
-router.route("usersById/:id").get(controller.getUsersById)
+router.route("/usersById/:id").get(controller.getUsersById)
 
 //  Group Routes
 router.route("/groups").post(controller.newGroup);

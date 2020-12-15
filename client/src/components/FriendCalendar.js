@@ -23,22 +23,24 @@ const localizer = momentLocalizer(moment);
 class FriendProfileDetailsPage extends React.Component {
   state = {
     events: [],
-    user: {
-      // avatar: localStorage.getItem("userData") && JSON.parse(localStorage.getItem("userData")).profileImg,
-      city: "Los Angeles",
-      country: "USA",
-      jobTitle: "Senior Developer",
-      name:
-        localStorage.getItem("userData") &&
-        JSON.parse(localStorage.getItem("userData")).firstName +
-          " " +
-          JSON.parse(localStorage.getItem("userData")).lastName,
-      timezone: "GTM-7",
-    },
+    user: {},
   };
   componentDidMount() {
     this.getAllEvents();
+    this.loadFriendDetails();
   }
+
+  loadFriendDetails = () => {
+    axios
+      .get(`${backend_url}/usersById/${this.props.id}`)
+      .then((response) => {
+        console.log(response);
+        this.setState({ user: response.data[0] });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   getAllEvents = () => {
     const userId = this.props.id;
@@ -72,24 +74,15 @@ class FriendProfileDetailsPage extends React.Component {
     return (
       <section className="profile-container scrollable">
         <header className="profile-container__header">
-          <nav className="header__nav">
-            <input type="text" className="input-element" placeholder="Search" />
-          </nav>
-          <div className="header__text">
-            <p className="profile-container__header-text">
-              This is your profile page. You can see the progress you've made
-              with your work and manage your projects or assigned tasks
-            </p>
-          </div>
           <Card
             // className={clsx(classes.root, className)}
             style={{ width: "100%" }}
           >
             <CardContent>
               <Box alignItems="center" display="flex" flexDirection="column">
-                <Avatar src={this.state.user.avatar} />
+                <Avatar />
                 <Typography color="textPrimary" gutterBottom variant="h3">
-                  {this.state.user.name}
+                  {this.state.user.firstName + " " + this.state.user.lastName}
                 </Typography>
                 {/* <Typography color="textSecondary" variant="body1">
                   {`${this.state.user.city} ${this.state.user.country}`}
@@ -130,3 +123,16 @@ class FriendProfileDetailsPage extends React.Component {
 }
 
 export default FriendProfileDetailsPage;
+
+// user: {
+//   // avatar: localStorage.getItem("userData") && JSON.parse(localStorage.getItem("userData")).profileImg,
+//   city: "Los Angeles",
+//   country: "USA",
+//   jobTitle: "Senior Developer",
+//   name:
+//     localStorage.getItem("userData") &&
+//     JSON.parse(localStorage.getItem("userData")).firstName +
+//       " " +
+//       JSON.parse(localStorage.getItem("userData")).lastName,
+//   timezone: "GTM-7",
+// },
