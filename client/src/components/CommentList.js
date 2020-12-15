@@ -6,37 +6,22 @@ const backend_url = "http://localhost:8080";
 
 class CommentList extends React.Component {
   state = {
-    // comments: [
-    //   {
-    //     img: "https://react.semantic-ui.com/images/avatar/small/matt.jpg",
-    //     author: "Matt",
-    //     date: "Today at 5:42PM",
-    //     text: "This has been very useful for my research. Thanks as well!",
-    //   },
-    //   {
-    //     img: "https://react.semantic-ui.com/images/avatar/small/matt.jpg",
-    //     author: "Matt",
-    //     date: "Today at 5:42PM",
-    //     text: "This has been very useful for my research. Thanks as well!",
-    //   },
-    //   {
-    //     img: "https://react.semantic-ui.com/images/avatar/small/matt.jpg",
-    //     author: "Matt",
-    //     date: "Today at 5:42PM",
-    //     text: "This has been very useful for my research. Thanks as well!",
-    //   },
-    // ],
     comments: [],
     comment: "",
   };
 
   componentDidMount() {
-    this.getCommentsByEventId();
+    this.interval = setInterval(() => this.getCommentsByEventId(), 3000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   getCommentsByEventId = () => {
+    const id = this.props.id;
     axios
-      .get(`${backend_url}/comments/${this.props.id}`)
+      .get(`${backend_url}/comments/${id}`)
       .then((response) => {
         console.log(response);
         this.setState({ comments: response.data });
@@ -48,10 +33,15 @@ class CommentList extends React.Component {
 
   addComment = () => {
     const ownerId = JSON.parse(localStorage.getItem("userData")).id;
+    const ownerName =
+      JSON.parse(localStorage.getItem("userData")).firstName +
+      " " +
+      JSON.parse(localStorage.getItem("userData")).lastName;
     if (this.state.comment.length) {
       const body = {
         commentContent: this.state.comment,
         ownerId: ownerId,
+        ownerName,
       };
       axios
         .post(`${backend_url}/newComment/${this.props.id}`, body)
@@ -65,6 +55,9 @@ class CommentList extends React.Component {
         .catch((error) => {
           console.log(error);
         });
+      setTimeout(() => {
+        this.getCommentsByEventId();
+      }, 2000);
     }
   };
 

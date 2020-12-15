@@ -2,7 +2,6 @@ import React from "react";
 import CommentList from "./CommentList";
 export default function Event(props) {
   const { title, end, start} = props.event;
-  const {id} = props;
   return (
     <section className="profile-container scrollable">
       <header className="profile-container__header">
@@ -23,7 +22,7 @@ export default function Event(props) {
         <p>{end}</p>
       </article>
 
-      <CommentList id = {id}/>
+      <CommentList id = {props.id}/>
     </section>
   );
 }

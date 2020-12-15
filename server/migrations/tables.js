@@ -28,6 +28,7 @@ exports.up = function (knex) {
       table.datetime("commentDate");
       table.string("commentContent");
       table.integer("likeCount").defaultTo(0);
+      table.string("ownerName");
       table.integer('ownerId').unsigned().references('users.id');
       table.integer('eventId').unsigned().references('events.id')
       .onUpdate('CASCADE')

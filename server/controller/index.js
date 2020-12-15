@@ -6,8 +6,9 @@ const { firebase, admin } = require("../firebase/firebase");
 const { response, json } = require("express");
 const { fetchAll } = require("../models/User");
 const nodemailer = require("nodemailer");
-
-
+const credentials = require("../mailCredentials");
+// const senderEmail = require("../mailCredentials");
+// const senderPassword = require("../mailCredentials");
 // create a new user - register
 const createNewUser = (req, res) => {
   const { firstName, lastName, email, password } = req.body;
@@ -179,12 +180,19 @@ const getAllGroupMembersByGroupId = (req, res) => {
 
 // create a new comment to an event with event id and user id
 const newComment = (req, res) => {
-  const { commentContent, ownerId } = req.body;
+  const { commentContent, ownerId, ownerName } = req.body;
   const { eventId } = req.params;
   const commentDate = new Date();
   const likeCount = 0;
-  if (commentContent && ownerId && eventId) {
-    new Comment({ commentDate, commentContent, likeCount, ownerId, eventId })
+  if (commentContent && ownerId && eventId && ownerName) {
+    new Comment({
+      commentDate,
+      commentContent,
+      likeCount,
+      ownerName,
+      ownerId,
+      eventId,
+    })
       .save()
       .then((model) => res.json(model));
   } else {
@@ -202,6 +210,7 @@ const getAllCommentsByEventId = (req, res) => {
     });
 };
 
+// get all events with event id
 const getEventById = (req, res) => {
   Event.where({ id: req.params.id })
     .fetchAll({ withRelated: ["users"] })
@@ -213,6 +222,7 @@ const getEventById = (req, res) => {
     });
 };
 
+// getting all groups details by group id
 const getGroupDetailsByGroupId = (req, res) => {
   Group.where({ id: req.params.id })
     .fetchAll()
@@ -224,10 +234,63 @@ const getGroupDetailsByGroupId = (req, res) => {
     });
 };
 
-const inviteFriend = (req, res) =>{
-  const {email, ownerName} = req.body;
-  User.where()
-}
+// adding a registered friend to the group or inviting to the group
+const inviteFriend = (req, res) => {
+  const { email, userName, groupId } = req.body;
+  User.where({ email: email })
+    .fetchAll({ withRelated: ["groups"] })
+    .then((user) => {
+      if (user.length) {
+        User.where({ email: email })
+          .save({ groupId: groupId }, { patch: true })
+          .then((response) => {
+            res.json(response);
+          });
+      } else {
+        sendEmail(email, userName);
+        res.json("Your invitation has been sent to your friend");
+      }
+    });
+
+  // sending invitation email to the gmail of the friend
+  const sendEmail = (email, userName) => {
+    transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      requireTLS: true,
+      service: "gmail",
+      auth: {
+        user: credentials.senderEmail,
+        pass: credentials.password,
+      },
+    });
+
+    const mailOptions = {
+      from: "info@friendship.com", // sender address
+      to: email, // list of receivers
+      subject: "Join the FriendShip", // Subject line
+      html: userName + " wants you to join the FriendShip", // plain text body
+    };
+
+    transporter.sendMail(mailOptions, function (err, info) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(info);
+      }
+    });
+  };
+};
+
+const getUsersById = (req, res) => {
+  User.where({ id: req.params.id })
+    .fetchAll({ withRelated: ["users"] })
+    .then((user) => {
+      res.json(user);
+    });
+};
+
 //  ==========================================
 // demo controllers
 // get array of all authors
@@ -301,5 +364,6 @@ module.exports = {
   firebaseMiddleware,
   getEventById,
   getGroupDetailsByGroupId,
-  inviteFriend
+  inviteFriend,
+  getUsersById,
 };

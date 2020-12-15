@@ -28,6 +28,7 @@ class FriendList extends React.Component {
       axios
         .get(`${backend_url}/users/${groupId}`)
         .then((response) => {
+          console.log("friend list " + response)
           this.setState({ friendList: response.data });
         })
         .catch((error) => {
@@ -86,14 +87,29 @@ class FriendList extends React.Component {
 
   addFriend = () => {
     if(this.state.friendEmail) {
-      axios.post(`${backend_url}`)
+      const userName = JSON.parse(localStorage.getItem("userData")).firstName + " " + JSON.parse(localStorage.getItem("userData")).lastName;
+      const groupId =  JSON.parse(localStorage.getItem("userData")).groupId;
+      const ownerEmail = JSON.parse(localStorage.getItem("userData")).email;
+      const body = {
+          userName,
+          email:this.state.friendEmail,
+          groupId,
+          ownerEmail
+      }
+      axios.post(`${backend_url}/groups/inviteFriend`,body )
+      .then(response =>{
+        alert(response.data)
+      })
+      .catch(error =>{
+        console.log(error)
+      })
     }
     this.toggle()
   };
 
   render() {
     const friend_list = this.state.friendList.map((friend) => {
-      return <Friend friend={friend} key={uuidv4} />;
+      return <Friend friend={friend} key={uuidv4()} id = {friend.id} />;
     });
     return (
       <section className="profile-container scrollable">

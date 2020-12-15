@@ -1,71 +1,35 @@
 import React from "react";
-import { Calendar, momentLocalizer, Views } from "react-big-calendar";
+import axios from "axios";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import axios from "axios";
-import { Link, withRouter } from "react-router-dom";
+import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import history from "../history";
+
 const backend_url = "http://localhost:8080";
 const localizer = momentLocalizer(moment);
 
-class SampleCalendar extends React.Component {
-  constructor(...args) {
-    super(...args);
-    this.state = { events: [] };
-  }
-
+class FriendProfileDetailsPage extends React.Component {
+  state = { events: [] };
   componentDidMount() {
-    console.log("calendar mounted")
     this.getAllEvents();
   }
 
   getAllEvents = () => {
-    const userId = JSON.parse(localStorage.getItem("userData")).id;
+    const userId = this.props.id;
     axios
       .get(`${backend_url}/events/${userId}`)
       .then((response) => {
+        console.log(response);
         for (let i = 0; i < response.data.length; i++) {
           response.data[i].start = new Date(response.data[i].start);
           response.data[i].end = new Date(response.data[i].end);
         }
         this.setState({ events: response.data });
+        console.log();
       })
       .catch((error) => {
         console.log(error);
       });
-  };
-
-  handleSelect = ({ start, end }) => {
-    const userId = JSON.parse(localStorage.getItem("userData")).id;
-    const title = window.prompt("New Event name");
-    if (title) {
-      const event = {
-        title,
-        start,
-        end,
-        userId,
-      };
-      axios
-        .post(`${backend_url}/events`, event)
-        .then((response) => {
-          console.log(response.data);
-          let newEvent = {
-            title: response.data.title,
-            start: new Date(response.data.start),
-            end: new Date(response.data.end),
-            userId: response.data.userId,
-          };
-          this.setState({
-            events: [...this.state.events, newEvent],
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      console.log(this.state.events);
-    } else {
-      alert("please enter an event title");
-    }
   };
 
   handleClick = (event) => {
@@ -77,6 +41,7 @@ class SampleCalendar extends React.Component {
       }
     }
   };
+
   render() {
     return (
       <section className="profile-container scrollable">
@@ -99,14 +64,15 @@ class SampleCalendar extends React.Component {
           events={this.state.events}
           defaultView={Views.Month}
           scrollToTime={new Date(1970, 1, 1, 6)}
-          // defaultDate={new Date(2015, 3, 12)}
           onSelectEvent={(event) => this.handleClick(event)}
-          onSelectSlot={this.handleSelect}
-          style={{ width: "100%"}}
+          // defaultDate={new Date(2015, 3, 12)}
+          //   onSelectEvent={(event) => this.handleClick(event)}
+          //   onSelectSlot={this.handleSelect}
+          style={{ width: "100%" }}
         />
       </section>
     );
   }
 }
 
-export default withRouter(SampleCalendar);
+export default FriendProfileDetailsPage;

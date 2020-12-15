@@ -1,6 +1,5 @@
 import React from "react";
 import { Comment } from "semantic-ui-react";
-
 class CommentSample extends React.Component {
   render() {
     const { comment } = this.props;
@@ -9,9 +8,10 @@ class CommentSample extends React.Component {
         <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" />
         <Comment.Content>
           <Comment.Author as="a">
-            {JSON.parse(localStorage.getItem("userData")).firstName +
+            {/* {JSON.parse(localStorage.getItem("userData")).firstName +
               " " +
-              JSON.parse(localStorage.getItem("userData")).lastName}
+              JSON.parse(localStorage.getItem("userData")).lastName} */}
+              {comment.ownerName}
           </Comment.Author>
           <Comment.Metadata>
             <div>{comment.commentDate}</div>

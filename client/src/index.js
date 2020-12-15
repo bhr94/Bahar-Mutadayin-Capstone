@@ -15,7 +15,7 @@ import RegisterPage from "./pages/RegisterPage";
 import history from "./history";
 import FriendsPage from "./pages/FriendsPage";
 import EventPage from "./pages/EventPage";
-
+import FriendProfileDetailsPage from "./pages/FriendProfileDetailsPage";
 // semantic ui css import section
 const styleLink = document.createElement("link");
 styleLink.rel = "stylesheet";
@@ -62,7 +62,6 @@ ReactDOM.render(
       />
       <Route path="/signin" exact component={LoginPage} />
       <Route path="/register" exact component={RegisterPage} />
-  
 
       <Route
         exact
@@ -80,6 +79,12 @@ ReactDOM.render(
         exact
         path="/event/:id"
         component={EventPage}
+      />
+       <PrivateRoute
+        authed={localStorage.getItem("authed") === "true"}
+        exact
+        path="/friends/:id"
+        component={FriendProfileDetailsPage}
       />
     </Switch>
   </Router>,
