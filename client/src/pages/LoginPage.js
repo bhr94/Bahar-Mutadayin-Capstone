@@ -2,9 +2,10 @@ import React from "react";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import axios from "axios";
-import { Link as RouterLink, withRouter} from "react-router-dom";
+import { Link as RouterLink, withRouter } from "react-router-dom";
 import history from "../history";
-
+import logo from "../assets/logo/default-monochrome.svg";
+import img from "../assets/images/pablo-social-network.png";
 import {
   Box,
   Button,
@@ -45,13 +46,16 @@ class LoginPage extends React.Component {
       axios
         .post(`${backend_url}/users/login`, userData)
         .then((response) => {
-          console.log(response)
+          console.log(response);
           if (response.data.token && response.data.user[0]) {
             localStorage.setItem("authed", true);
             localStorage.setItem("userToken", response.data.token);
-            localStorage.setItem("userData", JSON.stringify(response.data.user[0]));
+            localStorage.setItem(
+              "userData",
+              JSON.stringify(response.data.user[0])
+            );
             // history.push("/profile")
-            window.location ="/profile"
+            window.location = "/profile";
           }
         })
         .catch((error) => {
@@ -60,16 +64,16 @@ class LoginPage extends React.Component {
     }
   };
 
+  componentDidMount() {
+    this.getUserData();
+  }
+
   handleChange = (e) => {
     let name = e.target.name;
     this.setState({
       [name]: e.target.value,
     });
   };
-  componentDidMount() {
-    this.getUserData();
-  }
-
   getUserData = () => {
     axios
       .get(`http://localhost:8080/profile`)
@@ -96,7 +100,8 @@ class LoginPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <section className="body-container backgrnd">
+        {/* <img src ={logo} className ="logo"/> */}
         <Box
           display="flex"
           flexDirection="column"
@@ -132,20 +137,20 @@ class LoginPage extends React.Component {
                 values,
               }) => (
                 <form>
-                  <Box mb={3}>
+                  <Box mb={3} className="signin-header">
                     <Typography color="textPrimary" variant="h2">
                       Sign in
                     </Typography>
-                    <Typography
+                    {/* <Typography
                       color="textSecondary"
                       gutterBottom
                       variant="body2"
                     >
                       Sign in on the internal platform
-                    </Typography>
+                    </Typography> */}
                   </Box>
                   <Grid container spacing={3}>
-                    <Grid item xs={12} md={6}>
+                    {/* <Grid item xs={12} md={6}>
                       <Link href="http://localhost:8080/auth/facebook">
                         <Button
                           color="primary"
@@ -154,12 +159,13 @@ class LoginPage extends React.Component {
                           // onClick={this.handleSubmit}
                           size="large"
                           variant="contained"
+                          style ={{background:"rebeccapurple"}}
                         >
                           Login with Facebook
                         </Button>
                       </Link>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
+                    </Grid> */}
+                    {/* <Grid item xs={12} md={6}>
                       <Button
                         fullWidth
                         startIcon={<GoogleIcon />}
@@ -169,9 +175,9 @@ class LoginPage extends React.Component {
                       >
                         Login with Google
                       </Button>
-                    </Grid>
+                    </Grid> */}
                   </Grid>
-                  <Box mt={3} mb={1}>
+                  {/* <Box mt={3} mb={1}>
                     <Typography
                       align="center"
                       color="textSecondary"
@@ -179,7 +185,7 @@ class LoginPage extends React.Component {
                     >
                       or login with email address
                     </Typography>
-                  </Box>
+                  </Box> */}
                   <TextField
                     error={Boolean(touched.email && errors.email)}
                     fullWidth
@@ -215,6 +221,7 @@ class LoginPage extends React.Component {
                       // type="submit"
                       variant="contained"
                       onClick={this.handleSubmit}
+                      style={{ background: "rebeccapurple" }}
                     >
                       Sign in now
                     </Button>
@@ -230,7 +237,8 @@ class LoginPage extends React.Component {
             </Formik>
           </Container>
         </Box>
-      </div>
+        <img src={img}  className ="signin-img"/>
+      </section>
     );
   }
 }
