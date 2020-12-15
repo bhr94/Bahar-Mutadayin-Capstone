@@ -237,7 +237,7 @@ class LoginPage extends React.Component {
             </Formik>
           </Container>
         </Box>
-        <img src={img}  className ="signin-img"/>
+        <img src={img} className="signin-img" />
       </section>
     );
   }
