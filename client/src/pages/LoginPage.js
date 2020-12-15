@@ -5,7 +5,7 @@ import axios from "axios";
 import { Link as RouterLink, withRouter } from "react-router-dom";
 import history from "../history";
 import logo from "../assets/logo/default-monochrome.svg";
-import img from "../assets/images/pablo-social-network.png";
+import img from "../assets/images/clip-keep-each-other-safe.png";
 import {
   Box,
   Button,
@@ -107,6 +107,7 @@ class LoginPage extends React.Component {
           flexDirection="column"
           height="100%"
           justifyContent="center"
+          className = "w-400"
         >
           <Container maxWidth="sm">
             <Formik

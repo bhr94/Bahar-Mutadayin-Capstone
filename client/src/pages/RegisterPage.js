@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 import axios from "axios";
 import history from "../history";
-import img from "../assets/images/pablo-social-network.png";
+import img from "../assets/images/clip-lets-party.png";
 
 import {
   Box,
@@ -74,6 +74,7 @@ class Register extends React.Component {
           flexDirection="column"
           height="100%"
           justifyContent="center"
+          className ="w-400"
         >
           <Container maxWidth="sm">
             <Formik
@@ -122,13 +123,13 @@ class Register extends React.Component {
                     <Typography color="textPrimary" variant="h2">
                       Create new account
                     </Typography>
-                    <Typography
+                    {/* <Typography
                       color="textSecondary"
                       gutterBottom
                       variant="body2"
                     >
                       Use your email to create new account
-                    </Typography>
+                    </Typography> */}
                   </Box>
                   <TextField
                     error={Boolean(touched.firstName && errors.firstName)}
