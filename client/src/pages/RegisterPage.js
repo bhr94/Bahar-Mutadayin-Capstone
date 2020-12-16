@@ -5,6 +5,7 @@ import { Formik } from "formik";
 import axios from "axios";
 import history from "../history";
 import img from "../assets/images/clip-lets-party.png";
+import backend_url from "../backend_url/backend_url";
 
 import {
   Box,
@@ -20,9 +21,7 @@ import {
 {
   /* I have used material ui login component for this component */
 }
-
-const backend_url = "http://localhost:8080";
-
+console.log(process.env);
 class Register extends React.Component {
   state = {
     firstName: "",
@@ -33,7 +32,6 @@ class Register extends React.Component {
 
   handleChange = (e) => {
     let name = e.target.name;
-    // let value = e.target.name.value;
     this.setState({
       [name]: e.target.value,
     });
@@ -74,7 +72,7 @@ class Register extends React.Component {
           flexDirection="column"
           height="100%"
           justifyContent="center"
-          className ="w-400"
+          className="w-400"
         >
           <Container maxWidth="sm">
             <Formik
@@ -104,9 +102,6 @@ class Register extends React.Component {
                   "This field must be checked"
                 ),
               })}
-              // onSubmit={() => {
-              //   navigate('/app/dashboard', { replace: true });
-              // }}
             >
               {({
                 errors,

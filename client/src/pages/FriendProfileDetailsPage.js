@@ -2,7 +2,7 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import axios from "axios";
 import FriendCalendar from "../components/FriendCalendar";
-const backend_url = "http://localhost:8080";
+import backend_url from "../backend_url/backend_url";
 
 class FriendProfileDetailsPage extends React.Component {
   render() {

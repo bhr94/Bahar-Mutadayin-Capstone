@@ -6,6 +6,7 @@ import { Link as RouterLink, withRouter } from "react-router-dom";
 import history from "../history";
 import logo from "../assets/logo/default-monochrome.svg";
 import img from "../assets/images/clip-keep-each-other-safe.png";
+import backend_url from "../backend_url/backend_url";
 import {
   Box,
   Button,
@@ -22,7 +23,6 @@ import GoogleIcon from "../assets/icons-js/Google";
   /* I have used material ui login component for this component */
 }
 
-const backend_url = "http://localhost:8080";
 
 class LoginPage extends React.Component {
   state = {
@@ -95,7 +95,7 @@ class LoginPage extends React.Component {
           console.log(this.state.userData);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log("Could not get into your account, please try again"));
   };
 
   render() {

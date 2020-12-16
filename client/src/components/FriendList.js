@@ -5,6 +5,7 @@ import CreateGroupModal from "./CreateGroupModal";
 import AddMemberModal from "./AddMemberModal";
 import { v4 as uuidv4 } from "uuid";
 import { Button } from "reactstrap";
+import calendarImg from "../assets/images/urban-687.png";
 
 const backend_url = "http://localhost:8080";
 class FriendList extends React.Component {
@@ -157,6 +158,8 @@ class FriendList extends React.Component {
             />
           </>
         )}
+                <img src ={calendarImg} className ="calendar__img"/>
+
       </section>
     );
   }

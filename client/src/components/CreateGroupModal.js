@@ -7,7 +7,6 @@ import {
   Input,
   Label,
 } from "reactstrap";
-// import {useState} from "react"
 
 const CreateGroupModal = (props) => {
   const { buttonLabel, className } = props;

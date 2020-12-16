@@ -5,7 +5,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import axios from "axios";
 import { Link, Redirect, withRouter } from "react-router-dom";
 import history from "../history";
-const backend_url = "http://localhost:8080";
+import backend_url from "../backend_url/backend_url";
 const localizer = momentLocalizer(moment);
 
 class SampleCalendar extends React.Component {
@@ -73,7 +73,7 @@ class SampleCalendar extends React.Component {
     for (let i = 0; i < this.state.events.length; i++) {
       if (object.id === this.state.events[i].id) {
         // history.push(`/event/${object.id}`);
-        window.location =`/event/${object.id}`;
+        window.location = `/event/${object.id}`;
       }
     }
   };
@@ -82,9 +82,11 @@ class SampleCalendar extends React.Component {
       <section className="profile-container scrollable">
         <header className="profile-container__header">
           <div className="header__text">
-            <h1 className="profile-container__header-title">Hello {JSON.parse(localStorage.getItem("userData")).firstName}</h1>
+            <h1 className="profile-container__header-title">
+              Hello {JSON.parse(localStorage.getItem("userData")).firstName}
+            </h1>
             <h3 className="profile-container__header-text">
-              It is time to add more events to your calendar. 
+              It is time to add more events to your calendar.
             </h3>
           </div>
         </header>

@@ -2,7 +2,7 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import EventDetails from "../components/EventDetails";
 import axios from "axios";
-const backend_url = "http://localhost:8080";
+import backend_url from "../backend_url/backend_url";
 class EventPage extends React.Component {
   state = {
     event: {},
@@ -19,6 +19,7 @@ class EventPage extends React.Component {
       .get(`${backend_url}/eventsbyId/${id}`)
       .then((response) => {
         this.setState({ event: response.data[0] });
+        console.log(this.state.event)
       })
       .catch((error) => {
         console.log(error);

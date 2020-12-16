@@ -1,5 +1,4 @@
 import React from "react";
-import { Input } from "reactstrap";
 class EditProfile extends React.Component {
   render() {
     return (

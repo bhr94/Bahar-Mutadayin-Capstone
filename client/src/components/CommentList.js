@@ -2,7 +2,7 @@ import React from "react";
 import CommentItem from "./CommentItem";
 import { Button, Comment, Form, Header } from "semantic-ui-react";
 import axios from "axios";
-const backend_url = "http://localhost:8080";
+import backend_url from "../backend_url/backend_url";
 
 class CommentList extends React.Component {
   state = {
@@ -79,7 +79,10 @@ class CommentList extends React.Component {
         ) : null}
 
         <Form reply>
-          <Form.TextArea onChange={this.handleChange} value ={this.state.comment} />
+          <Form.TextArea
+            onChange={this.handleChange}
+            value={this.state.comment}
+          />
           <Button
             content="Leave a comment"
             labelPosition="left"
@@ -87,6 +90,7 @@ class CommentList extends React.Component {
             primary
             value={this.state.comment}
             onClick={this.addComment}
+            style={{ background: "rebeccapurple" }}
           />
         </Form>
       </Comment.Group>

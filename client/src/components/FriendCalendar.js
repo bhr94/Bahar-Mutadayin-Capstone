@@ -4,8 +4,6 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import history from "../history";
-import PropTypes from "prop-types";
-import clsx from "clsx";
 import {
   Avatar,
   Box,
@@ -17,7 +15,7 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-const backend_url = "http://localhost:8080";
+import backend_url from "../backend_url/backend_url";
 const localizer = momentLocalizer(moment);
 
 class FriendProfileDetailsPage extends React.Component {
