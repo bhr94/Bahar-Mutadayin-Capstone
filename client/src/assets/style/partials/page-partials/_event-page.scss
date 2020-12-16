@@ -3,8 +3,8 @@
   margin-top: 4rem;
 
   @include tablet {
-      margin-top: 0rem;
-      width: 500px;
+    margin-top: 0rem;
+    width: 500px;
   }
 }
 
@@ -35,7 +35,7 @@
   box-shadow: 4px 8px 10px rgba(19, 24, 44, 0.1);
 
   @include tablet {
-      width: 500px;
+    width: 500px;
   }
 }
 
@@ -43,12 +43,20 @@
   margin-top: -60px;
 
   @include tablet {
-      width: 60%;
+    width: 60%;
   }
 }
 
-
 .calendar__img {
+
+  @include tablet {
+    margin-top: 7rem;
     width: 500px;
     align-self: flex-end;
+  }
+  @include desktop {
+    margin-top: 2rem;
+    width: 700px;
+    align-self: flex-end;
+  }
 }

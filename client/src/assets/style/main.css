@@ -278,7 +278,6 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  width: 80%;
   color: white;
   margin: 2rem;
   margin-top: 0;
@@ -331,6 +330,10 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+
+.profile__img {
+  width: 50%;
 }
 
 .calendar-container {
@@ -506,9 +509,21 @@
   }
 }
 
-.calendar__img {
-  width: 500px;
-  -ms-flex-item-align: end;
-      align-self: flex-end;
+@media screen and (min-width: 768px) {
+  .calendar__img {
+    margin-top: 7rem;
+    width: 500px;
+    -ms-flex-item-align: end;
+        align-self: flex-end;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .calendar__img {
+    margin-top: 2rem;
+    width: 700px;
+    -ms-flex-item-align: end;
+        align-self: flex-end;
+  }
 }
 /*# sourceMappingURL=main.css.map */

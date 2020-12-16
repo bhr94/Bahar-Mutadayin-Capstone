@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import moment from "moment";
+import img from "../assets/images/pablita-628.png"
 import {
   Avatar,
   Box,
@@ -45,13 +46,14 @@ const Profile = ({ className, ...rest }) => {
           <h1 className="profile-container__header-title">
             Hello {JSON.parse(localStorage.getItem("userData")).firstName}
           </h1>
-          <h3 className="profile-container__header-text">
+          {/* <h3 className="profile-container__header-text">
             This is great to see you{" "}
             {JSON.parse(localStorage.getItem("userData")).firstName}. You can
             connect with your friends, add more friends to you group, if you do
             not have a group you can create one, if already do, add more friends
             and get connected.
-          </h3>
+          </h3> */}
+          <img src ={img} className ="profile__img"/>
         </div>
       </header>
       {/* main section of the profile */}

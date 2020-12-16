@@ -134,6 +134,7 @@ class FriendList extends React.Component {
                 </>
               ) : null}
             </p>
+            <img src={calendarImg} className="calendar__img" />
           </div>
         </header>
         {JSON.parse(localStorage.getItem("userData")).groupId ? (
@@ -158,8 +159,6 @@ class FriendList extends React.Component {
             />
           </>
         )}
-                <img src ={calendarImg} className ="calendar__img"/>
-
       </section>
     );
   }
