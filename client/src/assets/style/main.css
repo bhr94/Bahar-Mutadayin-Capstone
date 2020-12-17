@@ -163,7 +163,6 @@
 }
 
 .main-section {
-  background-color: #f8f9fe;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -512,7 +511,7 @@
 @media screen and (min-width: 768px) {
   .calendar__img {
     margin-top: 7rem;
-    width: 500px;
+    width: 550px;
     -ms-flex-item-align: end;
         align-self: flex-end;
   }
@@ -524,6 +523,16 @@
     width: 700px;
     -ms-flex-item-align: end;
         align-self: flex-end;
+  }
+}
+
+.navbar {
+  background-color: transparent;
+}
+
+@media screen and (min-width: 768px) {
+  .navbar {
+    display: none;
   }
 }
 /*# sourceMappingURL=main.css.map */

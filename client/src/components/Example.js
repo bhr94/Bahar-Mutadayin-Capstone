@@ -1,28 +1,50 @@
-import React, { useState } from 'react';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import React, { useState } from "react";
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+} from "reactstrap";
+import {NavLink}  from "react-router-dom"
 
 const Example = (props) => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
-  const toggle = () => setDropdownOpen(prevState => !prevState);
+  const toggleNavbar = () => setCollapsed(!collapsed);
 
   return (
-    <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-      <DropdownToggle caret>
-        Dropdown
-        </DropdownToggle>
-      <DropdownMenu>
-        <DropdownItem header>Header</DropdownItem>
-        <DropdownItem>Some Action</DropdownItem>
-        <DropdownItem text>Dropdown Item Text</DropdownItem>
-        <DropdownItem disabled>Action (disabled)</DropdownItem>
-        <DropdownItem divider />
-        <DropdownItem>Foo Action</DropdownItem>
-        <DropdownItem>Bar Action</DropdownItem>
-        <DropdownItem>Quo Action</DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
+    <div>
+      <Navbar color="faded" light>
+        <NavbarBrand href="/" className="mr-auto">
+          FriendShip
+        </NavbarBrand>
+        <NavbarToggler onClick={toggleNavbar} className="mr-2" />
+        <Collapse isOpen={!collapsed} navbar>
+          <Nav navbar>
+            <NavItem>
+              <NavLink to="/profile">Profile</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink to="/calendar">Calendar</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink to="/fiends">Friends</NavLink>
+            </NavItem>
+            <NavItem>
+              <button
+                className="sidebar__list-item signout-button"
+              >
+                {/* <img alt="status-icon" className="sidebar-icon" /> */}
+                Sign out
+              </button>
+            </NavItem>
+          </Nav>
+        </Collapse>
+      </Navbar>
+    </div>
   );
-}
+};
 
 export default Example;

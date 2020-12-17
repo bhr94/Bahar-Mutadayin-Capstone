@@ -6,6 +6,7 @@ import axios from "axios";
 import history from "../history";
 import img from "../assets/images/clip-lets-party.png";
 import backend_url from "../backend_url/backend_url";
+import Example from "../components/Example";
 
 import {
   Box,
@@ -242,6 +243,7 @@ class Register extends React.Component {
             </Formik>
           </Container>
         </Box>
+        <Example/>
       </section>
     );
   }

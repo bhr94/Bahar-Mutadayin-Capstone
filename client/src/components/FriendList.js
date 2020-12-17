@@ -5,7 +5,7 @@ import CreateGroupModal from "./CreateGroupModal";
 import AddMemberModal from "./AddMemberModal";
 import { v4 as uuidv4 } from "uuid";
 import { Button } from "reactstrap";
-import calendarImg from "../assets/images/urban-687.png";
+import calendarImg from "../assets/images/clip-bicycle-day-and-national-running-day.png";
 import backend_url from "../backend_url/backend_url";
 class FriendList extends React.Component {
   state = {
@@ -132,7 +132,7 @@ class FriendList extends React.Component {
             <input type="text" className="input-element" placeholder="Search" />
           </nav> */}
           <div className="header__text">
-            <p className="profile-container__header-text">
+            <article className="profile-container__header-text">
               {JSON.parse(localStorage.getItem("userData")).groupId ? (
                 <>
                   <h2>{this.state.groupTitle}</h2>
@@ -142,7 +142,7 @@ class FriendList extends React.Component {
                   </Button>
                 </>
               ) : null}
-            </p>
+            </article>
             <img src={calendarImg} className="calendar__img" />
           </div>
         </header>

@@ -1,7 +1,7 @@
 .profile-container {
   width: 100%;
   height: 100vh;
-  
+
   &__header {
     background-color: rebeccapurple;
     height: 400px;
@@ -9,7 +9,7 @@
 }
 
 .main-section {
-  background-color: #f8f9fe;
+  // background-color: #f8f9fe;
   display: flex;
   justify-content: center;
   &__form {
@@ -139,6 +139,6 @@
   text-decoration: none;
 
   &:hover {
-    color:white;
+    color: white;
   }
 }

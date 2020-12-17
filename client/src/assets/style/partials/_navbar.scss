@@ -1,0 +1,8 @@
+.navbar {
+ background-color: transparent;
+
+
+  @include tablet {
+      display: none;
+  }
+}

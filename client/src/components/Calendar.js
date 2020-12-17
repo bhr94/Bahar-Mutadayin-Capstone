@@ -57,6 +57,7 @@ class SampleCalendar extends React.Component {
           this.setState({
             events: [...this.state.events, newEvent],
           });
+          console.log("events " + JSON.stringify(this.state.events))
         })
         .catch((error) => {
           console.log(error);
@@ -73,7 +74,7 @@ class SampleCalendar extends React.Component {
     for (let i = 0; i < this.state.events.length; i++) {
       if (object.id === this.state.events[i].id) {
         // history.push(`/event/${object.id}`);
-        window.location = `/event/${object.id}`;
+        window.location = `/event/${this.state.events[i].id}`;
       }
     }
   };
