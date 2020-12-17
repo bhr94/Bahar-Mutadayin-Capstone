@@ -2,6 +2,7 @@ const User = require("../models/User");
 const Group = require("../models/Group");
 const Event = require("../models/Event");
 const Comment = require("../models/Comment");
+const Invitation = require("../models/Invitation");
 const { firebase, admin } = require("../firebase/firebase");
 const { response, json } = require("express");
 const { fetchAll } = require("../models/User");
@@ -11,7 +12,7 @@ const credentials = require("../mailCredentials");
 // const senderPassword = require("../mailCredentials");
 // create a new user - register
 const createNewUser = (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, email, password, invitationCode } = req.body;
   firebase
     .auth()
     .createUserWithEmailAndPassword(email, password)
@@ -21,13 +22,33 @@ const createNewUser = (req, res) => {
         .currentUser.getIdToken(true)
         .then(function (idToken) {
           if (firstName && lastName && email) {
-            User.where({ email: email })
+            User.where({ email: email, status: "active" })
               .fetchAll({ withRelated: ["users"] })
               .then((users) => {
                 if (users.length > 0) {
                   res.json("this user is already in use");
+                } else if (invitationCode.length) {
+                  Invitation.where({ invitationCode: invitationCode })
+                    .fetchAll({ withRelated: ["groups"] })
+                    .then((invitation) => {
+                      User.where({ email: email })
+                        .save({ status: "active" }, { patch: true })
+                        .then((model) => {
+                          User.where({ email: email })
+                            .fetchAll({ withRelated: ["groups"] })
+                            .then((users) => {
+                              res.json({ user: users.models[0], token: idToken });
+                            });
+                        })
+                        .catch((error) => {
+                          res.json(error);
+                        });
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                    });
                 } else {
-                  new User({ firstName, lastName, email })
+                  new User({ firstName, lastName, email, status: "active" })
                     .save()
                     .then((user) => res.json({ user: user, token: idToken }));
                 }
@@ -45,6 +66,10 @@ const createNewUser = (req, res) => {
       var errorMessage = error.message;
       res.status(errorCode).json(errorMessage);
     });
+
+  Invitation.where({ invitationCode: invitationCode }).fetchAll({
+    withRelated: ["groups"],
+  });
 };
 
 //  signin a user
@@ -236,24 +261,43 @@ const getGroupDetailsByGroupId = (req, res) => {
 
 // adding a registered friend to the group or inviting to the group
 const inviteFriend = (req, res) => {
-  const { email, userName, groupId } = req.body;
+  const {
+    email,
+    userName,
+    groupId,
+    firstName,
+    lastName,
+    invitationCode,
+  } = req.body;
   User.where({ email: email })
     .fetchAll({ withRelated: ["groups"] })
     .then((user) => {
       if (user.length) {
         User.where({ email: email })
-          .save({ groupId: groupId }, { patch: true })
+          .save({ groupId: groupId, status: "active" }, { patch: true })
           .then((response) => {
             res.json(response);
           });
       } else {
-        sendEmail(email, userName);
+        new User({
+          email,
+          firstName,
+          lastName,
+          status: "pending",
+          groupId: groupId,
+        }).save();
+        new Invitation({
+          invitationCode: invitationCode,
+          invitedEmail: email,
+          groupId: groupId,
+        }).save();
+        sendEmail(email, userName, invitationCode);
         res.json("Your invitation has been sent to your friend");
       }
     });
 
   // sending invitation email to the gmail of the friend
-  const sendEmail = (email, userName) => {
+  const sendEmail = (email, userName, code) => {
     transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 587,
@@ -270,7 +314,7 @@ const inviteFriend = (req, res) => {
       from: "info@friendship.com", // sender address
       to: email, // list of receivers
       subject: "Join the FriendShip", // Subject line
-      html: userName + " wants you to join the FriendShip", // plain text body
+      html: `${userName} invites you to the FriendShip platform. Here is the invitation code: ${code}`, // plain text body
     };
 
     transporter.sendMail(mailOptions, function (err, info) {
@@ -289,9 +333,9 @@ const getUsersById = (req, res) => {
     .then((user) => {
       res.json(user);
     })
-    .catch(error =>{
-      console.log(error)
-    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 //  ==========================================

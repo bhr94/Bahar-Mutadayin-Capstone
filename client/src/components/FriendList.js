@@ -6,8 +6,7 @@ import AddMemberModal from "./AddMemberModal";
 import { v4 as uuidv4 } from "uuid";
 import { Button } from "reactstrap";
 import calendarImg from "../assets/images/urban-687.png";
-
-const backend_url = "http://localhost:8080";
+import backend_url from "../backend_url/backend_url";
 class FriendList extends React.Component {
   state = {
     friendList: [],
@@ -15,6 +14,9 @@ class FriendList extends React.Component {
     groupTitle: "",
     groupDescription: "",
     friendEmail: "",
+    friendFamilyName: "",
+    friendName: "",
+    group: false,
   };
 
   componentDidMount() {
@@ -69,8 +71,8 @@ class FriendList extends React.Component {
       axios
         .post(`${backend_url}/groups`, body)
         .then((response) => {
-          console.log(response);
           localStorage.setItem("userData", JSON.stringify(response.data.user));
+          this.setState({ group: true });
         })
         .catch((error) => {
           console.log(error);
@@ -87,7 +89,9 @@ class FriendList extends React.Component {
   };
 
   addFriend = () => {
-    if (this.state.friendEmail) {
+    const invitationCode = uuidv4();
+    const { friendName, friendEmail, friendFamilyName } = this.state;
+    if (friendName && friendEmail && friendFamilyName) {
       const userName =
         JSON.parse(localStorage.getItem("userData")).firstName +
         " " +
@@ -96,9 +100,12 @@ class FriendList extends React.Component {
       const ownerEmail = JSON.parse(localStorage.getItem("userData")).email;
       const body = {
         userName,
-        email: this.state.friendEmail,
+        email: friendEmail,
         groupId,
         ownerEmail,
+        firstName: friendName,
+        lastName: friendFamilyName,
+        invitationCode,
       };
       axios
         .post(`${backend_url}/groups/inviteFriend`, body)
@@ -113,9 +120,11 @@ class FriendList extends React.Component {
   };
 
   render() {
-    const friend_list = this.state.friendList.map((friend) => {
-      return <Friend friend={friend} key={uuidv4()} id={friend.id} />;
-    });
+    const friend_list = this.state.friendList
+      .filter((friend) => friend.id !== JSON.parse(localStorage.getItem("userData")).id)
+      .map((friend) => {
+        return <Friend friend={friend} key={uuidv4()} id={friend.id} />;
+      });
     return (
       <section className="profile-container scrollable">
         <header className="profile-container__header mrg-bottom">
@@ -150,7 +159,9 @@ class FriendList extends React.Component {
         ) : (
           <>
             <h2>You do not have any group</h2>
-            <button onClick={this.toggle}>Create a group</button>
+            <Button color="primary" onClick={this.toggle}>
+              Create a group
+            </Button>
             <CreateGroupModal
               modal={this.state.modal}
               toggle={this.toggle}

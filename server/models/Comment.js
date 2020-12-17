@@ -1,4 +1,5 @@
 const bookshelf = require('../bookshelf');
+const { v4: uuidv4 } = require("uuid");
 
 const Comment = bookshelf.model('Comment', {
   tableName: 'comments',

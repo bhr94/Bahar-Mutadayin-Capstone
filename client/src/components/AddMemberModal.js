@@ -14,7 +14,21 @@ const AddMemberModal = (props) => {
   return (
     <div>
       <Modal isOpen={props.modal} toggle={props.toggle} className={className}>
-        <ModalBody>         
+        <ModalBody>  
+        <Label for="unmountOnClose">Friend's name</Label>{" "}
+          <Input
+            name="friendName"
+            placeholder="Enter your friend's name..."
+            type ="name"
+            onChange={props.handleChange}
+          />      
+           <Label for="unmountOnClose">Friend's family name</Label>{" "}
+          <Input
+            name="friendFamilyName"
+            placeholder="Enter your friend's family name..."
+            type ="name"
+            onChange={props.handleChange}
+          />      
           <Label for="unmountOnClose">Friend's email</Label>{" "}
           <Input
             name="friendEmail"

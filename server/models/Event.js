@@ -8,4 +8,4 @@ const Event = bookshelf.model('Event', {
   });
   
   module.exports = Event;
-           
+          

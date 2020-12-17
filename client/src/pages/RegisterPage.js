@@ -28,6 +28,7 @@ class Register extends React.Component {
     lastName: "",
     email: "",
     password: "",
+    invitationCode: "",
   };
 
   handleChange = (e) => {
@@ -45,7 +46,7 @@ class Register extends React.Component {
       axios
         .post(`${backend_url}/users/register`, userData)
         .then((response) => {
-          console.log(response);
+          console.log("user response" + JSON.stringify(response));
           if (response.data.token && response.data.user) {
             localStorage.setItem("authed", true);
             localStorage.setItem("userToken", response.data.token);
@@ -180,7 +181,21 @@ class Register extends React.Component {
                     value={this.state.password}
                     variant="outlined"
                   />
-                  <Box alignItems="center" display="flex" ml={-1}>
+                  If you have an invitation code, please enter...
+                  <TextField
+                    error={Boolean(touched.lastName && errors.lastName)}
+                    fullWidth
+                    helperText={touched.lastName && errors.lastName}
+                    label="Invitation code"
+                    margin="normal"
+                    name="invitationCode"
+                    onBlur={handleBlur}
+                    onChange={this.handleChange}
+                    // value={values.lastName}
+                    value={this.state.invitationCode}
+                    variant="outlined"
+                  />
+                  {/* <Box alignItems="center" display="flex" ml={-1}>
                     <Checkbox
                       checked={values.policy}
                       name="policy"
@@ -198,7 +213,7 @@ class Register extends React.Component {
                         Terms and Conditions
                       </Link>
                     </Typography>
-                  </Box>
+                  </Box> */}
                   {Boolean(touched.policy && errors.policy) && (
                     <FormHelperText error>{errors.policy}</FormHelperText>
                   )}

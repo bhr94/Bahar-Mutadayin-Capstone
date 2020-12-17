@@ -14,16 +14,20 @@ class Friend extends React.Component {
   render() {
     return (
       <>
-        <Card className ="card-element">
+        <Card className="card-element">
           <CardBody>
             <h2>
               {this.props.friend.firstName + " " + this.props.friend.lastName}
             </h2>
-            <Button color="primary">
-              <Link to={"/friends/" + this.props.id} className="explore-link">
-                Explore
-              </Link>
-            </Button>
+            {this.props.friend.status === "active" ? (
+              <Button color="primary">
+                <Link to={"/friends/" + this.props.id} className="explore-link">
+                  Explore
+                </Link>
+              </Button>
+            ) : (
+              <Button color="primary">pending...</Button>
+            )}
           </CardBody>
         </Card>
       </>
