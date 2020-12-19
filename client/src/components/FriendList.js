@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Button } from "reactstrap";
 import calendarImg from "../assets/images/clip-bicycle-day-and-national-running-day.png";
 import backend_url from "../backend_url/backend_url";
+import Alert from "./Alert";
 class FriendList extends React.Component {
   state = {
     friendList: [],
@@ -17,6 +18,8 @@ class FriendList extends React.Component {
     friendFamilyName: "",
     friendName: "",
     group: false,
+    alertModal: false,
+    networkMessage: [],
   };
 
   componentDidMount() {
@@ -56,6 +59,10 @@ class FriendList extends React.Component {
 
   toggle = () => {
     this.setState({ modal: !this.state.modal });
+  };
+
+  alertToggle = () => {
+    this.setState({ alertModal: !this.state.alertModal });
   };
 
   createGroup = () => {
@@ -110,7 +117,8 @@ class FriendList extends React.Component {
       axios
         .post(`${backend_url}/groups/inviteFriend`, body)
         .then((response) => {
-          alert(response.data);
+          this.setState({ networkMessage: response.data });
+          this.alertToggle();
         })
         .catch((error) => {
           console.log(error);
@@ -121,7 +129,10 @@ class FriendList extends React.Component {
 
   render() {
     const friend_list = this.state.friendList
-      .filter((friend) => friend.id !== JSON.parse(localStorage.getItem("userData")).id)
+      .filter(
+        (friend) =>
+          friend.id !== JSON.parse(localStorage.getItem("userData")).id
+      )
       .map((friend) => {
         return <Friend friend={friend} key={uuidv4()} id={friend.id} />;
       });
@@ -140,6 +151,12 @@ class FriendList extends React.Component {
                   <Button color="primary" onClick={this.toggle}>
                     add a friend to you group
                   </Button>
+                  {/* <Button onClick={this.alertToggle}>bbybybyb</Button> */}
+                  <Alert
+                    alertToggle={this.alertToggle}
+                    alertModal={this.state.alertModal}
+                    message={this.state.networkMessage}
+                  />
                 </>
               ) : null}
             </article>

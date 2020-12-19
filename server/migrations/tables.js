@@ -59,8 +59,9 @@ exports.up = function (knex) {
 
 exports.down = (knex) => {
   return knex.schema
-    .dropTable("comments")
     .dropTable("events")
     .dropTable("users")
+    .dropTable("comments")
+    .dropTable("invitations")
     .dropTable("groups");
 };
