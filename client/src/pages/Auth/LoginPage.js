@@ -19,11 +19,6 @@ import {
 import FacebookIcon from "../../assets/icons-js/Facebook";
 import GoogleIcon from "../../assets/icons-js/Google";
 
-{
-  /* I have used material ui login component for this component */
-}
-
-
 class LoginPage extends React.Component {
   state = {
     // userData:{
@@ -95,7 +90,9 @@ class LoginPage extends React.Component {
           console.log(this.state.userData);
         }
       })
-      .catch((err) => console.log("Could not get into your account, please try again"));
+      .catch((err) =>
+        console.log("Could not get into your account, please try again")
+      );
   };
 
   render() {
@@ -107,7 +104,7 @@ class LoginPage extends React.Component {
           flexDirection="column"
           height="100%"
           justifyContent="center"
-          className = "w-400"
+          className="w-400"
         >
           <Container maxWidth="sm">
             <Formik

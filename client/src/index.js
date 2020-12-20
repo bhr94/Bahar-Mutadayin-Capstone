@@ -4,13 +4,18 @@ import "bootstrap/dist/css/bootstrap.css";
 
 // main  css file import
 import "./assets/style/main.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 // components import section
 import ProfilePage from "./pages/Account/ProfilePage";
 import CalendarPage from "./pages/Calendar/CalendarPage";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch,
+} from "react-router-dom";
 import LoginPage from "./pages/Auth/LoginPage";
 import RegisterPage from "./pages/Auth/RegisterPage";
 import history from "./history";
@@ -82,7 +87,7 @@ ReactDOM.render(
         path="/friends/:id"
         component={FriendProfileDetailsPage}
       />
-       <PrivateRoute
+      <PrivateRoute
         authed={localStorage.getItem("authed") === "true"}
         exact
         path="/event/:id"
@@ -93,13 +98,3 @@ ReactDOM.render(
   document.getElementById("root")
 );
 reportWebVitals();
-
-{
-  /* <Route exact path="/signin">
-        {localStorage.getItem("authed") ? (
-          <Redirect to="/profile" />
-        ) : (
-          <LoginPage />
-        )}
-      </Route> */
-}

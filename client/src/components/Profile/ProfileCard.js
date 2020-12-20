@@ -42,7 +42,7 @@ const Profile = ({ className, ...rest }) => {
     <Card
       className={clsx(classes.root, className)}
       {...rest}
-      style={{ height: "fit-content", width:"300px" }}
+      style={{ height: "fit-content", width: "300px" }}
     >
       <CardContent>
         <Box alignItems="center" display="flex" flexDirection="column">

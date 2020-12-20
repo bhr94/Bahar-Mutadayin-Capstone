@@ -5,11 +5,11 @@ import NavBar from "../../components/Navigation/NavBar";
 export default function FriendsPage() {
   return (
     <>
-    <NavBar/>
-    <section className="friends-page-container">
-      <SideBar />
-      <FriendList />
-    </section>
+      <NavBar />
+      <section className="friends-page-container">
+        <SideBar />
+        <FriendList />
+      </section>
     </>
   );
 }

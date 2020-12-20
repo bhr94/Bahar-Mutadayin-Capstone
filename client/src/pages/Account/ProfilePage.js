@@ -2,7 +2,6 @@ import Sidebar from "../../components/Navigation/Sidebar";
 import Profile from "../../components/Profile/Profile";
 import NavBar from "../../components/Navigation/NavBar";
 export default function ProfilePage() {
-  console.log("profile mounted");
   return (
     <>
       <NavBar />

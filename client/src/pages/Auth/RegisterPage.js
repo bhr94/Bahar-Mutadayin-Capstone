@@ -18,10 +18,7 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-{
-  /* I have used material ui login component for this component */
-}
-console.log(process.env);
+
 class Register extends React.Component {
   state = {
     firstName: "",
