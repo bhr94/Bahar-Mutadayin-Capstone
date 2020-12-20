@@ -1,14 +1,14 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
-import history from "../history";
-import ModalExample from "../components/ModalExample";
-import backend_url from "../backend_url/backend_url";
+import history from "../../history";
+import ModalExample from "../Modals/ModalExample";
+import backend_url from "../../backend_url/backend_url";
 import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import HttpsIcon from "@material-ui/icons/Https";
-import ProfileCard from "./ProfileCard";
+import ProfileCard from "../Profile/ProfileCard";
 class Sidebar extends React.Component {
   state = {
     signedOut: false,

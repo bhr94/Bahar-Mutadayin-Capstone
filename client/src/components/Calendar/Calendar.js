@@ -3,9 +3,8 @@ import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import axios from "axios";
-import { Link, Redirect, withRouter } from "react-router-dom";
-import history from "../history";
-import backend_url from "../backend_url/backend_url";
+import history from "../../history";
+import backend_url from "../../backend_url/backend_url";
 const localizer = momentLocalizer(moment);
 
 class SampleCalendar extends React.Component {
@@ -57,7 +56,7 @@ class SampleCalendar extends React.Component {
           this.setState({
             events: [...this.state.events, newEvent],
           });
-          console.log("events " + JSON.stringify(this.state.events))
+          console.log("events " + JSON.stringify(this.state.events));
         })
         .catch((error) => {
           console.log(error);
@@ -108,4 +107,4 @@ class SampleCalendar extends React.Component {
   }
 }
 
-export default withRouter(SampleCalendar);
+export default SampleCalendar;

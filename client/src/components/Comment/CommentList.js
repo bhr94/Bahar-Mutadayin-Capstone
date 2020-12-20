@@ -2,7 +2,7 @@ import React from "react";
 import CommentItem from "./CommentItem";
 import { Button, Comment, Form, Header } from "semantic-ui-react";
 import axios from "axios";
-import backend_url from "../backend_url/backend_url";
+import backend_url from "../../backend_url/backend_url";
 
 class CommentList extends React.Component {
   state = {

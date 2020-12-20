@@ -3,7 +3,7 @@ import axios from "axios";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Calendar, momentLocalizer, Views } from "react-big-calendar";
-import history from "../history";
+import history from "../../history";
 import {
   Avatar,
   Box,
@@ -15,7 +15,7 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-import backend_url from "../backend_url/backend_url";
+import backend_url from "../../backend_url/backend_url";
 const localizer = momentLocalizer(moment);
 
 class FriendProfileDetailsPage extends React.Component {

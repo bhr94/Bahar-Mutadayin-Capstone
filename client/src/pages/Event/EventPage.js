@@ -1,9 +1,9 @@
 import React from "react";
-import Sidebar from "../components/Sidebar";
-import EventDetails from "../components/EventDetails";
+import Sidebar from "../../components/Navigation/Sidebar";
+import EventDetails from "../../components/Event/EventDetails";
 import axios from "axios";
-import backend_url from "../backend_url/backend_url";
-import NavBar from "../components/NavBar";
+import backend_url from "../../backend_url/backend_url";
+import NavBar from "../../components/Navigation/NavBar";
 class EventPage extends React.Component {
   state = {
     event: {},
@@ -30,7 +30,7 @@ class EventPage extends React.Component {
   render() {
     return (
       <>
-        {/* <NavBar /> */}
+        <NavBar />
         <section className="calendar-page__container">
           <Sidebar />
           <EventDetails

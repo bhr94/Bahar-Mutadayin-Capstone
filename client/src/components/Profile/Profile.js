@@ -1,12 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import clsx from "clsx";
-import moment from "moment";
-import img from "../assets/images/clip-994.png";
-import Example from "./Example";
-import NavBar from "./NavBar";
-import ProfileDetails from "../components/ProfileDetails";
-import ProfileCard from "../components/ProfileCard";
+import ProfileDetails from "../../components/Profile/ProfileDetails";
+import ProfileCard from "../../components/Profile/ProfileCard";
 import {
   Avatar,
   Box,

@@ -1,6 +1,6 @@
 import React from "react";
 import { Comment } from "semantic-ui-react";
-import avatar from "../assets/Icons/avatar.svg";
+import avatar from "../../assets/Icons/avatar.svg";
 class CommentSample extends React.Component {
 
 

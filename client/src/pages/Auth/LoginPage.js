@@ -3,10 +3,10 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 import axios from "axios";
 import { Link as RouterLink, withRouter } from "react-router-dom";
-import history from "../history";
-import logo from "../assets/logo/default-monochrome.svg";
-import img from "../assets/images/clip-keep-each-other-safe.png";
-import backend_url from "../backend_url/backend_url";
+import history from "../../history";
+import logo from "../../assets/logo/default-monochrome.svg";
+import img from "../../assets/images/clip-keep-each-other-safe.png";
+import backend_url from "../../backend_url/backend_url";
 import {
   Box,
   Button,
@@ -16,8 +16,8 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import FacebookIcon from "../assets/icons-js/Facebook";
-import GoogleIcon from "../assets/icons-js/Google";
+import FacebookIcon from "../../assets/icons-js/Facebook";
+import GoogleIcon from "../../assets/icons-js/Google";
 
 {
   /* I have used material ui login component for this component */

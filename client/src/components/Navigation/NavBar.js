@@ -1,5 +1,4 @@
-import notification from "../assets/Icons/notification.svg";
-import NotificationsIcon from "@material-ui/icons/NotificationsOutlined";
+import notification from "../../assets/Icons/notification.svg";
 
 import {
   Navbar,
@@ -26,12 +25,17 @@ export default function NavBar() {
       <Navbar.Brand href="/profile" className="logo">
         FriendShip
       </Navbar.Brand>
-      <Navbar.Collapse id="basic-navbar-nav" className="notification-container">
-      </Navbar.Collapse>
+      <Navbar.Collapse
+        id="basic-navbar-nav"
+        className="notification-container"
+      ></Navbar.Collapse>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <IconButton color="inherit">
-        <NotificationsActiveIcon className="sidebar-icon" />
-        {/* <p style ={{}}>3</p> */}
+      <IconButton color="inherit" style ={{width:"5rem"}}>
+        <NotificationsActiveIcon
+          className="sidebar-icon"
+          style={{ margin: "0" }}
+        />
+        <p className ="notification-count"></p>
       </IconButton>
     </Navbar>
   );

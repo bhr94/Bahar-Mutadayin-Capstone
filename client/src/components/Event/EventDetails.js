@@ -1,6 +1,6 @@
 import React from "react";
-import CommentList from "./CommentList";
-import img from "../assets/images/pablita-636.png";
+import CommentList from "../Comment/CommentList";
+import img from "../../assets/images/pablita-636.png";
 export default function Event(props) {
   const { title, end, start } = props.event;
   return (

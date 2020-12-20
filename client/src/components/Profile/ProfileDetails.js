@@ -70,7 +70,7 @@ const ProfileDetails = ({ className, ...rest }) => {
                 name="firstName"
                 onChange={handleChange}
                 required
-                value={values.firstName}
+                value={JSON.parse(localStorage.getItem("userData")).firstName}
                 variant="outlined"
               />
             </Grid>
@@ -81,7 +81,7 @@ const ProfileDetails = ({ className, ...rest }) => {
                 name="lastName"
                 onChange={handleChange}
                 required
-                value={values.lastName}
+                value={JSON.parse(localStorage.getItem("userData")).lastName}
                 variant="outlined"
               />
             </Grid>
@@ -92,11 +92,11 @@ const ProfileDetails = ({ className, ...rest }) => {
                 name="email"
                 onChange={handleChange}
                 required
-                value={values.email}
+                value={JSON.parse(localStorage.getItem("userData")).email}
                 variant="outlined"
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            {/* <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Phone Number"
@@ -106,8 +106,8 @@ const ProfileDetails = ({ className, ...rest }) => {
                 value={values.phone}
                 variant="outlined"
               />
-            </Grid>
-            <Grid item md={6} xs={12}>
+            </Grid> */}
+            {/* <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Country"
@@ -117,8 +117,8 @@ const ProfileDetails = ({ className, ...rest }) => {
                 value={values.country}
                 variant="outlined"
               />
-            </Grid>
-            <Grid item md={6} xs={12}>
+            </Grid> */}
+            {/* <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Select State"
@@ -136,12 +136,12 @@ const ProfileDetails = ({ className, ...rest }) => {
                   </option>
                 ))}
               </TextField>
-            </Grid>
+            </Grid> */}
           </Grid>
         </CardContent>
         <Divider />
         <Box display="flex" justifyContent="flex-end" p={2}>
-          <Button color="primary" variant="contained">
+          <Button variant="contained" style={{ background: "rebeccapurple", color:"white" }}>
             Save details
           </Button>
         </Box>

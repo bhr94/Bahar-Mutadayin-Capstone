@@ -1,13 +1,13 @@
 import React from "react";
 import Friend from "./Friend";
 import axios from "axios";
-import CreateGroupModal from "./CreateGroupModal";
-import AddMemberModal from "./AddMemberModal";
+import CreateGroupModal from "../Modals/CreateGroupModal";
+import AddMemberModal from "../Modals/AddMemberModal";
 import { v4 as uuidv4 } from "uuid";
 import { Button } from "reactstrap";
-import calendarImg from "../assets/images/clip-bicycle-day-and-national-running-day.png";
-import backend_url from "../backend_url/backend_url";
-import Alert from "./Alert";
+import calendarImg from "../../assets/images/clip-bicycle-day-and-national-running-day.png";
+import backend_url from "../../backend_url/backend_url";
+import Alert from "../Modals/Alert";
 class FriendList extends React.Component {
   state = {
     friendList: [],

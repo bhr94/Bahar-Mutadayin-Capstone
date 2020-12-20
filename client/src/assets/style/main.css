@@ -133,8 +133,8 @@
 }
 
 .sidebar-icon {
-  width: 30px;
-  margin-right: 20px;
+  width: 5rem;
+  margin-right: 15px;
 }
 
 .signout-button {
@@ -562,5 +562,15 @@
 
 .notification-container {
   margin-left: auto !important;
+}
+
+.notification-count {
+  position: relative;
+  left: -10px;
+  background-color: rebeccapurple;
+  border-radius: 50%;
+  width: 0.8rem;
+  height: 0.8rem;
+  top: -7px;
 }
 /*# sourceMappingURL=main.css.map */
