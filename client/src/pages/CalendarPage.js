@@ -1,10 +1,14 @@
 import Sidebar from "../components/Sidebar";
 import Calendar from "../components/Calendar";
+import NavBar from "../components/NavBar";
 export default function CalendarPage() {
   return (
-    <section className="calendar-page__container">
-      <Sidebar/>
-      <Calendar />
-    </section>
+    <>
+      {/* <NavBar /> */}
+      <section className="calendar-page__container">
+        <Sidebar />
+        <Calendar />
+      </section>
+    </>
   );
 }

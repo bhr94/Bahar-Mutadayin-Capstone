@@ -151,7 +151,6 @@ class FriendList extends React.Component {
                   <Button color="primary" onClick={this.toggle}>
                     add a friend to you group
                   </Button>
-                  {/* <Button onClick={this.alertToggle}>bbybybyb</Button> */}
                   <Alert
                     alertToggle={this.alertToggle}
                     alertModal={this.state.alertModal}

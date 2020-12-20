@@ -1,8 +1,22 @@
 .profile-page__container {
-    display: flex;
+  display: flex;
 }
 
 .profile__img {
-    width: 50%;
-    // height: 400px;
+  width: 50%;
+  // height: 400px;
+}
+
+.profile-details {
+  width: 50%;
+
+  &__container {
+      flex-direction: column;
+    @include tablet {
+        flex-direction: row;
+      position: relative;
+      top: -200px;
+      justify-content: space-evenly;
+    }
+  }
 }

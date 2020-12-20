@@ -2,11 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import moment from "moment";
-import img from "../assets/images/clip-994.png";
-import Example from "./Example";
-import NavBar from "./NavBar";
-import ProfileDetails from "../components/ProfileDetails";
-import ProfileCard from "../components/ProfileCard";
 import {
   Avatar,
   Box,
@@ -44,20 +39,32 @@ const Profile = ({ className, ...rest }) => {
   const classes = useStyles();
 
   return (
-    <section className="profile-container scrollable">
-      <header className="profile-container__header">
-        <div className="header__text">
-          <h1 className="profile-container__header-title">
-            Hello {JSON.parse(localStorage.getItem("userData")).firstName}
-          </h1>
-        </div>
-      </header>
-      <main className="main-section profile-details__container">
-        <ProfileCard />
-        <ProfileDetails className="profile-details" />
-        {/* <img src={img} className="profile__img" /> */}
-      </main>
-    </section>
+    <Card className={clsx(classes.root, className)} {...rest}>
+      <CardContent>
+        <Box alignItems="center" display="flex" flexDirection="column">
+          <Avatar className={classes.avatar} src={user.avatar} />
+          <Typography color="textPrimary" gutterBottom variant="h3">
+            {user.name}
+          </Typography>
+          <Typography color="textSecondary" variant="body1">
+            {`${user.city} ${user.country}`}
+          </Typography>
+          <Typography
+            className={classes.dateText}
+            color="textSecondary"
+            variant="body1"
+          >
+            {`${moment().format("hh:mm A")} ${user.timezone}`}
+          </Typography>
+        </Box>
+      </CardContent>
+      <Divider />
+      {/* <CardActions>
+        <Button color="primary" fullWidth variant="text">
+          Upload picture
+        </Button>
+      </CardActions> */}
+    </Card>
   );
 };
 

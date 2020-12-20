@@ -1,14 +1,14 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import calendar from "../assets/Icons/calendar.svg";
-import profile from "../assets/Icons/profile.svg";
-import friends from "../assets/Icons/friends.svg";
-import status from "../assets/Icons/status.svg";
 import axios from "axios";
 import history from "../history";
 import ModalExample from "../components/ModalExample";
 import backend_url from "../backend_url/backend_url";
-
+import EventAvailableIcon from "@material-ui/icons/EventAvailable";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import GroupAddIcon from "@material-ui/icons/GroupAdd";
+import HttpsIcon from "@material-ui/icons/Https";
+import ProfileCard from "./ProfileCard";
 class Sidebar extends React.Component {
   state = {
     signedOut: false,
@@ -37,21 +37,23 @@ class Sidebar extends React.Component {
   render() {
     return (
       <aside className="container-sidebar">
+        <ProfileCard />
         <ul className="sidebar__list">
           <NavLink
             className="sidebar__list-item"
             to="/profile"
             activeClassName="nav-link__active"
           >
-            <img src={calendar} alt="profile-icon" className="sidebar-icon" />
-            Profile
+            {/* <img src={calendar} alt="profile-icon" className="sidebar-icon" /> */}
+            <AccountCircleIcon className="sidebar-icon" />
+            Account
           </NavLink>
           <NavLink
             className="sidebar__list-item"
             to="/calendar"
             activeClassName="nav-link__active"
           >
-            <img src={profile} alt="calendar-icon" className="sidebar-icon" />
+            <EventAvailableIcon className="sidebar-icon" />
             Calendar
           </NavLink>
           <NavLink
@@ -59,14 +61,14 @@ class Sidebar extends React.Component {
             to="/friends"
             activeClassName="nav-link__active"
           >
-            <img src={friends} alt="friends-icon" className="sidebar-icon" />
+            <GroupAddIcon className="sidebar-icon" />
             Friends
           </NavLink>
           <button
             className="sidebar__list-item signout-button"
             onClick={this.toggle}
           >
-            <img src={status} alt="status-icon" className="sidebar-icon" />
+            <HttpsIcon className="sidebar-icon" />
             Sign out
           </button>
         </ul>

@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.css";
 
 // main  css file import
 import "./assets/style/main.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // components import section
 import ProfilePage from "./pages/ProfilePage";

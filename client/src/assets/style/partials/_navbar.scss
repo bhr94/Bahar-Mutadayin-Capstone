@@ -1,8 +1,11 @@
-.navbar {
- background-color: transparent;
+.logo {
+  width: 7rem;
+  margin: 0;
+}
+.notification {
+  width: 2rem;
 
-
-  @include tablet {
-      display: none;
+  &-container {
+    margin-left: auto !important;
   }
 }
