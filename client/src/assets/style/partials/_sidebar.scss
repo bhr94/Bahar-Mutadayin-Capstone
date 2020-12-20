@@ -5,9 +5,9 @@
     display: inline;
     width: 350px;
     height: 100vh;
-    background:white;
-    box-shadow: 10px 8px 10px rgba(19, 24, 44, 0.1);
-
+    background: white;
+    // box-shadow: 10px 8px 10px rgba(19, 24, 44, 0.1);
+    border-right: 1px solid rgba(19, 24, 44, 0.1);
   }
 }
 
@@ -17,7 +17,6 @@
   padding-top: 4rem;
   padding-left: 0;
 
-
   &-item {
     color: rgba(0, 0, 0, 0.4);
     list-style: none;
@@ -26,7 +25,7 @@
     display: flex;
     align-items: center;
     padding: 1.3rem;
-   
+
     &:hover {
       list-style: none;
       text-decoration: none;
@@ -42,7 +41,7 @@
 
 .signout-button {
   border: none;
-  background:none;
+  background: none;
   outline: none;
 
   &:focus {
@@ -52,6 +51,5 @@
 
 .nav-link__active {
   color: black;
-  background-color:$primary-color;
+  background-color: $primary-color;
 }
-

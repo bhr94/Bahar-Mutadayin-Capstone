@@ -53,9 +53,8 @@ const Profile = ({ className, ...rest }) => {
         </div>
       </header>
       <main className="main-section profile-details__container">
-        <ProfileCard />
+        <ProfileCard/>
         <ProfileDetails className="profile-details" />
-        {/* <img src={img} className="profile__img" /> */}
       </main>
     </section>
   );
