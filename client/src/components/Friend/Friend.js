@@ -10,17 +10,17 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 
-export default function Friend() {
+export default function Friend(props) {
   return (
     <>
       <Card className="card-element">
         <CardBody>
           <h2>
-            {this.props.friend.firstName + " " + this.props.friend.lastName}
+            {props.friend.firstName + " " + props.friend.lastName}
           </h2>
-          {this.props.friend.status === "active" ? (
+          {props.friend.status === "active" ? (
             <Button color="primary">
-              <Link to={"/friends/" + this.props.id} className="explore-link">
+              <Link to={"/friends/" + props.id} className="explore-link">
                 Explore
               </Link>
             </Button>
