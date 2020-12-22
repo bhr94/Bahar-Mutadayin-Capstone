@@ -37,7 +37,10 @@ const createNewUser = (req, res) => {
                           User.where({ email: email })
                             .fetchAll({ withRelated: ["groups"] })
                             .then((users) => {
-                              res.json({ user: users.models[0], token: idToken });
+                              res.json({
+                                user: users.models[0],
+                                token: idToken,
+                              });
                             });
                         })
                         .catch((error) => {
@@ -285,14 +288,19 @@ const inviteFriend = (req, res) => {
           lastName,
           status: "pending",
           groupId: groupId,
-        }).save();
-        new Invitation({
-          invitationCode: invitationCode,
-          invitedEmail: email,
-          groupId: groupId,
-        }).save();
-        sendEmail(email, userName, invitationCode);
-        res.json("Your invitation has been sent to your friend");
+        })
+          .save()
+          .then((user) => {
+            new Invitation({
+              invitationCode: invitationCode,
+              invitedEmail: email,
+              groupId: groupId,
+            }).save();
+            sendEmail(email, userName, invitationCode);
+            res.json({
+              message: "Your invitation has been sent to your friend", user:user
+            });
+          });
       }
     });
 

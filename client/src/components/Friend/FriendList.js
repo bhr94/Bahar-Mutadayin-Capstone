@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Friend from "./Friend";
 import axios from "axios";
 import CreateGroupModal from "../Modals/CreateGroupModal";
@@ -8,35 +8,52 @@ import { Button } from "reactstrap";
 import calendarImg from "../../assets/images/clip-bicycle-day-and-national-running-day.png";
 import backend_url from "../../backend_url/backend_url";
 import Alert from "../Modals/Alert";
-class FriendList extends React.Component {
-  state = {
-    friendList: [],
-    modal: false,
-    groupTitle: "",
-    groupDescription: "",
+export default function FriendList() {
+  // state = {
+  //   friendList: [],
+  //   modal: false,
+  //   groupTitle: "",
+  //   groupDescription: "",
+  //   friendEmail: "",
+  //   friendFamilyName: "",
+  //   friendName: "",
+  //   group: false,
+  //   alertModal: false,
+  //   networkMessage: [],
+  // };
+
+  // componentDidMount() {
+  //   this.getAllFriends();
+  //   if (JSON.parse(localStorage.getItem("userData")).groupId) {
+  //     this.getGroupDetails();
+  //   }
+  // }
+
+  const [friendList, setFriendList] = useState([]);
+  const [values, setValues] = useState({
+    friendName: "",
     friendEmail: "",
     friendFamilyName: "",
-    friendName: "",
-    group: false,
-    alertModal: false,
-    networkMessage: [],
-  };
+  });
+  const [modal, setModal] = useState(false);
+  const [alertModal, setAlertModal] = useState(false);
+  const [networkMessage, setNetworkMessage] = useState([]);
 
-  componentDidMount() {
-    this.getAllFriends();
+  useEffect(() => {
+    getAllFriends();
     if (JSON.parse(localStorage.getItem("userData")).groupId) {
-      this.getGroupDetails();
+      getGroupDetails();
     }
-  }
+  }, [friendList.length]);
 
-  getAllFriends = () => {
+  const getAllFriends = () => {
     const groupId = JSON.parse(localStorage.getItem("userData")).groupId;
     if (groupId) {
       axios
         .get(`${backend_url}/users/${groupId}`)
         .then((response) => {
           console.log("friend list " + response);
-          this.setState({ friendList: response.data });
+          setFriendList(response.data);
         })
         .catch((error) => {
           console.log(error);
@@ -44,61 +61,57 @@ class FriendList extends React.Component {
     }
   };
 
-  getGroupDetails = () => {
+  const getGroupDetails = () => {
     const id = JSON.parse(localStorage.getItem("userData")).groupId;
     axios
       .get(`${backend_url}/groups/${id}`)
       .then((response) => {
-        this.setState({ groupTitle: response.data[0].name });
-        this.setState({ groupDescription: response.data[0].description });
+        setValues({ ...values, groupDescription: response.data[0].name });
+        setValues({
+          ...values,
+          groupDescription: response.data[0].description,
+        });
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  toggle = () => {
-    this.setState({ modal: !this.state.modal });
-  };
-
-  alertToggle = () => {
-    this.setState({ alertModal: !this.state.alertModal });
-  };
-
-  createGroup = () => {
+  const createGroup = () => {
     const id = JSON.parse(localStorage.getItem("userData")).id;
-    console.log(this.state.groupTitle);
-    console.log(this.state.groupDescription);
-    if (this.state.groupTitle && this.state.groupDescription) {
+    // console.log(this.state.groupTitle);
+    // console.log(this.state.groupDescription);
+    if (values.groupTitle && values.groupDescription) {
       const body = {
-        name: this.state.groupTitle,
-        description: this.state.groupDescription,
+        name: values.groupTitle,
+        description: values.groupDescription,
         userId: id,
       };
       axios
         .post(`${backend_url}/groups`, body)
         .then((response) => {
           localStorage.setItem("userData", JSON.stringify(response.data.user));
-          this.setState({ group: true });
+          // this.setState({ group: true });
         })
         .catch((error) => {
           console.log(error);
         });
     }
-    this.toggle();
+    setModal(!modal);
   };
 
-  handleChange = (e) => {
+  const handleChange = (e) => {
     let name = e.target.name;
-    this.setState({
+    setValues({
+      ...values,
       [name]: e.target.value,
     });
   };
 
-  addFriend = () => {
+  const addFriend = () => {
     const invitationCode = uuidv4();
-    const { friendName, friendEmail, friendFamilyName } = this.state;
-    if (friendName && friendEmail && friendFamilyName) {
+    // const { friendName, friendEmail, friendFamilyName } = this.state;
+    if (values.friendName && values.friendEmail && values.friendFamilyName) {
       const userName =
         JSON.parse(localStorage.getItem("userData")).firstName +
         " " +
@@ -107,88 +120,88 @@ class FriendList extends React.Component {
       const ownerEmail = JSON.parse(localStorage.getItem("userData")).email;
       const body = {
         userName,
-        email: friendEmail,
+        email: values.friendEmail,
         groupId,
         ownerEmail,
-        firstName: friendName,
-        lastName: friendFamilyName,
+        firstName: values.friendName,
+        lastName: values.friendFamilyName,
         invitationCode,
       };
       axios
         .post(`${backend_url}/groups/inviteFriend`, body)
         .then((response) => {
-          this.setState({ networkMessage: response.data });
-          this.alertToggle();
+          setFriendList([
+            ...friendList,
+            response.data.user
+          ])
+          console.log("response", response)
+          setNetworkMessage(response.data.message);
+          setAlertModal(!alertModal);
         })
         .catch((error) => {
           console.log(error);
         });
     }
-    this.toggle();
+    setModal(!modal);
   };
 
-  render() {
-    const friend_list = this.state.friendList
-      .filter(
-        (friend) =>
-          friend.id !== JSON.parse(localStorage.getItem("userData")).id
-      )
-      .map((friend) => {
-        return <Friend friend={friend} key={uuidv4()} id={friend.id} />;
-      });
-    return (
-      <section className="profile-container scrollable">
-        <header className="profile-container__header mrg-bottom">
-          {/* <nav className="header__nav">
+  const friend_list = friendList
+    .filter(
+      (friend) => friend.id !== JSON.parse(localStorage.getItem("userData")).id
+    )
+    .map((friend) => {
+      return <Friend friend={friend} key={uuidv4()} id={friend.id} />;
+    });
+  return (
+    <section className="profile-container scrollable">
+      <header className="profile-container__header mrg-bottom">
+        {/* <nav className="header__nav">
             <input type="text" className="input-element" placeholder="Search" />
           </nav> */}
-          <div className="header__text">
-            <article className="profile-container__header-text">
-              {JSON.parse(localStorage.getItem("userData")).groupId ? (
-                <>
-                  <h2>{this.state.groupTitle}</h2>
-                  <h5>{this.state.groupDescription}</h5>
-                  <Button color="primary" onClick={this.toggle}>
-                    add a friend to you group
-                  </Button>
-                  <Alert
-                    alertToggle={this.alertToggle}
-                    alertModal={this.state.alertModal}
-                    message={this.state.networkMessage}
-                  />
-                </>
-              ) : null}
-            </article>
-            <img src={calendarImg} className="calendar__img" />
-          </div>
-        </header>
-        {JSON.parse(localStorage.getItem("userData")).groupId ? (
-          <>
-            <ul className="friend-list__container">{friend_list}</ul>
-            <AddMemberModal
-              modal={this.state.modal}
-              toggle={this.toggle}
-              addFriend={this.addFriend}
-              handleChange={this.handleChange}
-            />
-          </>
-        ) : (
-          <>
-            <h2>You do not have any group</h2>
-            <Button color="primary" onClick={this.toggle}>
-              Create a group
-            </Button>
-            <CreateGroupModal
-              modal={this.state.modal}
-              toggle={this.toggle}
-              createGroup={this.createGroup}
-              handleChange={this.handleChange}
-            />
-          </>
-        )}
-      </section>
-    );
-  }
+        <div className="header__text">
+          <article className="profile-container__header-text">
+            {JSON.parse(localStorage.getItem("userData")).groupId ? (
+              <>
+                <h2>{values.groupTitle}</h2>
+                <h5>{values.groupDescription}</h5>
+                <Button color="primary" onClick={() => setModal(!modal)}>
+                  add a friend to you group
+                </Button>
+                <Alert
+                  alertToggle={() => setAlertModal(!alertModal)}
+                  alertModal={alertModal}
+                  message={networkMessage}
+                />
+              </>
+            ) : null}
+          </article>
+          <img src={calendarImg} className="calendar__img" />
+        </div>
+      </header>
+      {JSON.parse(localStorage.getItem("userData")).groupId ? (
+        <>
+          <ul className="friend-list__container">{friend_list}</ul>
+          <AddMemberModal
+            modal={modal}
+            toggle={() => setModal(!modal)}
+            addFriend={addFriend}
+            handleChange={handleChange}
+          />
+        </>
+      ) : (
+        <>
+          <h2>You do not have any group</h2>
+          <Button color="primary" onClick={() => setModal(!modal)}>
+            Create a group
+          </Button>
+          <CreateGroupModal
+            modal={modal}
+            toggle={() => setModal(!modal)}
+            createGroup={createGroup}
+            handleChange={handleChange}
+          />
+        </>
+      )}
+    </section>
+  );
 }
-
-export default FriendList;
