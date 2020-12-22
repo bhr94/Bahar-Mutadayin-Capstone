@@ -225,7 +225,7 @@ export default function LoginPage() {
           </Formik>
         </Container>
       </Box>
-      <img src={img} className="signin-img" src ="login page img" />
+      <img src={img} className="signin-img" alt ="login page img" />
     </section>
   );
 }

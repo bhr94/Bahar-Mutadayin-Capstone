@@ -1,5 +1,5 @@
 <h1>FriendShip<h1>
-
+<div>
 <p>This is my capstone project that I built within a week at the end BrainStation Web Development Diploma program.</p>
 <p>The project is built on the following technologies</p>
 <ul>
@@ -13,3 +13,6 @@
 <li>BookshelfJs</li>
 <li>Knexjs</li>
 </ul>
+</div>
+
+

@@ -3,6 +3,7 @@ import Sidebar from "../../components/Navigation/Sidebar";
 import EventDetails from "../../components/Event/EventDetails";
 import NavBar from "../../components/Navigation/NavBar";
 import { getEventDetails } from "../../utils/API";
+
 export default function EventPage(props) {
   const [event, setEvent] = useState({});
 
