@@ -9,7 +9,7 @@ export default function CommentItem(props) {
   const { comment } = props;
   return (
     <Comment>
-      <Comment.Avatar src={avatar} />
+      <Comment.Avatar src={avatar} alt ="user img avatar"/>
       <Comment.Content>
         <Comment.Author as="a">
           {/* {JSON.parse(localStorage.getItem("userData")).firstName +

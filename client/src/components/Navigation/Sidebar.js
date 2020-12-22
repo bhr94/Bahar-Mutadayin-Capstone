@@ -69,7 +69,7 @@ export default function Sidebar() {
         toggle={() => setModal(!modal)}
         handleLogOut={handleLogout}
       />
-       <img src={img} alt="profile-icon" className ="sidebar-img" />
+       <img src={img} alt="profile-icon" className ="sidebar-img"  alt ="sidebar img"/>
     </aside>
   );
 }

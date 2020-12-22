@@ -138,7 +138,7 @@ export default function FriendList() {
               </>
             ) : null}
           </article>
-          <img src={calendarImg} className="calendar__img" />
+          <img src={calendarImg} className="calendar__img"  alt ="friend list page img"/>
         </div>
       </header>
       {JSON.parse(localStorage.getItem("userData")).groupId ? (

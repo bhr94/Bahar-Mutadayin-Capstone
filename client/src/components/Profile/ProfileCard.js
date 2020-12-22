@@ -46,7 +46,7 @@ const Profile = ({ className, ...rest }) => {
     >
       <CardContent>
         <Box alignItems="center" display="flex" flexDirection="column">
-          <Avatar className={classes.avatar} src={user.avatar} />
+          <Avatar className={classes.avatar} src={user.avatar} alt ="profile avatar img" />
           <Typography color="textPrimary" gutterBottom>
             {user.name}
           </Typography>

@@ -6,7 +6,7 @@ export default function Event(props) {
   return (
     <section className="profile-container scrollable">
       <header className="profile-container__header dspl-flx">
-        <img src={img} className="event-img" />
+        <img src={img} className="event-img" alt ="event header img"/>
       </header>
       <div className ="container">
         <article className="article-container">

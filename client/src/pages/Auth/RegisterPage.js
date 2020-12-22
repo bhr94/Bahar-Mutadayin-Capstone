@@ -66,7 +66,7 @@ export default function Register() {
 const {firstName, lastName, email, password, invitationCode} = values;
   return (
     <section className="body-container backgrnd">
-      <img src={img} className="signin-img" />
+      <img src={img} className="signin-img" alt ="register page img" />
       <Box
         display="flex"
         flexDirection="column"
