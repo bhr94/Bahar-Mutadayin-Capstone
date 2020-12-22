@@ -1,45 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../components/Navigation/Sidebar";
 import EventDetails from "../../components/Event/EventDetails";
 import axios from "axios";
 import backend_url from "../../backend_url/backend_url";
 import NavBar from "../../components/Navigation/NavBar";
-class EventPage extends React.Component {
-  state = {
-    event: {},
-  };
+export default function EventPage(props) {
+  const [event, setEvent] = useState({});
 
-  componentDidMount() {
-    this.getEventDetails();
-  }
+  useEffect(() => {
+    getEventDetails();
+  }, [Object.keys(event).length]);
 
-  getEventDetails = () => {
-    console.log(this.props.match.params.id);
-    const id = this.props.match.params.id;
+  const getEventDetails = () => {
+    console.log(props.match.params.id);
+    const id = props.match.params.id;
     axios
       .get(`${backend_url}/eventsbyId/${id}`)
       .then((response) => {
-        this.setState({ event: response.data[0] });
-        console.log(this.state.event);
+        console.log("bahar", response.data[0]);
+        setEvent(response.data[0]);
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  render() {
-    return (
-      <>
-        <NavBar />
-        <section className="calendar-page__container">
-          <Sidebar />
-          <EventDetails
-            event={this.state.event}
-            id={this.props.match.params.id}
-          />
-        </section>
-      </>
-    );
-  }
+  return (
+    <>
+      <NavBar />
+      <section className="calendar-page__container">
+        <Sidebar />
+        <EventDetails event={event} id={props.match.params.id} />
+      </section>
+    </>
+  );
 }
-export default EventPage;

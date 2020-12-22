@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik } from "formik";
@@ -19,25 +19,28 @@ import {
   makeStyles,
 } from "@material-ui/core";
 
-class Register extends React.Component {
-  state = {
+export default function Register() {
+
+  const [values, setValues] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
-    invitationCode: "",
-  };
+    invitationCode:""
+  });
 
-  handleChange = (e) => {
+
+  const handleChange = (e) => {
     let name = e.target.name;
-    this.setState({
+    setValues({
+      ...values,
       [name]: e.target.value,
     });
   };
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { firstName, lastName, email, password } = this.state;
+    const { firstName, lastName, email, password } = values;
     if (firstName && lastName && email && password) {
       const userData = this.state;
       axios
@@ -60,139 +63,138 @@ class Register extends React.Component {
         });
     }
   };
-
-  render() {
-    return (
-      <section className="body-container backgrnd">
-        <img src={img} className="signin-img" />
-        <Box
-          display="flex"
-          flexDirection="column"
-          height="100%"
-          justifyContent="center"
-          className="w-400"
-        >
-          <Container maxWidth="sm">
-            <Formik
-              initialValues={{
-                email: "",
-                firstName: "",
-                lastName: "",
-                password: "",
-                policy: false,
-              }}
-              validationSchema={Yup.object().shape({
-                email: Yup.string()
-                  .email("Must be a valid email")
-                  .max(255)
-                  .required("Email is required"),
-                firstName: Yup.string()
-                  .max(255)
-                  .required("First name is required"),
-                lastName: Yup.string()
-                  .max(255)
-                  .required("Last name is required"),
-                password: Yup.string()
-                  .max(255)
-                  .required("password is required"),
-                policy: Yup.boolean().oneOf(
-                  [true],
-                  "This field must be checked"
-                ),
-              })}
-            >
-              {({
-                errors,
-                handleBlur,
-                // handleChange,
-                handleSubmit,
-                isSubmitting,
-                touched,
-                values,
-              }) => (
-                // <form onSubmit={handleSubmit}>
-                <form>
-                  <Box mb={3} className="signin-header">
-                    <Typography color="textPrimary" variant="h2">
-                      Create new account
-                    </Typography>
-                    {/* <Typography
+const {firstName, lastName, email, password, invitationCode} = values;
+  return (
+    <section className="body-container backgrnd">
+      <img src={img} className="signin-img" />
+      <Box
+        display="flex"
+        flexDirection="column"
+        height="100%"
+        justifyContent="center"
+        className="w-400"
+      >
+        <Container maxWidth="sm">
+          <Formik
+            initialValues={{
+              email: "",
+              firstName: "",
+              lastName: "",
+              password: "",
+              policy: false,
+            }}
+            // validationSchema={Yup.object().shape({
+            //   email: Yup.string()
+            //     .email("Must be a valid email")
+            //     .max(255)
+            //     .required("Email is required"),
+            //   firstName: Yup.string()
+            //     .max(255)
+            //     .required("First name is required"),
+            //   lastName: Yup.string()
+            //     .max(255)
+            //     .required("Last name is required"),
+            //   password: Yup.string()
+            //     .max(255)
+            //     .required("password is required"),
+            //   policy: Yup.boolean().oneOf(
+            //     [true],
+            //     "This field must be checked"
+            //   ),
+            // })}
+          >
+            {({
+              errors,
+              handleBlur,
+              // handleChange,
+              // handleSubmit,
+              isSubmitting,
+              touched,
+              values,
+            }) => (
+              // <form onSubmit={handleSubmit}>
+              <form>
+                <Box mb={3} className="signin-header">
+                  <Typography color="textPrimary" variant="h2">
+                    Create new account
+                  </Typography>
+                  {/* <Typography
                       color="textSecondary"
                       gutterBottom
                       variant="body2"
                     >
                       Use your email to create new account
                     </Typography> */}
-                  </Box>
-                  <TextField
-                    error={Boolean(touched.firstName && errors.firstName)}
-                    fullWidth
-                    helperText={touched.firstName && errors.firstName}
-                    label="First name"
-                    margin="normal"
-                    name="firstName"
-                    onBlur={handleBlur}
-                    onChange={this.handleChange}
-                    // value={values.firstName}
-                    value={this.state.firstName}
-                    variant="outlined"
-                  />
-                  <TextField
-                    error={Boolean(touched.lastName && errors.lastName)}
-                    fullWidth
-                    helperText={touched.lastName && errors.lastName}
-                    label="Last name"
-                    margin="normal"
-                    name="lastName"
-                    onBlur={handleBlur}
-                    onChange={this.handleChange}
-                    // value={values.lastName}
-                    value={this.state.lastName}
-                    variant="outlined"
-                  />
-                  <TextField
-                    error={Boolean(touched.email && errors.email)}
-                    fullWidth
-                    helperText={touched.email && errors.email}
-                    label="Email Address"
-                    margin="normal"
-                    name="email"
-                    onBlur={handleBlur}
-                    onChange={this.handleChange}
-                    type="email"
-                    // value={values.email}
-                    value={this.state.email}
-                    variant="outlined"
-                  />
-                  <TextField
-                    error={Boolean(touched.password && errors.password)}
-                    fullWidth
-                    helperText={touched.password && errors.password}
-                    label="Password"
-                    margin="normal"
-                    name="password"
-                    onBlur={handleBlur}
-                    onChange={this.handleChange}
-                    type="password"
-                    // value={values.password}
-                    value={this.state.password}
-                    variant="outlined"
-                  />
-                  If you have an invitation code, please enter...
-                  <TextField
-                    error={Boolean(touched.lastName && errors.lastName)}
-                    fullWidth
-                    helperText={touched.lastName && errors.lastName}
-                    label="Invitation code"
-                    margin="normal"
-                    name="invitationCode"
-                    onBlur={handleBlur}
-                    onChange={this.handleChange}
-                    // value={values.lastName}
-                    value={this.state.invitationCode}
-                    variant="outlined"
-                  />
-                  {/* <Box alignItems="center" display="flex" ml={-1}>
+                </Box>
+                <TextField
+                  error={Boolean(touched.firstName && errors.firstName)}
+                  fullWidth
+                  helperText={touched.firstName && errors.firstName}
+                  label="First name"
+                  margin="normal"
+                  name="firstName"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  // value={values.firstName}
+                  value={firstName}
+                  variant="outlined"
+                />
+                <TextField
+                  error={Boolean(touched.lastName && errors.lastName)}
+                  fullWidth
+                  helperText={touched.lastName && errors.lastName}
+                  label="Last name"
+                  margin="normal"
+                  name="lastName"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  // value={values.lastName}
+                  value={lastName}
+                  variant="outlined"
+                />
+                <TextField
+                  error={Boolean(touched.email && errors.email)}
+                  fullWidth
+                  helperText={touched.email && errors.email}
+                  label="Email Address"
+                  margin="normal"
+                  name="email"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="email"
+                  // value={values.email}
+                  value={email}
+                  variant="outlined"
+                />
+                <TextField
+                  error={Boolean(touched.password && errors.password)}
+                  fullWidth
+                  helperText={touched.password && errors.password}
+                  label="Password"
+                  margin="normal"
+                  name="password"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="password"
+                  // value={values.password}
+                  value={password}
+                  variant="outlined"
+                />
+                If you have an invitation code, please enter...
+                <TextField
+                  error={Boolean(touched.lastName && errors.lastName)}
+                  fullWidth
+                  helperText={touched.lastName && errors.lastName}
+                  label="Invitation code"
+                  margin="normal"
+                  name="invitationCode"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  // value={values.lastName}
+                  value={invitationCode}
+                  variant="outlined"
+                />
+                {/* <Box alignItems="center" display="flex" ml={-1}>
                     <Checkbox
                       checked={values.policy}
                       name="policy"
@@ -211,38 +213,34 @@ class Register extends React.Component {
                       </Link>
                     </Typography>
                   </Box> */}
-                  {Boolean(touched.policy && errors.policy) && (
-                    <FormHelperText error>{errors.policy}</FormHelperText>
-                  )}
-                  <Box my={2}>
-                    <Button
-                      color="primary"
-                      disabled={isSubmitting}
-                      fullWidth
-                      size="large"
-                      type="submit"
-                      variant="contained"
-                      style={{ background: "rebeccapurple" }}
-                      onClick={this.handleSubmit}
-                    >
-                      Sign up now
-                    </Button>
-                  </Box>
-                  <Typography color="textSecondary" variant="body1">
-                    Have an account?{" "}
-                    <Link component={RouterLink} to="/signin" variant="h6">
-                      Sign in
-                    </Link>
-                  </Typography>
-                </form>
-              )}
-            </Formik>
-          </Container>
-        </Box>
-        {/* <Example/> */}
-      </section>
-    );
-  }
+                {Boolean(touched.policy && errors.policy) && (
+                  <FormHelperText error>{errors.policy}</FormHelperText>
+                )}
+                <Box my={2}>
+                  <Button
+                    color="primary"
+                    disabled={isSubmitting}
+                    fullWidth
+                    size="large"
+                    type="submit"
+                    variant="contained"
+                    style={{ background: "rebeccapurple" }}
+                    onClick={handleSubmit}
+                  >
+                    Sign up now
+                  </Button>
+                </Box>
+                <Typography color="textSecondary" variant="body1">
+                  Have an account?{" "}
+                  <Link component={RouterLink} to="/signin" variant="h6">
+                    Sign in
+                  </Link>
+                </Typography>
+              </form>
+            )}
+          </Formik>
+        </Container>
+      </Box>
+    </section>
+  );
 }
-
-export default Register;
