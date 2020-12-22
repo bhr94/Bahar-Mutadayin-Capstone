@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import history from "../../history";
+
 import {
   Avatar,
   Box,
@@ -15,53 +15,19 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-import backend_url from "../../backend_url/backend_url";
+import { loadFriendDetails, getFriendsEvents } from "../../utils/API";
 const localizer = momentLocalizer(moment);
 
 export default function FriendProfileDetailsPage(props) {
   const [events, setEvents] = useState([]);
   const [user, setUser] = useState({});
 
-
-
   useEffect(() => {
-    getAllEvents()
+    getFriendsEvents(props.id, setEvents);
     return () => {
-      loadFriendDetails()
-    }
-  }, [events.length])
-
-
-  
-  const loadFriendDetails = () => {
-    axios
-      .get(`${backend_url}/usersById/${props.id}`)
-      .then((response) => {
-        console.log(response);
-        setUser(response.data[0]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const getAllEvents = () => {
-    const userId = props.id;
-    axios
-      .get(`${backend_url}/events/${userId}`)
-      .then((response) => {
-        console.log(response);
-        for (let i = 0; i < response.data.length; i++) {
-          response.data[i].start = new Date(response.data[i].start);
-          response.data[i].end = new Date(response.data[i].end);
-        }
-        setEvents(response.data);
-        console.log();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+      loadFriendDetails(setUser, props.id);
+    };
+  }, [events.length]);
 
   const handleClick = (event) => {
     const jsonObject = JSON.stringify(event);

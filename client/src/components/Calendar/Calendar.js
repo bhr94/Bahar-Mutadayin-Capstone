@@ -5,30 +5,15 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import axios from "axios";
 import history from "../../history";
 import backend_url from "../../backend_url/backend_url";
+import {getAllEvents} from "../../utils/API";
 const localizer = momentLocalizer(moment);
 
 export default function SampleCalendar() {
   const [events, setEvent] = useState([]);
 
   useEffect(() => {
-    getAllEvents();
+    getAllEvents(setEvent);
   }, [events.length]);
-
-  function getAllEvents() {
-    const userId = JSON.parse(localStorage.getItem("userData")).id;
-    axios
-      .get(`${backend_url}/events/${userId}`)
-      .then((response) => {
-        for (let i = 0; i < response.data.length; i++) {
-          response.data[i].start = new Date(response.data[i].start);
-          response.data[i].end = new Date(response.data[i].end);
-        }
-        setEvent(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
 
   function handleSelect({ start, end }) {
     const userId = JSON.parse(localStorage.getItem("userData")).id;
@@ -50,9 +35,6 @@ export default function SampleCalendar() {
             end: new Date(response.data.end),
             userId: response.data.userId,
           };
-          // this.setState({
-          //   events: [...this.state.events, newEvent],
-          // });
           setEvent([...events, newEvent]);
           console.log("events " + JSON.stringify(events));
         })

@@ -3,6 +3,7 @@ import CommentItem from "./CommentItem";
 import { Button, Comment, Form, Header } from "semantic-ui-react";
 import axios from "axios";
 import backend_url from "../../backend_url/backend_url";
+import {getCommentsByEventId} from "../../utils/API.js";
 
 export default function CommentList(props) {
   // https://stackoverflow.com/questions/39426083/update-react-component-every-second
@@ -18,31 +19,11 @@ export default function CommentList(props) {
 
 
   useEffect(() => {
-    const interval = setInterval(() => getCommentsByEventId(), 3000);
+    const interval = setInterval(() => getCommentsByEventId(setComments,props.id), 3000);
     return () => {
       clearInterval(interval);
     };
   }, [comments.length]);
-
- 
-
-
-  const handleChange = (e) => {
-    setComment(e.target.value);
-  };
-
-  const getCommentsByEventId = () => {
-    const id = props.id;
-    axios
-      .get(`${backend_url}/comments/${id}`)
-      .then((response) => {
-        console.log(response.data);
-        setComments(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   const addComment = () => {
     const ownerId = JSON.parse(localStorage.getItem("userData")).id;
@@ -86,7 +67,7 @@ export default function CommentList(props) {
       ) : null}
 
       <Form reply>
-        <Form.TextArea onChange={handleChange} value={comment} />
+        <Form.TextArea onChange={(e)=>setComment(e.target.value)} value={comment} />
         <Button
           content="Leave a comment"
           labelPosition="left"

@@ -1,29 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../../components/Navigation/Sidebar";
 import EventDetails from "../../components/Event/EventDetails";
-import axios from "axios";
-import backend_url from "../../backend_url/backend_url";
 import NavBar from "../../components/Navigation/NavBar";
+import { getEventDetails } from "../../utils/API";
 export default function EventPage(props) {
   const [event, setEvent] = useState({});
 
   useEffect(() => {
-    getEventDetails();
+    getEventDetails(props.match.params.id, setEvent);
   }, [Object.keys(event).length]);
-
-  const getEventDetails = () => {
-    console.log(props.match.params.id);
-    const id = props.match.params.id;
-    axios
-      .get(`${backend_url}/eventsbyId/${id}`)
-      .then((response) => {
-        console.log("bahar", response.data[0]);
-        setEvent(response.data[0]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   return (
     <>

@@ -8,27 +8,8 @@ import { Button } from "reactstrap";
 import calendarImg from "../../assets/images/clip-bicycle-day-and-national-running-day.png";
 import backend_url from "../../backend_url/backend_url";
 import Alert from "../Modals/Alert";
+import { getAllFriends } from "../../utils/API";
 export default function FriendList() {
-  // state = {
-  //   friendList: [],
-  //   modal: false,
-  //   groupTitle: "",
-  //   groupDescription: "",
-  //   friendEmail: "",
-  //   friendFamilyName: "",
-  //   friendName: "",
-  //   group: false,
-  //   alertModal: false,
-  //   networkMessage: [],
-  // };
-
-  // componentDidMount() {
-  //   this.getAllFriends();
-  //   if (JSON.parse(localStorage.getItem("userData")).groupId) {
-  //     this.getGroupDetails();
-  //   }
-  // }
-
   const [friendList, setFriendList] = useState([]);
   const [values, setValues] = useState({
     friendName: "",
@@ -40,26 +21,11 @@ export default function FriendList() {
   const [networkMessage, setNetworkMessage] = useState([]);
 
   useEffect(() => {
-    getAllFriends();
+    getAllFriends(setFriendList);
     if (JSON.parse(localStorage.getItem("userData")).groupId) {
       getGroupDetails();
     }
   }, [friendList.length]);
-
-  const getAllFriends = () => {
-    const groupId = JSON.parse(localStorage.getItem("userData")).groupId;
-    if (groupId) {
-      axios
-        .get(`${backend_url}/users/${groupId}`)
-        .then((response) => {
-          console.log("friend list " + response);
-          setFriendList(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  };
 
   const getGroupDetails = () => {
     const id = JSON.parse(localStorage.getItem("userData")).groupId;
@@ -130,11 +96,8 @@ export default function FriendList() {
       axios
         .post(`${backend_url}/groups/inviteFriend`, body)
         .then((response) => {
-          setFriendList([
-            ...friendList,
-            response.data.user
-          ])
-          console.log("response", response)
+          setFriendList([...friendList, response.data.user]);
+          console.log("response", response);
           setNetworkMessage(response.data.message);
           setAlertModal(!alertModal);
         })
