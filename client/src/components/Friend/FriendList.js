@@ -107,7 +107,6 @@ export default function FriendList() {
     }
     setModal(!modal);
   };
-
   const friend_list = friendList
     .filter(
       (friend) => friend.id !== JSON.parse(localStorage.getItem("userData")).id

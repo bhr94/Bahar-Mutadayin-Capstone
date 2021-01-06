@@ -5,7 +5,8 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import axios from "axios";
 import history from "../../history";
 import backend_url from "../../backend_url/backend_url";
-import {getAllEvents} from "../../utils/API";
+import { getAllEvents } from "../../utils/API";
+import Alert from "../Modals/Alert";
 const localizer = momentLocalizer(moment);
 
 export default function SampleCalendar() {
@@ -68,6 +69,7 @@ export default function SampleCalendar() {
             It is time to add more events to your calendar.
           </h3>
         </div>
+       
       </header>
       <Calendar
         className="calendar-container"
