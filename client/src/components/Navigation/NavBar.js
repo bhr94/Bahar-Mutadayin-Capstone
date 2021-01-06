@@ -1,6 +1,6 @@
 import notification from "../../assets/Icons/notification.svg";
 import React, { useState } from "react";
-import Sidebar from "./Sidebar";
+import DropdownSidebar from "./DropdownSidebar";
 import {
   Collapse,
   Navbar,
@@ -43,10 +43,10 @@ const NavBar = (props) => {
             <NavbarToggler onClick={toggleNavbar} className="mr-2" />
           </DropdownToggle>
           <DropdownMenu right>
-            <DropdownItem>Option 1</DropdownItem>
-            <DropdownItem>Option 2</DropdownItem>
-            <DropdownItem divider />
-            <DropdownItem>Reset</DropdownItem>
+            {/* <DropdownItem>Option 1</DropdownItem> */}
+            {/* <DropdownItem divider />
+            <DropdownItem>Reset</DropdownItem> */}
+            <DropdownSidebar/>
           </DropdownMenu>
         </UncontrolledDropdown>
         {/* <Collapse isOpen={!collapsed} navbar>

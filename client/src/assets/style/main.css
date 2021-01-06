@@ -156,6 +156,20 @@
   width: 300px;
 }
 
+.drowpdown-sidebar {
+  display: inline;
+  width: 350px;
+  height: 100vh;
+  background: white;
+  border-right: 1px solid rgba(19, 24, 44, 0.1);
+}
+
+@media screen and (min-width: 768px) {
+  .drowpdown-sidebar {
+    display: none;
+  }
+}
+
 .profile-container {
   width: 100%;
   height: 100vh;
@@ -578,7 +592,7 @@
   top: -7px;
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 768px) {
   .nav-bar__dropdown {
     display: none;
   }

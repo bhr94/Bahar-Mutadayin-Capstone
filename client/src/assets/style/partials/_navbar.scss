@@ -22,7 +22,7 @@
 
 .nav-bar__dropdown {
 
-  @include desktop {
+  @include tablet {
     display: none;
   }
 }
