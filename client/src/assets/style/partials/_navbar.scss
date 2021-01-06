@@ -20,6 +20,9 @@
   top: -7px;
 }
 
-// .sidebar-icon {
-//   width: 3rem;
-// }
+.nav-bar__dropdown {
+
+  @include desktop {
+    display: none;
+  }
+}

@@ -577,4 +577,10 @@
   height: 0.8rem;
   top: -7px;
 }
+
+@media screen and (min-width: 1280px) {
+  .nav-bar__dropdown {
+    display: none;
+  }
+}
 /*# sourceMappingURL=main.css.map */
