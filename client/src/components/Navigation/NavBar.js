@@ -2,27 +2,16 @@ import notification from "../../assets/Icons/notification.svg";
 import React, { useState } from "react";
 import DropdownSidebar from "./DropdownSidebar";
 import {
-  Collapse,
   Navbar,
   NavbarToggler,
   NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem,
 } from "reactstrap";
 
 import {
-  AppBar,
-  Badge,
-  Box,
-  Hidden,
   IconButton,
-  Toolbar,
-  makeStyles,
 } from "@material-ui/core";
 import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 
@@ -34,7 +23,7 @@ const NavBar = (props) => {
   return (
     <Navbar color="faded" light>
       {/* <NavbarToggler onClick={toggleNavbar} className="mr-2" /> */}
-      <NavbarBrand href="/" className="mr-auto">
+      <NavbarBrand href="/" className="mr-auto" style ={{"color": "rebeccapurple", "font-weight": "bold", "font-size": "2rem"}}>
         FriendShip
       </NavbarBrand>
       <UncontrolledDropdown className="nav-bar__dropdown">
@@ -42,25 +31,9 @@ const NavBar = (props) => {
           <NavbarToggler onClick={toggleNavbar} className="mr-2" />
         </DropdownToggle>
         <DropdownMenu right>
-          {/* <DropdownItem>Option 1</DropdownItem> */}
-          {/* <DropdownItem divider />
-            <DropdownItem>Reset</DropdownItem> */}
           <DropdownSidebar />
         </DropdownMenu>
       </UncontrolledDropdown>
-      {/* <Collapse isOpen={!collapsed} navbar>
-          <Nav navbar>
-            <NavItem>
-              <NavLink href="/components/">Components</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">
-                GitHub
-              </NavLink>
-            </NavItem>
-          </Nav>
-        </Collapse> */}
-
       <IconButton color="inherit" style={{ width: "5rem" }}>
         <NotificationsActiveIcon
           className="sidebar-icon"

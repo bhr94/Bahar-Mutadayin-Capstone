@@ -49,9 +49,12 @@
 
 .calendar__img {
 
+  width: 100%;
+  margin-top: 30px;
+
   @include tablet {
-    margin-top: 7rem;
-    width: 550px;
+    // margin-top: 2rem;
+    width: 700px;
     align-self: flex-end;
   }
   @include desktop {
