@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import history from "../../history";
@@ -8,7 +8,7 @@ import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import HttpsIcon from "@material-ui/icons/Https";
-import ProfileCard from "../Profile/ProfileCard";
+import SidebarProfileCard from "../Profile/SidebarProfileCard";
 import img from "../../assets/images/clip-online-conference-1.png"
 export default function Sidebar() {
   const [modal, setModal] = useState(false);
@@ -30,7 +30,7 @@ export default function Sidebar() {
 
   return (
     <aside className="container-sidebar">
-      <ProfileCard />
+      <SidebarProfileCard />
       <ul className="sidebar__list">
         <NavLink
           className="sidebar__list-item"

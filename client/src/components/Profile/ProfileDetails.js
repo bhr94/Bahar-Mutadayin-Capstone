@@ -56,7 +56,7 @@ const ProfileDetails = ({ className, ...rest }) => {
       noValidate
       className={clsx(classes.root, className)}
       {...rest}
-      className ="profile-details"
+      className="profile-details"
     >
       <Card>
         <CardHeader subheader="The information can be edited" title="Profile" />
@@ -142,7 +142,10 @@ const ProfileDetails = ({ className, ...rest }) => {
         </CardContent>
         <Divider />
         <Box display="flex" justifyContent="flex-end" p={2}>
-          <Button variant="contained" style={{ background: "rebeccapurple", color:"white" }}>
+          <Button
+            variant="contained"
+            style={{ background: "rebeccapurple", color: "white" }}
+          >
             Save details
           </Button>
         </Box>

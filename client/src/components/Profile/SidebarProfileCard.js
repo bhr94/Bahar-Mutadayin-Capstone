@@ -35,14 +35,14 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Profile = ({ className, ...rest }) => {
+const SidebarProfileCard = ({ className, ...rest }) => {
   const classes = useStyles();
 
   return (
     <Card
       className={clsx(classes.root, className)}
       {...rest}
-      className="profile-card margin-top"
+      className="profile-card"
     >
       <CardContent>
         <Box alignItems="center" display="flex" flexDirection="column">
@@ -76,8 +76,8 @@ const Profile = ({ className, ...rest }) => {
   );
 };
 
-Profile.propTypes = {
+SidebarProfileCard.propTypes = {
   className: PropTypes.string,
 };
 
-export default Profile;
+export default SidebarProfileCard;

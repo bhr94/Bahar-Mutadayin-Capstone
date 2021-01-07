@@ -15,7 +15,6 @@ import {
   DropdownItem,
 } from "reactstrap";
 
-
 import {
   AppBar,
   Badge,
@@ -25,7 +24,7 @@ import {
   Toolbar,
   makeStyles,
 } from "@material-ui/core";
- import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
+import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 
 const NavBar = (props) => {
   const [collapsed, setCollapsed] = useState(true);
@@ -33,23 +32,23 @@ const NavBar = (props) => {
   const toggleNavbar = () => setCollapsed(!collapsed);
 
   return (
-      <Navbar color="faded" light>
-        {/* <NavbarToggler onClick={toggleNavbar} className="mr-2" /> */}
-        <NavbarBrand href="/" className="mr-auto">
-          reactstrap
-        </NavbarBrand>
-        <UncontrolledDropdown className ="nav-bar__dropdown">
-          <DropdownToggle nav>
-            <NavbarToggler onClick={toggleNavbar} className="mr-2" />
-          </DropdownToggle>
-          <DropdownMenu right>
-            {/* <DropdownItem>Option 1</DropdownItem> */}
-            {/* <DropdownItem divider />
+    <Navbar color="faded" light>
+      {/* <NavbarToggler onClick={toggleNavbar} className="mr-2" /> */}
+      <NavbarBrand href="/" className="mr-auto">
+        FriendShip
+      </NavbarBrand>
+      <UncontrolledDropdown className="nav-bar__dropdown">
+        <DropdownToggle nav>
+          <NavbarToggler onClick={toggleNavbar} className="mr-2" />
+        </DropdownToggle>
+        <DropdownMenu right>
+          {/* <DropdownItem>Option 1</DropdownItem> */}
+          {/* <DropdownItem divider />
             <DropdownItem>Reset</DropdownItem> */}
-            <DropdownSidebar/>
-          </DropdownMenu>
-        </UncontrolledDropdown>
-        {/* <Collapse isOpen={!collapsed} navbar>
+          <DropdownSidebar />
+        </DropdownMenu>
+      </UncontrolledDropdown>
+      {/* <Collapse isOpen={!collapsed} navbar>
           <Nav navbar>
             <NavItem>
               <NavLink href="/components/">Components</NavLink>
@@ -61,19 +60,16 @@ const NavBar = (props) => {
             </NavItem>
           </Nav>
         </Collapse> */}
-        
-  <IconButton color="inherit" style ={{width:"5rem"}}>
+
+      <IconButton color="inherit" style={{ width: "5rem" }}>
         <NotificationsActiveIcon
           className="sidebar-icon"
           style={{ margin: "0" }}
         />
-        <p className ="notification-count"></p>
-      </IconButton> 
-
-      </Navbar>
+        <p className="notification-count"></p>
+      </IconButton>
+    </Navbar>
   );
 };
 
 export default NavBar;
-
-

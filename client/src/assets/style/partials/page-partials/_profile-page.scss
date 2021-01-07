@@ -8,7 +8,18 @@
 }
 
 .profile-details {
-  width: 50%;
+  width: 90%;
+  position: relative;
+  top: -270px;
+  align-self:center;
+
+  @include tablet {
+    width: 80%;
+    top: -20px;
+  }
+  @include desktop {
+    width: 50%;
+  }
 
   &__container {
     flex-direction: column;
