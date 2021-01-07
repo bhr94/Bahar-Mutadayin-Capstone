@@ -4,7 +4,7 @@
 
   &__header {
     background-color: rebeccapurple;
-    height: 300px;
+    height: 320px;
   }
 }
 
@@ -158,9 +158,13 @@
 }
 
 .margin-top {
-  top:-300px;
+  top:-230px;
+
 
   @include tablet {
     top: -40px;
+  }
+  @include desktop {
+    top: -10px;
   }
 }

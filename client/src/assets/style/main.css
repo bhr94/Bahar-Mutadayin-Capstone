@@ -177,7 +177,7 @@
 
 .profile-container__header {
   background-color: rebeccapurple;
-  height: 300px;
+  height: 320px;
 }
 
 .main-section {
@@ -366,12 +366,18 @@
 }
 
 .margin-top {
-  top: -300px;
+  top: -230px;
 }
 
 @media screen and (min-width: 768px) {
   .margin-top {
     top: -40px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .margin-top {
+    top: -10px;
   }
 }
 
@@ -388,7 +394,7 @@
 .profile-details {
   width: 90%;
   position: relative;
-  top: -270px;
+  top: -220px;
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
