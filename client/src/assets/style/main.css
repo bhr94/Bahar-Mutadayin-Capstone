@@ -187,6 +187,19 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+@media screen and (min-width: 1280px) {
+  .main-section {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
 }
 
 .main-section__form {
@@ -343,6 +356,15 @@
   color: white;
 }
 
+.profile-card {
+  position: relative;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  width: 300px;
+  height: 200px;
+}
+
 .profile-page__container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -365,6 +387,16 @@
 }
 
 @media screen and (min-width: 768px) {
+  .profile-details__container {
+    position: relative;
+    top: -100px;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+}
+
+@media screen and (min-width: 1280px) {
   .profile-details__container {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;

@@ -56,6 +56,7 @@ const ProfileDetails = ({ className, ...rest }) => {
       noValidate
       className={clsx(classes.root, className)}
       {...rest}
+      className ="profile-details"
     >
       <Card>
         <CardHeader subheader="The information can be edited" title="Profile" />

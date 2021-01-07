@@ -11,14 +11,18 @@
   width: 50%;
 
   &__container {
-      flex-direction: column;
+    flex-direction: column;
+
     @include tablet {
-        flex-direction: row;
+      position: relative;
+      top: -100px;
+      align-items: center;
+    }
+    @include desktop {
+      flex-direction: row;
       position: relative;
       top: -200px;
       justify-content: space-evenly;
     }
   }
 }
-
-

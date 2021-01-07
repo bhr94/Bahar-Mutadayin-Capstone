@@ -42,11 +42,15 @@ const Profile = ({ className, ...rest }) => {
     <Card
       className={clsx(classes.root, className)}
       {...rest}
-      style={{ height: "fit-content", width: "300px" }}
+      className="profile-card"
     >
       <CardContent>
         <Box alignItems="center" display="flex" flexDirection="column">
-          <Avatar className={classes.avatar} src={user.avatar} alt ="profile avatar img" />
+          <Avatar
+            className={classes.avatar}
+            src={user.avatar}
+            alt="profile avatar img"
+          />
           <Typography color="textPrimary" gutterBottom>
             {user.name}
           </Typography>
