@@ -8,8 +8,8 @@ import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import HttpsIcon from "@material-ui/icons/Https";
-import ProfileCard from "../Profile/ProfileCard";
-import img from "../../assets/images/clip-online-conference-1.png"
+import SidebarProfileCard from "../Profile/SidebarProfileCard";
+import img from "../../assets/images/clip-online-conference-1.png";
 export default function DropdownSidebar() {
   const [modal, setModal] = useState(false);
 
@@ -30,7 +30,7 @@ export default function DropdownSidebar() {
 
   return (
     <aside className="drowpdown-sidebar">
-      <ProfileCard />
+      <SidebarProfileCard />
       <ul className="sidebar__list">
         <NavLink
           className="sidebar__list-item"
@@ -69,7 +69,12 @@ export default function DropdownSidebar() {
         toggle={() => setModal(!modal)}
         handleLogOut={handleLogout}
       />
-       <img src={img} alt="profile-icon" className ="sidebar-img"  alt ="sidebar img"/>
+      <img
+        src={img}
+        alt="profile-icon"
+        className="sidebar-img"
+        alt="sidebar img"
+      />
     </aside>
   );
 }
