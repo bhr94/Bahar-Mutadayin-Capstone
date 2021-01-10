@@ -1,8 +1,0 @@
-
-# Redirects from what the browser requests to what we serve
-
-/profile  /profile
-/calendar /calendar
-/signin   /signin
-/register /register
-/friends  /friends
