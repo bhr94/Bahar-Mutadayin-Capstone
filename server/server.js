@@ -4,6 +4,9 @@ const cors = require("cors");
 const passport = require("passport");
 const FacebookStrategy = require("passport-facebook").Strategy;
 const apiRoutes = require("./routes/api");
+const io = require('socket.io')();
+
+
 
 // const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 app.use(cors());
@@ -12,44 +15,48 @@ require("dotenv").config(); // used to load .env file process.env.VARIABLE_NAME
 const { PORT, FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET } = process.env;
 app.use(express.json());
 console.log("env vars: " + process.env.PORT);
-let user = {};
+// let user = {};
 
-passport.serializeUser(function (user, cb) {
-  cb(null, user);
-});
+// passport.serializeUser(function (user, cb) {
+//   cb(null, user);
+// });
 
-passport.deserializeUser(function (obj, cb) {
-  cb(null, obj);
-});
+// passport.deserializeUser(function (obj, cb) {
+//   cb(null, obj);
+// });
 
-console.log(FACEBOOK_CLIENT_ID);
-passport.use(
-  new FacebookStrategy(
-    {
-      clientID: FACEBOOK_CLIENT_ID,
-      clientSecret: FACEBOOK_CLIENT_SECRET,
-      callbackURL: "/auth/facebook/callback",
-      profileFields: ["id", "displayName", "photos", "email"],
-    },
-    function (accessToken, refreshToken, profile, cb) {
-      user = { ...profile };
-      return cb(null, profile);
-    }
-  )
-);
+// console.log(FACEBOOK_CLIENT_ID);
+// passport.use(
+//   new FacebookStrategy(
+//     {
+//       clientID: FACEBOOK_CLIENT_ID,
+//       clientSecret: FACEBOOK_CLIENT_SECRET,
+//       callbackURL: "/auth/facebook/callback",
+//       profileFields: ["id", "displayName", "photos", "email"],
+//     },
+//     function (accessToken, refreshToken, profile, cb) {
+//       user = { ...profile };
+//       return cb(null, profile);
+//     }
+//   )
+// );
 // facebook auth routing
-app.get("/auth/facebook", passport.authenticate("facebook"));
-app.get(
-  "/auth/facebook/callback",
-  passport.authenticate("facebook", { failureRedirect: "/login" }),
-  function (req, res) {
-    // Successful authentication, redirect home.
-    console.log("success");
+// app.get("/auth/facebook", passport.authenticate("facebook"));
+// app.get(
+//   "/auth/facebook/callback",
+//   passport.authenticate("facebook", { failureRedirect: "/login" }),
+//   function (req, res) {
+//     // Successful authentication, redirect home.
+//     console.log("success");
 
-    res.redirect("http://localhost:3000/profile");
-  }
-);
+//     res.redirect("http://localhost:3000/profile");
+//   }
+// );
 
+
+io.on('connection', socket =>{
+  socket.emit("message", 'Welcome to FriendShip')
+})
 //  routing
 app.get("/profile", (req, res) => {
   res.json(user);
