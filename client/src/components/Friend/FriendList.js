@@ -45,8 +45,6 @@ export default function FriendList() {
 
   const createGroup = () => {
     const id = JSON.parse(localStorage.getItem("userData")).id;
-    // console.log(this.state.groupTitle);
-    // console.log(this.state.groupDescription);
     if (values.groupTitle && values.groupDescription) {
       const body = {
         name: values.groupTitle,
@@ -57,7 +55,6 @@ export default function FriendList() {
         .post(`${backend_url}/groups`, body)
         .then((response) => {
           localStorage.setItem("userData", JSON.stringify(response.data.user));
-          // this.setState({ group: true });
         })
         .catch((error) => {
           console.log(error);
