@@ -4,15 +4,14 @@ const cors = require("cors");
 const passport = require("passport");
 const FacebookStrategy = require("passport-facebook").Strategy;
 const apiRoutes = require("./routes/api");
-const io = require('socket.io')();
-
-
+const io = require("socket.io")();
 
 // const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 app.use(cors());
 app.use(passport.initialize());
 require("dotenv").config(); // used to load .env file process.env.VARIABLE_NAME
-const { PORT, FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET } = process.env;
+// const { FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET } = process.env;
+const PORT = process.env.PORT || 5000;
 app.use(express.json());
 console.log("env vars: " + process.env.PORT);
 // let user = {};
@@ -53,10 +52,9 @@ console.log("env vars: " + process.env.PORT);
 //   }
 // );
 
-
-io.on('connection', socket =>{
-  socket.emit("message", 'Welcome to FriendShip')
-})
+io.on("connection", (socket) => {
+  socket.emit("message", "Welcome to FriendShip");
+});
 //  routing
 app.get("/profile", (req, res) => {
   res.json(user);
