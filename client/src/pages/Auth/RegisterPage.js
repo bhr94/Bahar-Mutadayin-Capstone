@@ -42,7 +42,10 @@ export default function Register() {
     if (firstName && lastName && email && password) {
       axios
         .post(`/${backend_url}/users/register`, values, {
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Access-Control-Allow-Origin": "*",
+          },
         })
         .then((response) => {
           console.log("user response" + JSON.stringify(response));
