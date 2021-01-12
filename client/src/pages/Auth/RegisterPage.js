@@ -42,9 +42,8 @@ export default function Register() {
     e.preventDefault();
     const { firstName, lastName, email, password } = values;
     if (firstName && lastName && email && password) {
-      const userData = this.state;
       axios
-        .post(`${backend_url}/users/register`, userData)
+        .post(`${backend_url}/users/register`, values)
         .then((response) => {
           console.log("user response" + JSON.stringify(response));
           if (response.data.token && response.data.user) {
