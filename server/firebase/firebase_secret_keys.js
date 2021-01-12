@@ -1,13 +1,13 @@
 const firebaseSecrets = {
-    apiKey: "AIzaSyB0I1Hy3U65WeufH2M3hy0rRCta9CrNOHw",
-    authDomain: "capstone-e808d.firebaseapp.com",
-    projectId: "capstone-e808d",
-    storageBucket: "capstone-e808d.appspot.com",
-    messagingSenderId: "877402167614",
-    appId: "1:877402167614:web:49d68e430df6aecf7cf46f",
-    measurementId: "G-VY3J8C22J2",
-  }
+  apiKey: "AIzaSyD4O95VILjqcFyQCTOBJ4jmasdShD34hRc",
+  authDomain: "friendship-1607996149445.firebaseapp.com",
+  projectId: "friendship-1607996149445",
+  storageBucket: "friendship-1607996149445.appspot.com",
+  messagingSenderId: "472149976150",
+  appId: "1:472149976150:web:eb9198978ed5c8d87387f7",
+  measurementId: "G-NM67635KQ0",
+};
 
-  module.exports ={
-    firebaseSecrets
-  }
+module.exports = {
+  firebaseSecrets,
+};
