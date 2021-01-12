@@ -8,6 +8,19 @@ const io = require("socket.io")();
 
 // const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 app.use(cors());
+var corsUrl;
+
+if (process.env.NODE_ENV === "development") {
+  corsUrl = process.env.LOCAL_URL; // http://localhost:8080
+} else if (process.env.NODE_ENV === "production") {
+  corsUrl = process.env.DEPLOY_URL; // http://myapp.com
+}
+
+app.use(
+  cors({
+    origin: corsUrl,
+  })
+);
 app.use(passport.initialize());
 require("dotenv").config(); // used to load .env file process.env.VARIABLE_NAME
 // const { FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET } = process.env;
