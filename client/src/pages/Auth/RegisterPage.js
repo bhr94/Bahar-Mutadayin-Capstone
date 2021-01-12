@@ -18,7 +18,6 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-const proxyurl = "https://cors-anywhere.herokuapp.com/";
 
 export default function Register() {
   const [values, setValues] = useState({
@@ -42,7 +41,9 @@ export default function Register() {
     const { firstName, lastName, email, password } = values;
     if (firstName && lastName && email && password) {
       axios
-        .post(`${proxyurl}/${backend_url}/users/register`, values)
+        .post(`/${backend_url}/users/register`, values, {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        })
         .then((response) => {
           console.log("user response" + JSON.stringify(response));
           if (response.data.token && response.data.user) {
