@@ -6,6 +6,7 @@ import axios from "axios";
 import history from "../../history";
 import img from "../../assets/images/clip-lets-party.png";
 import backend_url from "../../backend_url/backend_url";
+const proxyurl = "https://cors-anywhere.herokuapp.com/";
 
 import {
   Box,
@@ -20,15 +21,13 @@ import {
 } from "@material-ui/core";
 
 export default function Register() {
-
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
-    invitationCode:""
+    invitationCode: "",
   });
-
 
   const handleChange = (e) => {
     let name = e.target.name;
@@ -43,7 +42,7 @@ export default function Register() {
     const { firstName, lastName, email, password } = values;
     if (firstName && lastName && email && password) {
       axios
-        .post(`${backend_url}/users/register`, values)
+        .post(`${proxyurl}/${backend_url}/users/register`, values)
         .then((response) => {
           console.log("user response" + JSON.stringify(response));
           if (response.data.token && response.data.user) {
@@ -62,10 +61,10 @@ export default function Register() {
         });
     }
   };
-const {firstName, lastName, email, password, invitationCode} = values;
+  const { firstName, lastName, email, password, invitationCode } = values;
   return (
     <section className="body-container backgrnd">
-      <img src={img} className="signin-img" alt ="register page img" />
+      <img src={img} className="signin-img" alt="register page img" />
       <Box
         display="flex"
         flexDirection="column"

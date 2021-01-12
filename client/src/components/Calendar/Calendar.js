@@ -7,6 +7,7 @@ import history from "../../history";
 import backend_url from "../../backend_url/backend_url";
 import { getAllEvents } from "../../utils/API";
 import Alert from "../Modals/Alert";
+
 const localizer = momentLocalizer(moment);
 
 export default function SampleCalendar() {
