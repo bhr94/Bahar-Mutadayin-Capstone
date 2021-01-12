@@ -1,5 +1,5 @@
 module.exports = {
-  // client: "mysql",
+  client: "mysql",
   // connection: {
   //   host: "127.0.0.1",
   //   user: "root",
@@ -8,7 +8,6 @@ module.exports = {
   //   charset: "utf8",
   // },
   production: {
-    client: "mysql",
     host: "td5l74lo6615qq42.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     user: "h9p1f0m1ufohw6c8",
     password: "bvjuneizhu024ct8",
