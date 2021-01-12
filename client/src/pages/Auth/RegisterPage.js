@@ -41,7 +41,7 @@ export default function Register() {
     const { firstName, lastName, email, password } = values;
     if (firstName && lastName && email && password) {
       axios
-        .post(`/${backend_url}/users/register`, values, {
+        .post(`${backend_url}/users/register`, values, {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
             "Access-Control-Allow-Origin": "*",
