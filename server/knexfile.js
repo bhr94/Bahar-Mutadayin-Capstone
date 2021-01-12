@@ -9,6 +9,9 @@ module.exports = {
   // },
   production: {
     client: "mysql",
+    host: "td5l74lo6615qq42.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    user: "h9p1f0m1ufohw6c8",
+    password: "bvjuneizhu024ct8",
     connection: process.env.JAWSDB_URL,
   },
 };
