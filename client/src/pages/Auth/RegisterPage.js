@@ -6,7 +6,6 @@ import axios from "axios";
 import history from "../../history";
 import img from "../../assets/images/clip-lets-party.png";
 import backend_url from "../../backend_url/backend_url";
-const proxyurl = "https://cors-anywhere.herokuapp.com/";
 
 import {
   Box,
@@ -19,6 +18,7 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
+const proxyurl = "https://cors-anywhere.herokuapp.com/";
 
 export default function Register() {
   const [values, setValues] = useState({
