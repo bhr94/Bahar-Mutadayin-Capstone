@@ -17,6 +17,7 @@ const createNewUser = (req, res) => {
     .auth()
     .createUserWithEmailAndPassword(email, password)
     .then(function () {
+      console.log("created user with email: " + email)
       firebase
         .auth()
         .currentUser.getIdToken(true)
