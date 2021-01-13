@@ -11,6 +11,6 @@ module.exports = {
     host: "td5l74lo6615qq42.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     user: "h9p1f0m1ufohw6c8",
     password: "bvjuneizhu024ct8",
-    connection: process.env.JAWSDB_URL,
+    connection: "mysql://h9p1f0m1ufohw6c8:bvjuneizhu024ct8@td5l74lo6615qq42.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/zuyd4r66g2sp77rz",
   },
 };
