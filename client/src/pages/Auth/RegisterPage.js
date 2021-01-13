@@ -40,13 +40,24 @@ export default function Register() {
     e.preventDefault();
     const { firstName, lastName, email, password } = values;
     if (firstName && lastName && email && password) {
+      const userData = {
+        firstName,
+        lastName,
+        email,
+        password,
+        invitationCode,
+      };
       axios
-        .post(`${backend_url}/users/register`, values, {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Access-Control-Allow-Origin": "*",
-          },
-        })
+        .post(
+          `${backend_url}/users/register`,
+          userData
+          // {
+          //   headers: {
+          //     "Content-Type": "application/x-www-form-urlencoded",
+          //     "Access-Control-Allow-Origin": "*",
+          //   },
+          // }
+        )
         .then((response) => {
           console.log("user response" + JSON.stringify(response));
           if (response.data.token && response.data.user) {
@@ -78,32 +89,32 @@ export default function Register() {
       >
         <Container maxWidth="sm">
           <Formik
-            initialValues={{
-              email: "",
-              firstName: "",
-              lastName: "",
-              password: "",
-              policy: false,
-            }}
-            // validationSchema={Yup.object().shape({
-            //   email: Yup.string()
-            //     .email("Must be a valid email")
-            //     .max(255)
-            //     .required("Email is required"),
-            //   firstName: Yup.string()
-            //     .max(255)
-            //     .required("First name is required"),
-            //   lastName: Yup.string()
-            //     .max(255)
-            //     .required("Last name is required"),
-            //   password: Yup.string()
-            //     .max(255)
-            //     .required("password is required"),
-            //   policy: Yup.boolean().oneOf(
-            //     [true],
-            //     "This field must be checked"
-            //   ),
-            // })}
+          // initialValues={{
+          //   email: "",
+          //   firstName: "",
+          //   lastName: "",
+          //   password: "",
+          //   policy: false,
+          // }}
+          // validationSchema={Yup.object().shape({
+          //   email: Yup.string()
+          //     .email("Must be a valid email")
+          //     .max(255)
+          //     .required("Email is required"),
+          //   firstName: Yup.string()
+          //     .max(255)
+          //     .required("First name is required"),
+          //   lastName: Yup.string()
+          //     .max(255)
+          //     .required("Last name is required"),
+          //   password: Yup.string()
+          //     .max(255)
+          //     .required("password is required"),
+          //   policy: Yup.boolean().oneOf(
+          //     [true],
+          //     "This field must be checked"
+          //   ),
+          // })}
           >
             {({
               errors,
@@ -224,7 +235,7 @@ export default function Register() {
                     disabled={isSubmitting}
                     fullWidth
                     size="large"
-                    type="submit"
+                    // type="submit"
                     variant="contained"
                     style={{ background: "rebeccapurple" }}
                     onClick={handleSubmit}
