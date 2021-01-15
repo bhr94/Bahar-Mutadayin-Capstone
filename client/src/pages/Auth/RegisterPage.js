@@ -51,12 +51,6 @@ export default function Register() {
         .post(
           `${backend_url}/users/register`,
           userData
-          // {
-          //   headers: {
-          //     "Content-Type": "application/x-www-form-urlencoded",
-          //     "Access-Control-Allow-Origin": "*",
-          //   },
-          // }
         )
         .then((response) => {
           console.log("user response" + JSON.stringify(response));

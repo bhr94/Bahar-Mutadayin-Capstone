@@ -323,7 +323,7 @@ const inviteFriend = (req, res) => {
       from: "info@friendship.com", // sender address
       to: email, // list of receivers
       subject: "Join the FriendShip", // Subject line
-      html: `${userName} invites you to the FriendShip platform. Here is the invitation code: ${code}`, // plain text body
+      html: `${userName} invites you to the FriendShip platform https://friend-ship.netlify.app/. Here is the invitation code: ${code}`, // plain text body
     };
 
     transporter.sendMail(mailOptions, function (err, info) {
@@ -347,65 +347,7 @@ const getUsersById = (req, res) => {
     });
 };
 
-//  ==========================================
-// demo controllers
-// get array of all authors
-const getAuthors = (req, res) => {
-  Author.fetchAll({ withRelated: ["books"] }).then((authors) => {
-    res.json(authors.toJSON({ omitPivot: true }));
-  });
-};
 
-// get single author by id url param
-const getAuthorById = (req, res) => {
-  Author.where({ id: req.params.id })
-    .fetchAll({ withRelated: ["books"] })
-    .then((author) => {
-      res.json(author.toJSON({ omitPivot: true }));
-    });
-};
-
-// post new author
-const newAuthor = (req, res) => {
-  const { name, bio } = req.body;
-  if (name) {
-    new Author({ name }).save().then((model) => res.json(model));
-  } else {
-    res.json({ error: "please enter a name" });
-  }
-};
-
-// get all books
-const getBooks = (req, res) => {
-  Book.fetchAll({ withRelated: ["authors", "reviews"] }).then((books) => {
-    res.json(books.toJSON({ omitPivot: true }));
-  });
-};
-
-// get single book by id url param
-const getBookById = (req, res) => {
-  Book.where({ id: req.params.id })
-    .fetchAll({ withRelated: ["authors"] })
-    .then((author) => {
-      res.json(author.toJSON({ omitPivot: true }).shift());
-    });
-};
-
-// get all reviews
-const getReviews = (req, res) => {
-  Review.fetchAll().then((reviews) => {
-    res.json(reviews);
-  });
-};
-
-// get single review by id url param
-const getReviewById = (req, res) => {
-  Review.where({ id: req.params.id })
-    .fetchAll({ withRelated: ["books"] })
-    .then((review) => {
-      res.json(review.toJSON({ omitPivot: true }).shift());
-    });
-};
 
 // export functions
 module.exports = {
