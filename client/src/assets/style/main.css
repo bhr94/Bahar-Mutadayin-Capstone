@@ -504,7 +504,13 @@
 }
 
 .signin-img {
-  width: 500px;
+  width: 90%;
+}
+
+@media screen and (min-width: 768px) {
+  .signin-img {
+    width: 450px;
+  }
 }
 
 @media screen and (min-width: 1280px) {
@@ -514,7 +520,19 @@
 }
 
 .w-400 {
-  width: 550px;
+  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .w-400 {
+    width: 60%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .w-400 {
+    width: 25%;
+  }
 }
 
 .friends-page-container {
