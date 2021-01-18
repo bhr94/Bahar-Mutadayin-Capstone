@@ -36,7 +36,7 @@ export default function LoginPage() {
       axios({
         method: "POST",
         url: `${backend_url}/users/login`,
-        headers: { "Access-Control-Allow-Origin": "*" },
+        headers: { "Access-Control-Allow-Origin": "https://friend-ship.netlify.app/" },
         data: userData,
       })
         .then((response) => {
