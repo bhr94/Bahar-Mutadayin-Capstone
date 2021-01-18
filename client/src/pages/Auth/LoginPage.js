@@ -24,17 +24,21 @@ export default function LoginPage() {
     password: "",
   });
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (values.email && values.password) {
-      const {email, password} = values;
+      const { email, password } = values;
       const userData = {
         email,
         password,
       };
-      axios
-        .post(`${backend_url}/users/login`, userData)
+      // .post(`${backend_url}/users/login`, userData)
+      axios({
+        method: "POST",
+        url: `${backend_url}/users/login`,
+        headers: { "Access-Control-Allow-Origin": "*" },
+        data: userData,
+      })
         .then((response) => {
           console.log(response);
           if (response.data.token && response.data.user[0]) {
@@ -54,13 +58,12 @@ export default function LoginPage() {
     }
   };
 
-
   const handleChange = (e) => {
     let name = e.target.name;
     setValues({
       ...values,
-      [name]:e.target.value
-    })
+      [name]: e.target.value,
+    });
   };
   // this function is for facebook auth
   // const getUserData = () => {
@@ -88,7 +91,7 @@ export default function LoginPage() {
   //       console.log("Could not get into your account, please try again")
   //     );
   // };
-  const {email, password} = values;
+  const { email, password } = values;
   return (
     <section className="body-container backgrnd">
       <Box
@@ -225,7 +228,7 @@ export default function LoginPage() {
           </Formik>
         </Container>
       </Box>
-      <img src={img} className="signin-img" alt ="login page img" />
+      <img src={img} className="signin-img" alt="login page img" />
     </section>
   );
 }
