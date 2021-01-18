@@ -35,8 +35,8 @@ export default function LoginPage() {
       // .post(`${backend_url}/users/login`, userData)
       axios({
         method: "POST",
-        url: `https://cors-anywhere.herokuapp.com/${backend_url}/users/login`,
-        headers: { "Access-Control-Allow-Origin": "https://cors-anywhere.herokuapp.com/https://friend-ship.netlify.app/" },
+        url: `${backend_url}/users/login`,
+        headers: { "Access-Control-Allow-Origin": "https://friend-ship.netlify.app/" },
         data: userData,
       })
         .then((response) => {
