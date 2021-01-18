@@ -54,7 +54,7 @@ export default function Register() {
       //   )
       axios({
         method: "POST",
-        url: `${backend_url}/users/register`,
+        url: `https://cors-anywhere.herokuapp.com/${backend_url}/users/register`,
         headers: {
           "Access-Control-Allow-Origin": "https://friend-ship.netlify.app/",
         },
