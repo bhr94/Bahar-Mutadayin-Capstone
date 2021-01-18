@@ -56,7 +56,7 @@ export default function Register() {
         method: "POST",
         url: `https://cors-anywhere.herokuapp.com/${backend_url}/users/register`,
         headers: {
-          "Access-Control-Allow-Origin": "https://friend-ship.netlify.app/",
+          "Access-Control-Allow-Origin": "https://cors-anywhere.herokuapp.com/https://friend-ship.netlify.app/",
         },
         data: userData,
       })
