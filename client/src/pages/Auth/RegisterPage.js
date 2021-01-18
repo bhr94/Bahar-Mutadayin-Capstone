@@ -47,11 +47,19 @@ export default function Register() {
         password,
         invitationCode,
       };
-      axios
-        .post(
-          `${backend_url}/users/register`,
-          userData
-        )
+      // axios
+      //   .post(
+      //     `${backend_url}/users/register`,
+      //     userData
+      //   )
+      axios({
+        method: "POST",
+        url: `${backend_url}/users/register`,
+        headers: {
+          "Access-Control-Allow-Origin": "https://friend-ship.netlify.app/",
+        },
+        data: userData,
+      })
         .then((response) => {
           console.log("user response" + JSON.stringify(response));
           if (response.data.token && response.data.user) {
