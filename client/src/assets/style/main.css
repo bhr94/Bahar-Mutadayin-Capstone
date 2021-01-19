@@ -738,6 +738,10 @@
   border-top-right-radius: 10px;
   height: 400px;
   width: 300px;
+  display: none;
+  position: fixed;
+  bottom: 0px;
+  right: 100px;
 }
 
 .message-container__header {
@@ -780,6 +784,7 @@
   overflow-y: auto;
   margin: 0;
   scrollbar-width: thin;
+  height: 300px;
 }
 
 .message-container__main::-webkit-scrollbar {

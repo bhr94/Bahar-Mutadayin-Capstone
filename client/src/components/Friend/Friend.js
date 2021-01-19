@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 import MessageContainer from "../Messaging/MessageContainer";
 
 export default function Friend(props) {
+
+  function handleOpen() {
+    document.querySelector(".message-container").style.display = "inline"
+  }
   return (
     <>
       <Card className="card-element">
@@ -16,21 +20,14 @@ export default function Friend(props) {
                   Explore
                 </Link>
               </Button>
-              <Button color="success">
-                <Link
-                  to={"/friends/" + props.id + "/messaging"}
-                  className="explore-link"
-                >
-                  Message
-                </Link>
-              </Button>
+              <Button color="success" onClick={handleOpen}>Message</Button>
             </section>
           ) : (
             <Button color="primary">pending...</Button>
           )}
         </CardBody>
       </Card>
-      <MessageContainer/>
+      <MessageContainer id ="message"/>
     </>
   );
 }
