@@ -2,17 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import ProfileDetails from "../../components/Profile/ProfileDetails";
 import ProfileCard from "../../components/Profile/ProfileCard";
-import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Divider,
-  Typography,
-  makeStyles,
-} from "@material-ui/core";
+import MessageContainer from "../Messaging/MessageContainer";
+import { makeStyles } from "@material-ui/core";
 
 const user = {
   // avatar: localStorage.getItem("userData") && JSON.parse(localStorage.getItem("userData")).profileImg,
@@ -48,8 +39,9 @@ const Profile = ({ className, ...rest }) => {
         </div>
       </header>
       <main className="main-section profile-details__container">
-        <ProfileCard/>
+        <ProfileCard />
         <ProfileDetails className="profile-details" />
+        <MessageContainer/>
       </main>
     </section>
   );
