@@ -1,0 +1,68 @@
+.message-container {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: 400px;
+
+  &__header {
+    background-color: white;
+    background-color: rebeccapurple;
+    display: flex;
+    justify-content: space-between;
+
+    &--text {
+      color: white;
+      font-size: 1.5rem;
+      padding: 10px;
+      margin: 0;
+    }
+    &--icon {
+      cursor: pointer;
+      width: 2.5rem;
+    }
+  }
+
+  &__main{
+    width: 300px;
+    padding: 15px !important;
+    // background-color: red;
+    overflow-y: auto;
+  }
+}
+
+.message__form {
+  display: flex;
+  justify-content: space-between;
+  width: fit-content;
+  align-self: flex-end;
+  background-color: rgb(255, 255, 255);
+  width: 300px;
+
+
+  &--input {
+    padding: 10px;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    background-color: rgb(231, 231, 231);
+    &:focus {
+      border: none;
+    }
+  }
+  &--submit {
+    border-radius: 20px;
+    border: none;
+    color: white;
+    background-color: rebeccapurple;
+    &:hover {
+      background-color: rgba(102, 51, 153, 0.9);
+    }
+    width: 80px;
+    &:focus {
+      outline: none;
+    }
+  }
+}
