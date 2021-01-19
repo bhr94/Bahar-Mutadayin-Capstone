@@ -1,5 +1,4 @@
 import MessageInput from "./MessageInput";
-import { Scrollbars } from "rc-scrollbars";
 import closeIcon from "../../assets/Icons/close.svg";
 import MessageElement from "./MessageElement";
 export default function MessageContainer() {
@@ -13,7 +12,8 @@ export default function MessageContainer() {
           className="message-container__header--icon"
         />
       </div>
-      <ul style={{ height: "300px" }} className="message-container__main">
+      <ul className="message-container__main">
+        <MessageElement />
         <MessageElement />
       </ul>
       <MessageInput />
