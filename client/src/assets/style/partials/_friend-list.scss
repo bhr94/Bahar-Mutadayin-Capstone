@@ -19,6 +19,12 @@
   margin-bottom: 20px;
   border: none;
 
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
 
   @include desktop {
     width: 20%;

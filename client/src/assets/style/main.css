@@ -574,6 +574,18 @@
   border: none;
 }
 
+.card-element__footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
 @media screen and (min-width: 1280px) {
   .card-element {
     width: 20%;
@@ -710,5 +722,93 @@
   color: rebeccapurple;
   font-weight: bold;
   font-size: 2rem;
+}
+
+.message-container {
+  background-color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 5px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: 400px;
+}
+
+.message-container__header {
+  background-color: white;
+  background-color: rebeccapurple;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.message-container__header--text {
+  color: white;
+  font-size: 1.5rem;
+  padding: 10px;
+  margin: 0;
+}
+
+.message-container__header--icon {
+  cursor: pointer;
+  width: 2.5rem;
+}
+
+.message-container__main {
+  width: 300px;
+  padding: 15px !important;
+  overflow-y: auto;
+}
+
+.message__form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  background-color: white;
+  width: 300px;
+}
+
+.message__form--input {
+  padding: 10px;
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  background-color: #e7e7e7;
+}
+
+.message__form--input:focus {
+  border: none;
+}
+
+.message__form--submit {
+  border-radius: 20px;
+  border: none;
+  color: white;
+  background-color: rebeccapurple;
+  width: 80px;
+}
+
+.message__form--submit:hover {
+  background-color: rgba(102, 51, 153, 0.9);
+}
+
+.message__form--submit:focus {
+  outline: none;
 }
 /*# sourceMappingURL=main.css.map */

@@ -93,6 +93,12 @@ ReactDOM.render(
         path="/event/:id"
         component={EventPage}
       />
+        {/* <PrivateRoute
+        authed={localStorage.getItem("authed") === "true"}
+        exact
+        path="/friends/:id/messaging"
+        component={Messaging}
+      /> */}
     </Switch>
   </Router>,
   document.getElementById("root")
