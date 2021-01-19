@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import ProfileDetails from "../../components/Profile/ProfileDetails";
 import ProfileCard from "../../components/Profile/ProfileCard";
-import MessageContainer from "../Messaging/MessageContainer";
 import { makeStyles } from "@material-ui/core";
 
 const user = {
@@ -41,7 +40,6 @@ const Profile = ({ className, ...rest }) => {
       <main className="main-section profile-details__container">
         <ProfileCard />
         <ProfileDetails className="profile-details" />
-        <MessageContainer/>
       </main>
     </section>
   );

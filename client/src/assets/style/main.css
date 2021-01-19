@@ -737,6 +737,7 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   height: 400px;
+  width: 300px;
 }
 
 .message-container__header {
@@ -750,6 +751,7 @@
           justify-content: space-between;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  width: 300px;
 }
 
 .message-container__header--text {
@@ -778,6 +780,15 @@
   overflow-y: auto;
   margin: 0;
   scrollbar-width: thin;
+}
+
+.message-container__main::-webkit-scrollbar {
+  width: 6px;
+}
+
+.message-container__main::-webkit-scrollbar-thumb {
+  background: rebeccapurple;
+  height: 10px;
 }
 
 .message__form {
