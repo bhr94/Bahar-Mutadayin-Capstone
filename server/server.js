@@ -84,6 +84,6 @@ app.get("/logout", function (req, res) {
   res.json("hello");
 });
 
-app.listen(PORT, () => {
-  console.log(`The server is listening to the port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`The server is listening to the port ${PORT}`);
+// });
