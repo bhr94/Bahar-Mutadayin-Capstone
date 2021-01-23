@@ -2,11 +2,11 @@ import React from "react";
 import { Button, Card, CardBody } from "reactstrap";
 import { Link } from "react-router-dom";
 import MessageContainer from "../Messaging/MessageContainer";
+import { CSSTransition } from "react-transition-group";
 
 export default function Friend(props) {
-
   function handleOpen() {
-    document.querySelector(".message-container").style.display = "inline"
+    document.querySelector(".message-container").style.display = "inline";
   }
   return (
     <>
@@ -20,14 +20,18 @@ export default function Friend(props) {
                   Explore
                 </Link>
               </Button>
-              <Button color="success" onClick={handleOpen}>Message</Button>
+              <Button color="success" onClick={handleOpen}>
+                Message
+              </Button>
             </section>
           ) : (
             <Button color="primary">pending...</Button>
           )}
         </CardBody>
       </Card>
-      <MessageContainer id ="message"/>
+      <CSSTransition timeout={3000} className="fade">
+        <MessageContainer id="message" />
+      </CSSTransition>
     </>
   );
 }

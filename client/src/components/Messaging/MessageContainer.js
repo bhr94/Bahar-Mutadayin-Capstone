@@ -2,7 +2,6 @@ import React from "react";
 import MessageInput from "./MessageInput";
 import closeIcon from "../../assets/Icons/close.svg";
 import MessageElement from "./MessageElement";
-import ReactCSSTransitionGroup from "react-transition-group";
 export default function MessageContainer() {
   function handleClose() {
     document.querySelector(".message-container").style.display = "none";
