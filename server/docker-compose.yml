@@ -1,0 +1,20 @@
+version: '5.6.51-1debian9'
+
+services:
+
+  db:
+    image: mysql
+    command: knex migrate:latest
+    restart: always
+    environment:
+      environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: localconn
+            MYSQL_USER: root
+            MYSQL_PASSWORD: root
+
+  adminer:
+    image: mysql
+    restart: always
+    ports:
+      - 42333:3306
