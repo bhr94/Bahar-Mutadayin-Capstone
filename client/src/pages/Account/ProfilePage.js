@@ -5,12 +5,11 @@ import image from "../../assets/Icons/close.svg"
 export default function ProfilePage() {
   return (
     <>
-      {/* <NavBar />
+      <NavBar />
       <section className="profile-page__container">
         <Sidebar />
         <Profile />
-      </section> */}
-      <img src ={image}/>
+      </section>
     </>
   );
 }
