@@ -22,6 +22,7 @@ import history from "./history";
 import FriendsPage from "./pages/Friend/FriendsPage";
 import EventPage from "./pages/Event/EventPage";
 import FriendProfileDetailsPage from "./pages/Friend/FriendProfileDetailsPage";
+import { ToastProvider, useToasts } from "react-toast-notifications";
 
 // semantic ui css import section
 const styleLink = document.createElement("link");
@@ -48,58 +49,60 @@ function PrivateRoute({ component: Component, authed, ...rest }) {
 }
 ReactDOM.render(
   <Router history={history}>
-    <Switch>
-      <PrivateRoute
-        authed={localStorage.getItem("authed") === "true"}
-        exact
-        path="/calendar"
-        component={CalendarPage}
-      />
-      <PrivateRoute
-        authed={localStorage.getItem("authed") === "true"}
-        exact
-        path="/profile"
-        component={ProfilePage}
-      />
-      <PrivateRoute
-        authed={localStorage.getItem("authed") === "true"}
-        exact
-        path="/friends"
-        component={FriendsPage}
-      />
-      <Route path="/signin" exact component={LoginPage} />
-      <Route path="/register" exact component={RegisterPage} />
+    <ToastProvider>
+      <Switch>
+        <PrivateRoute
+          authed={localStorage.getItem("authed") === "true"}
+          exact
+          path="/calendar"
+          component={CalendarPage}
+        />
+        <PrivateRoute
+          authed={localStorage.getItem("authed") === "true"}
+          exact
+          path="/profile"
+          component={ProfilePage}
+        />
+        <PrivateRoute
+          authed={localStorage.getItem("authed") === "true"}
+          exact
+          path="/friends"
+          component={FriendsPage}
+        />
+        <Route path="/signin" exact component={LoginPage} />
+        <Route path="/register" exact component={RegisterPage} />
 
-      <Route
-        exact
-        path="/"
-        render={() => {
-          return localStorage.getItem("authed") === "true" ? (
-            <Redirect to="/profile" />
-          ) : (
-            <Redirect to="/signin" />
-          );
-        }}
-      />
-      <PrivateRoute
-        authed={localStorage.getItem("authed") === "true"}
-        exact
-        path="/friends/:id"
-        component={FriendProfileDetailsPage}
-      />
-      <PrivateRoute
-        authed={localStorage.getItem("authed") === "true"}
-        exact
-        path="/event/:id"
-        component={EventPage}
-      />
+        <Route
+          exact
+          path="/"
+          render={() => {
+            return localStorage.getItem("authed") === "true" ? (
+              <Redirect to="/profile" />
+            ) : (
+              <Redirect to="/signin" />
+            );
+          }}
+        />
+        <PrivateRoute
+          authed={localStorage.getItem("authed") === "true"}
+          exact
+          path="/friends/:id"
+          component={FriendProfileDetailsPage}
+        />
+        <PrivateRoute
+          authed={localStorage.getItem("authed") === "true"}
+          exact
+          path="/event/:id"
+          component={EventPage}
+        />
         {/* <PrivateRoute
         authed={localStorage.getItem("authed") === "true"}
         exact
         path="/friends/:id/messaging"
         component={Messaging}
       /> */}
-    </Switch>
+      </Switch>
+    </ToastProvider>
   </Router>,
   document.getElementById("root")
 );

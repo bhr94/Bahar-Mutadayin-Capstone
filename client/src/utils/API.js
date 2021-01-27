@@ -19,7 +19,7 @@ export function getAllEvents(setEvent) {
   }
 
 export const loadFriendDetails = (setUser, id) => {
-    axios
+    axios 
       .get(`${backend_url}/usersById/${id}`)
       .then((response) => {
         console.log(response);
@@ -100,7 +100,7 @@ export const loadFriendDetails = (setUser, id) => {
       axios
         .get(`${backend_url}/users/${groupId}`)
         .then((response) => {
-          console.log("friend list " + response);
+          console.log("friend list " + JSON.stringify(response));
           setFriendList(response.data);
         })
         .catch((error) => {

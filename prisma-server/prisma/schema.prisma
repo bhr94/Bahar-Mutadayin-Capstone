@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Comment {
+  id             Int      @id @default(autoincrement())
+  commentDate    DateTime
+  commentContent String
+  likeCount      Int      @default(0)
+  ownerName      String
+  eventId        Int
+  Event          Event    @relation(fields: [eventId], references: [id])
+  ownerId        Int
+  User           User     @relation(fields: [ownerId], references: [id])
+
+  @@index([ownerId], name: "ownerId")
+  @@index([eventId], name: "eventId")
+}
+
+model Event {
+  id     Int      @id @default(autoincrement())
+  start  DateTime
+  end    DateTime
+  title  String
+  userId Int
+  User   User     @relation(fields: [userId], references: [id])
+
+  Comment Comment[]
+  @@index([userId], name: "userId")
+}
+
+model Group {
+  id          Int          @id @default(autoincrement())
+  name        String?
+  description String?
+  Invitation  Invitation[]
+  User        User[]
+}
+
+model Invitation {
+  id             Int    @id @default(autoincrement())
+  invitationCode String
+  invitedEmail   String
+  groupId        Int
+  Group          Group  @relation(fields: [groupId], references: [id])
+
+  @@index([groupId], name: "groupId")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  firstName String
+  lastName  String
+  status    String
+  groupId   Int?
+  Group     Group?    @relation(fields: [groupId], references: [id])
+  Comment   Comment[]
+  Event     Event[]
+
+  @@index([groupId], name: "groupId")
+  Message Message[]
+}
+
+model Conversation {
+  id      String    @id @default(uuid())
+  Message Message[]
+}
+
+model Message {
+  id      String @id @default(uuid())
+  content String
+  conversationId  String
+  Conversation    Conversation   @relation(fields: [conversationId], references: [id])
+  ownerId Int
+  User    User   @relation(fields: [ownerId], references: [id])
+}

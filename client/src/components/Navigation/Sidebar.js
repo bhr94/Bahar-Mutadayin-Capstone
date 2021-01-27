@@ -15,17 +15,22 @@ export default function Sidebar() {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    axios
-      .get(`${backend_url}/logout`)
-      .then((response) => {
-        console.log(response);
-        localStorage.removeItem("userData");
+    // axios
+    //   .get(`${backend_url}/logout`)
+    //   .then((response) => {
+    //     console.log(response);
+    //     localStorage.removeItem("userData");
+    //     localStorage.setItem("authed", false);
+    //     localStorage.removeItem("userToken");
+    //     // history.push("/signin");
+    //     window.location = "/signin";
+    //   })
+    //   .catch((err) => console.log(err));
+    localStorage.removeItem("userData");
         localStorage.setItem("authed", false);
         localStorage.removeItem("userToken");
         // history.push("/signin");
         window.location = "/signin";
-      })
-      .catch((err) => console.log(err));
   };
 
   return (

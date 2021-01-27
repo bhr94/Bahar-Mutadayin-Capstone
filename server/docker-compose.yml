@@ -1,20 +1,20 @@
-version: '5.6.51-1debian9'
+version: '8.0.23-1debian10'
 
 services:
 
   db:
-    image: mysql
-    command: knex migrate:latest
+    image: mysql:latest
+    command: --default-authentication-plugin=root
     restart: always
     environment:
       environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: localconn
-            MYSQL_USER: root
-            MYSQL_PASSWORD: root
+            MYSQL_ROOT_PASSWORD: 'root';
+            MYSQL_DATABASE: 'capstone';
+            MYSQL_USER: 'root';
+            MYSQL_PASSWORD: 'root';
 
   adminer:
-    image: mysql
+    image: mysql:latest
     restart: always
     ports:
-      - 42333:3306
+      - 3310:3306

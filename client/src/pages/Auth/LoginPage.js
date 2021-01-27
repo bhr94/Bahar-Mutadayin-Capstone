@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import * as Yup from "yup";
 import { Formik } from "formik";
 import axios from "axios";
 import { Link as RouterLink, withRouter } from "react-router-dom";
-import history from "../../history";
+// import history from "../../history";
 import img from "../../assets/images/clip-keep-each-other-safe.png";
 import backend_url from "../../backend_url/backend_url";
+import { io } from "socket.io-client";
+
 import {
   Box,
   Button,
@@ -23,6 +24,18 @@ export default function LoginPage() {
     email: "",
     password: "",
   });
+  let socket;
+
+  // useEffect(() => {
+  //   socket = io(backend_url);
+  //   socket.emit("join", () => {
+  //     console.log("user joined");
+  //   });
+  //   return () => {
+  //     socket.emit("disconnect");
+  //     socket.off();
+  //   };
+  // }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,17 +49,23 @@ export default function LoginPage() {
       axios({
         method: "POST",
         url: `${backend_url}/users/login`,
-        headers: { "Access-Control-Allow-Origin": "https://friend-ship.netlify.app/" },
+        // headers: { "Access-Control-Allow-Origin": "https://friend-ship.netlify.app/" },
         data: userData,
       })
         .then((response) => {
           console.log(response);
-          if (response.data.token && response.data.user[0]) {
+          // if (response.data.token && response.data.user[0]) {
+          if (response.data.token) {
             localStorage.setItem("authed", true);
             localStorage.setItem("userToken", response.data.token);
+            // localStorage.setItem(
+            //   "userData",
+            //   JSON.stringify(response.data.user[0])
+            // );
+            console.log(response.data.user);
             localStorage.setItem(
               "userData",
-              JSON.stringify(response.data.user[0])
+              JSON.stringify(response.data.user)
             );
             // history.push("/profile")
             window.location = "/profile";

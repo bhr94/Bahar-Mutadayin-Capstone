@@ -2,14 +2,12 @@ import React from "react";
 import MessageInput from "./MessageInput";
 import closeIcon from "../../assets/Icons/close.svg";
 import MessageElement from "./MessageElement";
-export default function MessageContainer() {
+export default function MessageContainer(props) {
   function handleClose() {
     document.querySelector(".message-container").style.display = "none";
   }
   return (
-    <section
-      className="message-container"
-    >
+    <section className="message-container">
       <div className="message-container__header">
         <p className="message-container__header--text">User Name</p>
         <img
@@ -22,7 +20,7 @@ export default function MessageContainer() {
       <ul className="message-container__main">
         <MessageElement />
       </ul>
-      <MessageInput />
+      <MessageInput sendMessage={props.sendMessage} />
     </section>
   );
 }
