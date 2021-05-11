@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import moment from "moment";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import { Calendar, momentLocalizer, Views } from "react-big-calendar";
-import history from "../../history";
+import React, { useState, useEffect } from 'react';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
+import history from '../../history';
 
 import {
   Avatar,
@@ -14,8 +14,8 @@ import {
   Divider,
   Typography,
   makeStyles,
-} from "@material-ui/core";
-import { loadFriendDetails, getFriendsEvents } from "../../utils/API";
+} from '@material-ui/core';
+import { loadFriendDetails, getFriendsEvents } from '../../utils/API';
 const localizer = momentLocalizer(moment);
 
 export default function FriendProfileDetailsPage(props) {
@@ -45,13 +45,13 @@ export default function FriendProfileDetailsPage(props) {
       <header className="profile-container__header">
         <Card
           // className={clsx(classes.root, className)}
-          style={{ width: "100%" }}
+          style={{ width: '100%' }}
         >
           <CardContent>
             <Box alignItems="center" display="flex" flexDirection="column">
               <Avatar />
               <Typography color="textPrimary" gutterBottom variant="h3">
-                {user.firstName + " " + user.lastName}
+                {user && user.firstName + ' ' + user && user.lastName}
               </Typography>
               {/* <Typography color="textSecondary" variant="body1">
                   {`${state.user.city} ${state.user.country}`}
@@ -84,7 +84,7 @@ export default function FriendProfileDetailsPage(props) {
         // defaultDate={new Date(2015, 3, 12)}
         //   onSelectEvent={(event) => handleClick(event)}
         //   onSelectSlot={handleSelect}
-        style={{ width: "100%" }}
+        style={{ width: '100%' }}
       />
     </section>
   );
